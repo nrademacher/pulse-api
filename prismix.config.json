@@ -1,0 +1,16 @@
+{
+  "mixers": [
+    {
+      "input": [
+        "./prisma/datasource.prisma",
+        "./modules/user/user.prisma",
+        "./modules/profile/profile.prisma",
+        "./modules/collection/collection.prisma",
+        "./modules/board/board.prisma",
+        "./modules/list/list.prisma",
+        "./modules/card/card.prisma"
+      ],
+      "output": "prisma/schema.prisma"
+    }
+  ]
+}

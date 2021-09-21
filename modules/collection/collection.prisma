@@ -1,0 +1,20 @@
+model Collection {
+  id         Int @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  title      String
+  boards     Board[]
+  profile    Profile @relation(fields: [profileId], references: [id])
+  profileId  Int
+}
+
+model Board {
+  id         Int      @id @default(autoincrement())
+  collection    Collection @relation(fields: [collectionId], references: [id])
+  collectionId  Int
+}
+
+model Profile {
+  id         Int      @id @default(autoincrement())
+  collections Collection[]
+}

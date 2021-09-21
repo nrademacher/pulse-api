@@ -1,0 +1,14 @@
+model Card {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  title      String   
+  content    String?
+  list       List     @relation(fields: [listId], references: [id])
+  listId     Int
+}
+
+model List {
+  id         Int      @id @default(autoincrement())
+cards Card[]
+}

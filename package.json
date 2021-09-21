@@ -1,0 +1,23 @@
+{
+  "name": "xkanban-api",
+  "version": "1.0.0",
+  "description": "API for xkanban client",
+  "main": "index.ts",
+  "author": "Nikolay Rademacher",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "prismix": "npx prismix && prisma format",
+    "dev": "yarn prismix && ts-node server.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.4",
+    "prisma": "3.0.2",
+    "prismix": "^1.0.19",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@prisma/client": "3.0.2"
+  }
+}
