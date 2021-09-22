@@ -29,8 +29,9 @@ FROM $node_image
 
 WORKDIR /server/
 
+COPY --from=builder /server/package.json ./
 COPY --from=production /server/node_modules ./node_modules
-COPY --from=builder /server/dist /server/package.json ./
+COPY --from=builder /server/dist ./dist
 COPY --from=builder /server/.env /server/prisma/schema.prisma  ./
 
 RUN npx prisma generate

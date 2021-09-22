@@ -7,10 +7,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "prismix": "npx prismix && prisma format",
-    "dev": "yarn prismix && ts-node server.ts",
+    "prismix": "prismix && prisma format",
+    "dev": "DATABASE_HOST=localhost ts-node src/server.ts",
     "build": "tsc",
-    "start": "node server.js"
+    "start": "node dist/server.js"
   },
   "devDependencies": {
     "@types/node": "^16.9.4",
