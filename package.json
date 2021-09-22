@@ -21,7 +21,14 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@graphql-codegen/cli": "^2.2.0",
+    "@graphql-codegen/typescript": "^2.2.2",
+    "@graphql-codegen/typescript-resolvers": "^2.2.1",
+    "@graphql-tools/graphql-file-loader": "^7.1.0",
+    "@graphql-tools/load": "^7.3.0",
     "@prisma/client": "3.0.2",
-    "dotenv": "^10.0.0"
+    "apollo-server": "^3.3.0",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.6.0"
   }
 }
