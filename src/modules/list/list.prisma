@@ -9,12 +9,12 @@ model List {
 }
 
 model Card {
-  id         Int @id @default(autoincrement())
-  list       List     @relation(fields: [listId], references: [id])
-  listId     Int
+  id      Int @id @default(autoincrement())
+  list    List @relation(fields: [listId], references: [id])
+  listId  Int
 }
 
 model Board {
-  id         Int @id @default(autoincrement())
-  lists   List[]
+  id     Int @id @default(autoincrement())
+  lists  List[]
 }

@@ -9,12 +9,12 @@ model Collection {
 }
 
 model Board {
-  id         Int      @id @default(autoincrement())
+  id            Int @id @default(autoincrement())
   collection    Collection @relation(fields: [collectionId], references: [id])
   collectionId  Int
 }
 
 model Profile {
-  id         Int      @id @default(autoincrement())
-  collections Collection[]
+  id           Int @id @default(autoincrement())
+  collections  Collection[]
 }

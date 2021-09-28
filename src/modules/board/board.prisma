@@ -9,12 +9,12 @@ model Board {
 }
 
 model List {
-  id            Int @id @default(autoincrement())
-board      Board @relation(fields: [boardId], references: [id])
-boardId    Int
+  id       Int @id @default(autoincrement())
+  board    Board @relation(fields: [boardId], references: [id])
+  boardId  Int
 }
 
 model Collection {
-  id            Int @id @default(autoincrement())
-boards Board[]
+  id      Int @id @default(autoincrement())
+  boards  Board[]
 }
