@@ -3,12 +3,12 @@
     {
       "input": [
         "./prisma/datasource.prisma",
-        "./modules/user/user.prisma",
-        "./modules/profile/profile.prisma",
-        "./modules/collection/collection.prisma",
-        "./modules/board/board.prisma",
-        "./modules/list/list.prisma",
-        "./modules/card/card.prisma"
+        "./src/modules/user/user.prisma",
+        "./src/modules/profile/profile.prisma",
+        "./src/modules/collection/collection.prisma",
+        "./src/modules/board/board.prisma",
+        "./src/modules/list/list.prisma",
+        "./src/modules/card/card.prisma"
       ],
       "output": "prisma/schema.prisma"
     }
