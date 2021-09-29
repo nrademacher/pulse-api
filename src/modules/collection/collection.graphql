@@ -1,0 +1,7 @@
+type Collection {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  userId: String!
+}

@@ -4,7 +4,6 @@
       "input": [
         "./prisma/datasource.prisma",
         "./src/modules/user/user.prisma",
-        "./src/modules/profile/profile.prisma",
         "./src/modules/collection/collection.prisma",
         "./src/modules/board/board.prisma",
         "./src/modules/list/list.prisma",

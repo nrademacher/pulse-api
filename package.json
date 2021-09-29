@@ -12,13 +12,19 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "DATABASE_HOST=localhost prisma migrate dev",
     "prisma": "yarn prismix && yarn prisma:generate && yarn prisma:migrate",
+    "prisma:studio": "DATABASE_HOST=localhost prisma studio",
     "dev": "DATABASE_HOST=localhost concurrently \"ts-node-dev --no-notify --respawn --transpile-only\" \"yarn generate  --watch\"",
     "build": "tsc",
     "start": "node dist/server.js"
   },
   "devDependencies": {
     "@types/node": "^16.9.4",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
     "concurrently": "^6.2.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
     "prettier": "^2.4.1",
     "prisma": "3.0.2",
     "prismix": "^1.0.19",
@@ -35,6 +41,8 @@
     "@prisma/client": "3.0.2",
     "apollo-server": "^3.3.0",
     "dotenv": "^10.0.0",
-    "graphql": "^15.6.0"
+    "graphql": "^15.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21"
   }
 }

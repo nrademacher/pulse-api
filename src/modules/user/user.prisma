@@ -1,13 +1,20 @@
 model User {
-  id       Int @id @default(autoincrement())
-  email    String @unique
-  name     String?
-  profile  Profile?
+  id             String @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  email          String @unique
+  name           String?
+  password_hash  String?
+  collections    Collection[]
+
+  @@map("users")
 }
 
-model Profile {
-  id      Int @id @default(autoincrement())
+model Collection {
+  id      String @id @default(cuid())
   user    User @relation(fields: [userId], references: [id])
-  userId  Int
+  userId  String
+
+  @@map("collections")
 }
 

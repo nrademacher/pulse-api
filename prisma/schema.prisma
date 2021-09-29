@@ -9,56 +9,61 @@ generator client {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  profile Profile? @relation(name: "ProfileToUser")
-}
+  id            String       @id @default(cuid())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  email         String       @unique
+  name          String?
+  password_hash String?
+  collections   Collection[] @relation(name: "CollectionToUser")
 
-model Profile {
-  id          Int          @id @default(autoincrement())
-  user        User         @relation(name: "ProfileToUser", fields: [userId], references: [id])
-  userId      Int          @unique
-  bio         String?
-  collections Collection[] @relation(name: "CollectionToProfile")
+  @@map("users")
 }
 
 model Collection {
-  id        Int      @id @default(autoincrement())
-  profile   Profile  @relation(name: "CollectionToProfile", fields: [profileId], references: [id])
-  profileId Int
+  id        String   @id @default(cuid())
+  user      User     @relation(name: "CollectionToUser", fields: [userId], references: [id])
+  userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
   boards    Board[]  @relation(name: "BoardToCollection")
+
+  @@map("collections")
 }
 
 model Board {
-  id           Int        @id @default(autoincrement())
+  id           String     @id @default(cuid())
   collection   Collection @relation(name: "BoardToCollection", fields: [collectionId], references: [id])
-  collectionId Int
+  collectionId String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   title        String
   lists        List[]     @relation(name: "BoardToList")
+
+  @@map("boards")
 }
 
 model List {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   board     Board    @relation(name: "BoardToList", fields: [boardId], references: [id])
-  boardId   Int
+  boardId   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
   cards     Card[]   @relation(name: "CardToList")
+
+  @@map("lists")
 }
 
 model Card {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   list      List     @relation(name: "CardToList", fields: [listId], references: [id])
-  listId    Int
+  listId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
   content   String?
+
+  @@map("cards")
 }

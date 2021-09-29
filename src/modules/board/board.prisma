@@ -1,20 +1,22 @@
 model Board {
-  id            Int @id @default(autoincrement())
+  id            String @id @default(cuid())
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   title         String 
   lists         List[]
   collection    Collection @relation(fields: [collectionId], references: [id])
-  collectionId  Int
+  collectionId  String
 }
 
 model List {
-  id       Int @id @default(autoincrement())
+  id       String @id @default(cuid())
   board    Board @relation(fields: [boardId], references: [id])
-  boardId  Int
+  boardId  String
+
+  @@map("lists")
 }
 
 model Collection {
-  id      Int @id @default(autoincrement())
+  id      String @id @default(cuid())
   boards  Board[]
 }
