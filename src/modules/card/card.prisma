@@ -1,14 +1,16 @@
 model Card {
-  id         Int @id @default(autoincrement())
+  id         String @id @default(cuid())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   title      String   
   content    String?
   list       List @relation(fields: [listId], references: [id])
-  listId     Int
+  listId     String
+
+  @@map("cards")
 }
 
 model List {
-  id     Int @id @default(autoincrement())
+  id     String @id @default(cuid())
   cards  Card[]
 }
