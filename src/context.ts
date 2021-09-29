@@ -1,19 +1,17 @@
-import { GraphQLError } from 'graphql';
+import { PrismaClient, User } from '@prisma/client';
+import { config, Depromisify } from './utils';
+import * as jwt from 'jsonwebtoken';
 
-export const config = {
-  TOKEN_SECRET: process.env.JWT_SECRET || 'xkanban-jwt-dev-secret',
+export const prisma = new PrismaClient();
+
+export const context = async ({ req }) => {
+  let token: string = req?.headers?.authorization || '';
+
+  if (token) {
+    if (token.startsWith('Bearer ')) token = token.split(' ')[1];
+
+    const decoded = jwt.verify(token, config.TOKEN_SECRET);
+  }
 };
 
-export type Depromisify<T extends (...args: any) => any> = T extends (
-  args: any,
-) => Promise<infer U>
-  ? U
-  : T extends (...args: any) => infer U
-  ? U
-  : any;
-
-export function formatError(err: GraphQLError): GraphQLError {
-  // @ts-expect-error
-  delete err.extension;
-  return err;
-}
+export type Context = Depromisify<typeof context>;
