@@ -1,4 +1,4 @@
-import { Resolvers } from '../../graphql/types';
-import { Context } from '../../context';
+import { Resolvers } from '../../graphql/types'
+import { Context } from '../../context'
 
-export const CollectionResolvers: Resolvers<Context> = {};
+export const CollectionResolvers: Resolvers<Context> = {}

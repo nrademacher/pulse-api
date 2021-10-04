@@ -1,8 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
-async function main() {
+async function main () {
   /* await prisma.user.create({
     data: {
       name: 'Alice',
@@ -51,22 +51,22 @@ async function main() {
                 select: {
                   title: true,
                   boardId: true,
-                  cards: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
-  console.dir(allUsers, { depth: null });
+                  cards: true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  })
+  console.dir(allUsers, { depth: null })
 }
 
 main()
   .catch((e) => {
-    throw e;
+    throw e
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })

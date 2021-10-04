@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { User, Collection } from './node_modules/.prisma/client/index.d.ts';
+
 export type Maybe<T> = T | undefined | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -33,10 +34,7 @@ export type User = {
   updatedAt: Scalars['DateTime'];
 };
 
-
-
 export type ResolverTypeWrapper<T> = Promise<T> | T;
-
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -146,4 +144,3 @@ export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
 };
-
