@@ -1,6 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { User, Collection } from './node_modules/.prisma/client/index.d.ts';
-
 export type Maybe<T> = T | undefined | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -24,6 +23,11 @@ export type Collection = {
   userId: Scalars['String'];
 };
 
+export type Query = {
+  __typename?: 'Query';
+  me: User;
+};
+
 export type User = {
   __typename?: 'User';
   createdAt: Scalars['DateTime'];
@@ -34,7 +38,10 @@ export type User = {
   updatedAt: Scalars['DateTime'];
 };
 
+
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
+
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -103,6 +110,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Collection: ResolverTypeWrapper<Collection>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
 };
@@ -112,6 +120,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Collection: Collection;
   DateTime: Scalars['DateTime'];
+  Query: {};
   String: Scalars['String'];
   User: User;
 };
@@ -129,6 +138,10 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'DateTime';
 }
 
+export type QueryResolvers<ContextType = any, ParentType = ResolversParentTypes['Query']> = {
+  me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
 export type UserResolvers<ContextType = any, ParentType = ResolversParentTypes['User']> = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -142,5 +155,7 @@ export type UserResolvers<ContextType = any, ParentType = ResolversParentTypes['
 export type Resolvers<ContextType = any> = {
   Collection?: CollectionResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
+

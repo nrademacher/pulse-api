@@ -24,6 +24,8 @@ export const context = async ({ req }: { req: Http2ServerRequest }) => {
       ctx.is_authed = true;
       ctx.user_id = decoded.user_id;
     }
+
+    return ctx;
   }
 };
 

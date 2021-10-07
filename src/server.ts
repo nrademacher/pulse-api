@@ -1,72 +1,10 @@
-import { PrismaClient } from '@prisma/client'
+import { ApolloServer } from 'apollo-server';
+import { schema } from './modules';
+import { context } from './context';
+import { formatError } from './utils';
 
-const prisma = new PrismaClient()
+const port = process.env.PORT || 4000;
 
-async function main () {
-  /* await prisma.user.create({
-    data: {
-      name: 'Alice',
-      email: 'alice@prisma.io',
-      profile: {
-        create: {
-          bio: 'I like turtles',
-          collections: {
-            create: [
-              {
-                title: "Alice's Collection",
-                boards: {
-                  create: {
-                    title: "Alice's Kanban Board",
-                    lists: {
-                      create: {
-                        title: 'TODOS',
-                        cards: {
-                          create: {
-                            title: 'Shopping List',
-                            content: 'Milk, butter, bread',
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            ],
-          },
-        },
-      },
-    },
-  }); */
-
-  const allUsers = await prisma.profile.findMany({
-    include: {
-      collections: {
-        select: {
-          title: true,
-          boards: {
-            select: {
-              title: true,
-              id: true,
-              lists: {
-                select: {
-                  title: true,
-                  boardId: true,
-                  cards: true
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  })
-  console.dir(allUsers, { depth: null })
-}
-
-main()
-  .catch((e) => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
+new ApolloServer({ schema, context, formatError }).listen({ port }, () =>
+  console.log(`Server ready at: http://localhost:${port}`),
+);
