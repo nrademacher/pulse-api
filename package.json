@@ -10,10 +10,10 @@
     "generate": "graphql-codegen",
     "prismix": "prismix && prisma format",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "DATABASE_HOST=localhost prisma migrate dev",
+    "prisma:migrate": "PG_HOST=localhost prisma migrate dev",
     "prisma": "yarn prismix && yarn prisma:generate && yarn prisma:migrate",
-    "prisma:studio": "DATABASE_HOST=localhost prisma studio",
-    "dev": "DATABASE_HOST=localhost concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/server\" \"yarn generate  --watch\"",
+    "prisma:studio": "PG_HOST=localhost prisma studio",
+    "dev": "PG_HOST=localhost concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/server\" \"yarn generate  --watch\"",
     "lint": "eslint \"src/**/*.+(ts|js|jsx|tsx)\" --fix",
     "build": "tsc",
     "start": "node dist/server.js"
