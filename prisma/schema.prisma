@@ -8,18 +8,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id            String       @id @default(cuid())
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  email         String       @unique
-  name          String?
-  password_hash String?
-  collections   Collection[] @relation(name: "CollectionToUser")
-
-  @@map("users")
-}
-
 model Collection {
   id        String   @id @default(cuid())
   user      User     @relation(name: "CollectionToUser", fields: [userId], references: [id])
@@ -30,6 +18,24 @@ model Collection {
   boards    Board[]  @relation(name: "BoardToCollection")
 
   @@map("collections")
+}
+
+model User {
+  id              String       @id @default(cuid())
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  email           String       @unique
+  name            String?
+  passwordHash    String?
+  team            String
+  role            UserRoles    @default(SOFTWARE_DEVELOPER)
+  displayName     String?
+  bio             String?
+  collections     Collection[] @relation(name: "CollectionToUser")
+  tasksAssignedBy Task[]       @relation(name: "AssignerToTask")
+  tasksAssignedTo Task[]       @relation(name: "AssigneeToTask")
+
+  @@map("users")
 }
 
 model Board {
@@ -51,19 +57,31 @@ model List {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
-  cards     Card[]   @relation(name: "CardToList")
+  tasks     Task[]   @relation(name: "ListToTask")
 
   @@map("lists")
 }
 
-model Card {
-  id        String   @id @default(cuid())
-  list      List     @relation(name: "CardToList", fields: [listId], references: [id])
-  listId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  content   String?
+model Task {
+  id          String   @id @default(cuid())
+  list        List     @relation(name: "ListToTask", fields: [listId], references: [id])
+  listId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  assignerId  String
+  assigneeId  String
+  assigner    User     @relation(name: "AssignerToTask", fields: [assignerId], references: [id])
+  assignee    User     @relation(name: "AssigneeToTask", fields: [assigneeId], references: [id])
+  title       String
+  description String?
+  done        Boolean
 
-  @@map("cards")
+  @@map("tasks")
+}
+
+enum UserRoles {
+  PRODUCT_OWNER
+  PROJECT_MANAGER
+  TECHNICAL_LEAD
+  SOFTWARE_DEVELOPER
 }

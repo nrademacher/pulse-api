@@ -7,7 +7,7 @@
         "./src/modules/collection/collection.prisma",
         "./src/modules/board/board.prisma",
         "./src/modules/list/list.prisma",
-        "./src/modules/card/card.prisma"
+        "./src/modules/task/task.prisma"
       ],
       "output": "prisma/schema.prisma"
     }
