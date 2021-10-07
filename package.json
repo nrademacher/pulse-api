@@ -13,12 +13,13 @@
     "prisma:migrate": "DATABASE_HOST=localhost prisma migrate dev",
     "prisma": "yarn prismix && yarn prisma:generate && yarn prisma:migrate",
     "prisma:studio": "DATABASE_HOST=localhost prisma studio",
-    "dev": "DATABASE_HOST=localhost concurrently \"ts-node-dev --no-notify --respawn --transpile-only\" \"yarn generate  --watch\"",
+    "dev": "DATABASE_HOST=localhost concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/server\" \"yarn generate  --watch\"",
     "lint": "eslint \"src/**/*.+(ts|js|jsx|tsx)\" --fix",
     "build": "tsc",
     "start": "node dist/server.js"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.175",
     "@types/node": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",

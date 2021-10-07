@@ -1,5 +1,9 @@
 scalar DateTime
 
+type Query {
+  me: User!
+}
+
 type User {
   id: String!
   createdAt: DateTime!
