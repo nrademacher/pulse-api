@@ -3,17 +3,17 @@ model List {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   title      String
-  cards      Card[]
+  tasks      Task[]
   board      Board @relation(fields: [boardId], references: [id])
   boardId    String
 }
 
-model Card {
+model Task {
   id      String @id @default(cuid())
   list    List @relation(fields: [listId], references: [id])
   listId  String
 
-  @@map("cards")
+  @@map("tasks")
 }
 
 model Board {

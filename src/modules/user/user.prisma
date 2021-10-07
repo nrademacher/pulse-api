@@ -1,20 +1,36 @@
-model User {
-  id             String @id @default(cuid())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  email          String @unique
-  name           String?
-  password_hash  String?
-  collections    Collection[]
-
-  @@map("users")
+enum UserRoles {
+  PRODUCT_OWNER
+  PROJECT_MANAGER
+  TECHNICAL_LEAD
+  SOFTWARE_DEVELOPER
 }
 
 model Collection {
   id      String @id @default(cuid())
+  
   user    User @relation(fields: [userId], references: [id])
   userId  String
 
   @@map("collections")
+}
+
+model User {
+  id             String @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  email          String @unique
+  name           String?
+  passwordHash   String?
+  
+  team           String
+  role           UserRoles
+
+  displayName    String?
+  bio            String?
+  
+  collections    Collection[]
+
+  @@map("users")
 }
 

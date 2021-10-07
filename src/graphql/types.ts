@@ -26,6 +26,7 @@ export type Collection = {
 export type Query = {
   __typename?: 'Query';
   me: User;
+  myCollections: Array<Maybe<Collection>>;
 };
 
 export type User = {
@@ -140,6 +141,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type QueryResolvers<ContextType = any, ParentType = ResolversParentTypes['Query']> = {
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  myCollections?: Resolver<Array<Maybe<ResolversTypes['Collection']>>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType = ResolversParentTypes['User']> = {

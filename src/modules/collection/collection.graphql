@@ -1,3 +1,7 @@
+type Query {
+  myCollections: [Collection]!
+}
+
 type Collection {
   id: String!
   createdAt: DateTime!
