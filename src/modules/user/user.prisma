@@ -24,7 +24,7 @@ model User {
   passwordHash   String?
   
   team           String
-  role           UserRoles
+  role           UserRoles @default(SOFTWARE_DEVELOPER)
 
   displayName    String?
   bio            String?

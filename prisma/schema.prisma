@@ -28,7 +28,7 @@ model User {
   name            String?
   passwordHash    String?
   team            String
-  role            UserRoles
+  role            UserRoles    @default(SOFTWARE_DEVELOPER)
   displayName     String?
   bio             String?
   collections     Collection[] @relation(name: "CollectionToUser")
@@ -80,6 +80,7 @@ model Task {
 }
 
 enum UserRoles {
+  PRODUCT_OWNER
   PROJECT_MANAGER
   TECHNICAL_LEAD
   SOFTWARE_DEVELOPER
