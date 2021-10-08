@@ -4,7 +4,7 @@ generates:
     config:
       mappers:
         User: ./node_modules/.prisma/client/index.d.ts#User
-        Collection: ./node_modules/.prisma/client/index.d.ts#Collection
+        Project: ./node_modules/.prisma/client/index.d.ts#Project
       namingConvention:
         enumValues: change-case#constantCase
       enumsAsTypes: true

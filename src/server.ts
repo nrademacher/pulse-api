@@ -1,3 +1,4 @@
+import './alias'
 import { ApolloServer } from 'apollo-server'
 import { schema } from './modules'
 import { context } from './context'
