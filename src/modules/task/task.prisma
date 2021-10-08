@@ -1,3 +1,9 @@
+enum TaskPriorities {
+  LOW
+  NORMAL
+  HIGH
+}
+
 model Task {
   id           String @id @default(cuid())
   createdAt    DateTime @default(now())
@@ -12,6 +18,7 @@ model Task {
   
   title        String   
   description  String?
+  priority     TaskPriorities @default(NORMAL) 
   done         Boolean
 
   @@map("tasks")

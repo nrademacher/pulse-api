@@ -5,15 +5,6 @@ enum UserRoles {
   SOFTWARE_DEVELOPER
 }
 
-model Collection {
-  id      String @id @default(cuid())
-  
-  user    User @relation(fields: [userId], references: [id])
-  userId  String
-
-  @@map("collections")
-}
-
 model User {
   id             String @id @default(cuid())
   createdAt      DateTime @default(now())
@@ -23,14 +14,22 @@ model User {
   name           String?
   passwordHash   String?
   
-  team           String
   role           UserRoles @default(SOFTWARE_DEVELOPER)
+  team           String?
 
   displayName    String?
   bio            String?
   
-  collections    Collection[]
+  projects       Project[]
 
   @@map("users")
 }
 
+model Project {
+  id      String @id @default(cuid())
+  
+  user    User @relation(fields: [userId], references: [id])
+  userId  String
+
+  @@map("projects")
+}

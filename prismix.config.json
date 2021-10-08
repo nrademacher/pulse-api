@@ -4,7 +4,7 @@
       "input": [
         "./prisma/datasource.prisma",
         "./src/modules/user/user.prisma",
-        "./src/modules/collection/collection.prisma",
+        "./src/modules/projects/projects.prisma",
         "./src/modules/board/board.prisma",
         "./src/modules/list/list.prisma",
         "./src/modules/task/task.prisma"

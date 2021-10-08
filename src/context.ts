@@ -1,5 +1,5 @@
 import { Http2ServerRequest } from 'http2';
-import { config, Depromisify } from './utils';
+import { config } from './utils';
 import * as jwt from 'jsonwebtoken';
 
 export interface ResolverContext {
@@ -28,5 +28,3 @@ export const context = async ({ req }: { req: Http2ServerRequest }) => {
     return ctx;
   }
 };
-
-export type Context = Depromisify<typeof context>;

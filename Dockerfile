@@ -38,5 +38,6 @@ COPY --from=builder /builder/dist ./dist
 COPY --from=builder /builder/.env /builder/prisma/schema.prisma  ./
 
 RUN yarn prisma:generate
+RUN yarn prisma:migrate:prod
 
-CMD ls -lah && yarn start
+CMD yarn start

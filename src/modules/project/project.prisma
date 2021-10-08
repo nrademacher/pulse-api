@@ -1,4 +1,4 @@
-model Collection {
+model Project {
   id         String @id @default(cuid())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -6,19 +6,17 @@ model Collection {
   boards     Board[]
   user       User @relation(fields: [userId], references: [id])
   userId     String
-  
-  @@map("collections")
 }
 
 model Board {
   id            String @id @default(cuid())
-  collection    Collection @relation(fields: [collectionId], references: [id])
-  collectionId  String
+  project      Project @relation(fields: [projectId], references: [id])
+  projectId     String
   
   @@map("boards")
 }
 
 model User {
   id           String @id @default(cuid())
-  collections  Collection[]
+  projects     Project[]
 }

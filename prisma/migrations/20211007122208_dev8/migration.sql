@@ -1,2 +1,0 @@
--- AlterEnum
-ALTER TYPE "UserRoles" ADD VALUE 'PRODUCT_OWNER';

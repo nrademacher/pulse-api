@@ -1,7 +1,28 @@
 scalar DateTime
 
+enum UserRoles {
+  PRODUCT_OWNER
+  PROJECT_MANAGER
+  TECHNICAL_LEAD
+  SOFTWARE_DEVELOPER
+}
+
 type Query {
-  me: User!
+  login(email: String!, password: String!): User!
+  findSelf: User!
+  findUserById(id: String!): User!
+  findUserByEmail(email: String!): User!
+}
+
+type Mutation {
+  createUser(
+    email: String!
+    name: String
+    displayName: String
+    bio: String
+    role: UserRoles
+    team: String
+  ): User!
 }
 
 type User {
@@ -10,5 +31,8 @@ type User {
   updatedAt: DateTime!
   email: String!
   name: String
-  password_hash: String
+  displayName: String
+  bio: String
+  role: String!
+  team: String
 }

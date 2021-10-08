@@ -4,8 +4,8 @@ model Board {
   updatedAt     DateTime @updatedAt
   title         String 
   lists         List[]
-  collection    Collection @relation(fields: [collectionId], references: [id])
-  collectionId  String
+  project       Project @relation(fields: [projectId], references: [id])
+  projectId     String
 }
 
 model List {
@@ -16,7 +16,7 @@ model List {
   @@map("lists")
 }
 
-model Collection {
+model Project {
   id      String @id @default(cuid())
   boards  Board[]
 }
