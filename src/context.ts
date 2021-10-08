@@ -1,6 +1,6 @@
-import { Http2ServerRequest } from 'http2';
-import { config } from './utils';
+import type { Http2ServerRequest } from 'http2';
 import * as jwt from 'jsonwebtoken';
+import { config } from './utils';
 
 export interface ResolverContext {
   isAuthed: boolean;

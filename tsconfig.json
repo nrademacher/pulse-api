@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "target": "esnext",
+    "moduleResolution": "node",
     "outDir": "dist",
     "strict": true,
     "lib": ["esnext"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

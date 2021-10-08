@@ -2,13 +2,12 @@
   "name": "xkanban-api",
   "version": "1.0.0",
   "description": "API for xkanban client",
-  "main": "index.ts",
-  "author": "Nikolay Rademacher",
+  "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "private": true,
   "scripts": {
     "codegen": "graphql-codegen",
-    "postcodegen": "printf '// @ts-nocheck'$'\n'\"$(cat src/graphql/types.ts)\" > src/graphql/types.ts",
     "prismix": "prismix && prisma format",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "PG_HOST=localhost prisma migrate dev",
@@ -17,6 +16,7 @@
     "prisma:studio": "PG_HOST=localhost prisma studio",
     "dev": "PG_HOST=localhost concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/server\" \"yarn codegen --watch\"",
     "lint": "eslint \"src/**/*.ts\" --fix",
+    "prebuild": "printf '// @ts-nocheck'$'\n'\"$(cat src/graphql/types.ts)\" > src/graphql/types.ts",
     "build": "tsc",
     "postbuild": "copyfiles src/modules/**/*.graphql dist/modules/ -f",
     "start": "node dist/server"
@@ -26,7 +26,7 @@
     "@graphql-codegen/typescript": "^2.2.2",
     "@graphql-codegen/typescript-resolvers": "^2.2.1",
     "@types/bcrypt": "^5.0.0",
-    "@types/lodash": "^4.14.175",
+    "@types/module-alias": "^2.0.1",
     "@types/node": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
@@ -52,6 +52,6 @@
     "dotenv": "^10.0.0",
     "graphql": "^15.6.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.21"
+    "module-alias": "^2.2.2"
   }
 }
