@@ -35,6 +35,7 @@ export type MutationCreateUserArgs = {
   displayName?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
+  password: Scalars['String'];
   role?: Maybe<UserRoles>;
   team?: Maybe<Scalars['String']>;
 };
@@ -44,7 +45,7 @@ export type Query = {
   findSelf: User;
   findUserByEmail: User;
   findUserById: User;
-  login: User;
+  login: Scalars['String'];
   myCollections: Array<Maybe<Collection>>;
 };
 
@@ -187,14 +188,14 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type MutationResolvers<ContextType = any, ParentType = ResolversParentTypes['Mutation']> = {
-  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email'>>;
+  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email' | 'password'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType = ResolversParentTypes['Query']> = {
   findSelf?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   findUserByEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryFindUserByEmailArgs, 'email'>>;
   findUserById?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryFindUserByIdArgs, 'id'>>;
-  login?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryLoginArgs, 'email' | 'password'>>;
+  login?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<QueryLoginArgs, 'email' | 'password'>>;
   myCollections?: Resolver<Array<Maybe<ResolversTypes['Collection']>>, ParentType, ContextType>;
 };
 
