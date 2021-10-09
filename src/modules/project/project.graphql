@@ -1,11 +1,11 @@
 type Query {
-  myCollections: [Collection]!
+  myProjects: [Project]!
 }
 
-type Collection {
+type Project {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
-  userId: String!
+  users: [User]
 }

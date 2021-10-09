@@ -6,6 +6,8 @@ model Board {
   lists         List[]
   project       Project @relation(fields: [projectId], references: [id])
   projectId     String
+
+  @@map("boards")
 }
 
 model List {

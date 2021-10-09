@@ -2,6 +2,7 @@ enum TaskPriorities {
   LOW
   NORMAL
   HIGH
+  EMERGENCY
 }
 
 model Task {

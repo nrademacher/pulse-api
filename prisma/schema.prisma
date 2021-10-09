@@ -16,21 +16,31 @@ model User {
   passwordHash    String?
   verified        Boolean?
   role            UserRoles @default(SOFTWARE_DEVELOPER)
-  team            String?
+  teams           Team[]    @relation(name: "TeamToUser")
+  projects        Project[] @relation(name: "ProjectToUser")
   name            String?
   displayName     String?
   bio             String?
-  projects        Project[] @relation(name: "ProjectToUser")
   tasksAssignedBy Task[]    @relation(name: "AssignerToTask")
   tasksAssignedTo Task[]    @relation(name: "AssigneeToTask")
 
   @@map("users")
 }
 
+model Team {
+  id          String    @id @default(cuid())
+  users       User[]    @relation(name: "TeamToUser")
+  name        String
+  description String?
+  projects    Project[] @relation(name: "ProjectToTeam")
+
+  @@map("teams")
+}
+
 model Project {
   id     String  @id @default(cuid())
-  user   User    @relation(name: "ProjectToUser", fields: [userId], references: [id])
-  userId String
+  users  User[]  @relation(name: "ProjectToUser")
+  teams  Team[]  @relation(name: "ProjectToTeam")
   boards Board[] @relation(name: "BoardToProject")
 
   @@map("projects")
@@ -44,6 +54,8 @@ model Board {
   lists     List[]   @relation(name: "BoardToList")
   project   Project  @relation(name: "BoardToProject", fields: [projectId], references: [id])
   projectId String
+
+  @@map("boards")
 }
 
 model List {

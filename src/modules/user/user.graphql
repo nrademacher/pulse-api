@@ -12,11 +12,13 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String!
+  verified: Boolean
   name: String
   displayName: String
   bio: String
-  role: String!
+  role: UserRoles!
   team: String
+  projects: [Project]
 }
 
 type Query {
