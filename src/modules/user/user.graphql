@@ -17,7 +17,7 @@ type User {
   displayName: String
   bio: String
   role: UserRoles!
-  team: String
+  teams: [Team]
   projects: [Project]
 }
 
@@ -36,6 +36,5 @@ type Mutation {
     displayName: String
     bio: String
     role: UserRoles
-    team: String
   ): User!
 }

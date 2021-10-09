@@ -1,3 +1,4 @@
+// @ts-nocheck 
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { User, Project } from './node_modules/.prisma/client/index.d.ts';
 export type Maybe<T> = T | undefined | null;
@@ -29,7 +30,7 @@ export type MutationCreateUserArgs = {
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   role?: Maybe<UserRoles>;
-  team?: Maybe<Scalars['String']>;
+  teams?: Maybe<Array<Maybe<Team>>>;
 };
 
 export type Project = {
@@ -85,7 +86,7 @@ export type User = {
   name?: Maybe<Scalars['String']>;
   projects?: Maybe<Array<Maybe<Project>>>;
   role: UserRoles;
-  team?: Maybe<Scalars['String']>;
+  teams?: Maybe<Array<Maybe<Team>>>;
   updatedAt: Scalars['DateTime'];
   verified?: Maybe<Scalars['Boolean']>;
 };
@@ -231,7 +232,7 @@ export type UserResolvers<ContextType = any, ParentType = ResolversParentTypes['
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   projects?: Resolver<Maybe<Array<Maybe<ResolversTypes['Project']>>>, ParentType, ContextType>;
   role?: Resolver<ResolversTypes['UserRoles'], ParentType, ContextType>;
-  team?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  teams?: Resolver<Maybe<Array<Maybe<ResolversTypes['Team']>>>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   verified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
