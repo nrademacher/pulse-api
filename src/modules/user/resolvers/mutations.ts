@@ -2,9 +2,8 @@ import type { Resolvers } from '@/types/graphql';
 import type { ResolverContext } from '@/types/context';
 
 import { AuthenticationError } from 'apollo-server';
-import * as bcrypt from 'bcrypt';
-
 import { db } from '@/database';
+import * as bcrypt from 'bcrypt';
 
 export const UserMutations: Resolvers<ResolverContext> = {
   Mutation: {

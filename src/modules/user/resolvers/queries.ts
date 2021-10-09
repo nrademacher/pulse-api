@@ -2,10 +2,10 @@ import type { Resolvers } from '@/types/graphql';
 import type { ResolverContext } from '@/types/context';
 
 import { AuthenticationError } from 'apollo-server';
+import { db } from '@/database';
+import { config } from '@/utils';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-
-import { db } from '@/database';
 
 export const UserQueries: Resolvers<ResolverContext> = {
   Query: {
@@ -33,8 +33,7 @@ export const UserQueries: Resolvers<ResolverContext> = {
 
       if (!match) throw new AuthenticationError('invalid_credentials');
 
-      return jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
+      return jwt.sign({ userId: user.id }, config.TOKEN_SECRET);
     },
-    //
   },
 };
