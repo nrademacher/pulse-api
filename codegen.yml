@@ -1,6 +1,6 @@
 schema: ./src/modules/**/*.graphql
 generates:
-  ./src/graphql/types.ts:
+  ./src/types/graphql.ts:
     config:
       mappers:
         User: ./node_modules/.prisma/client/index.d.ts#User

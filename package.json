@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "codegen": "graphql-codegen",
-    "postcodegen": "prepend '// @ts-nocheck \n' src/graphql/types.ts",
+    "postcodegen": "prepend '// @ts-nocheck \n' src/types/graphql.ts",
     "prismix": "prismix && prisma format",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "PG_HOST=localhost prisma migrate dev",
