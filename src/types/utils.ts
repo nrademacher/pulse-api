@@ -4,4 +4,4 @@ export type Depromisify<T extends (...args: any) => any> = T extends (
   ? U
   : T extends (...args: any) => infer U
   ? U
-  : any;
+  : any
