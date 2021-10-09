@@ -1,4 +1,3 @@
-// @ts-nocheck 
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { User, Project } from './node_modules/.prisma/client/index.d.ts';
 export type Maybe<T> = T | undefined | null;
