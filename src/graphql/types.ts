@@ -4,6 +4,7 @@ export type Maybe<T> = T | undefined | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -13,15 +14,6 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
-};
-
-export type Collection = {
-  __typename?: 'Collection';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['String'];
-  title: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
-  userId: Scalars['String'];
 };
 
 export type Mutation = {
@@ -40,13 +32,22 @@ export type MutationCreateUserArgs = {
   team?: Maybe<Scalars['String']>;
 };
 
+export type Project = {
+  __typename?: 'Project';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+  users?: Maybe<Array<Maybe<User>>>;
+};
+
 export type Query = {
   __typename?: 'Query';
   findSelf: User;
   findUserByEmail: User;
   findUserById: User;
   login: Scalars['String'];
-  myCollections: Array<Maybe<Collection>>;
+  myProjects: Array<Maybe<Project>>;
 };
 
 
@@ -65,6 +66,15 @@ export type QueryLoginArgs = {
   password: Scalars['String'];
 };
 
+export type Team = {
+  __typename?: 'Team';
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+  projects?: Maybe<Array<Maybe<Project>>>;
+  users: Array<Maybe<User>>;
+};
+
 export type User = {
   __typename?: 'User';
   bio?: Maybe<Scalars['String']>;
@@ -73,9 +83,11 @@ export type User = {
   email: Scalars['String'];
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
-  role: Scalars['String'];
+  projects?: Maybe<Array<Maybe<Project>>>;
+  role: UserRoles;
   team?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
+  verified?: Maybe<Scalars['Boolean']>;
 };
 
 export type UserRoles =
@@ -154,11 +166,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Collection: ResolverTypeWrapper<Collection>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
+  Project: ResolverTypeWrapper<Project>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Team: ResolverTypeWrapper<Omit<Team, 'projects' | 'users'> & { projects?: Maybe<Array<Maybe<ResolversTypes['Project']>>>, users: Array<Maybe<ResolversTypes['User']>> }>;
   User: ResolverTypeWrapper<User>;
   UserRoles: UserRoles;
 };
@@ -166,21 +179,13 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
-  Collection: Collection;
   DateTime: Scalars['DateTime'];
   Mutation: {};
+  Project: Project;
   Query: {};
   String: Scalars['String'];
+  Team: Omit<Team, 'projects' | 'users'> & { projects?: Maybe<Array<Maybe<ResolversParentTypes['Project']>>>, users: Array<Maybe<ResolversParentTypes['User']>> };
   User: User;
-};
-
-export type CollectionResolvers<ContextType = any, ParentType = ResolversParentTypes['Collection']> = {
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
@@ -191,12 +196,30 @@ export type MutationResolvers<ContextType = any, ParentType = ResolversParentTyp
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email' | 'password'>>;
 };
 
+export type ProjectResolvers<ContextType = any, ParentType = ResolversParentTypes['Project']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType = ResolversParentTypes['Query']> = {
   findSelf?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   findUserByEmail?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryFindUserByEmailArgs, 'email'>>;
   findUserById?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryFindUserByIdArgs, 'id'>>;
   login?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<QueryLoginArgs, 'email' | 'password'>>;
-  myCollections?: Resolver<Array<Maybe<ResolversTypes['Collection']>>, ParentType, ContextType>;
+  myProjects?: Resolver<Array<Maybe<ResolversTypes['Project']>>, ParentType, ContextType>;
+};
+
+export type TeamResolvers<ContextType = any, ParentType = ResolversParentTypes['Team']> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  projects?: Resolver<Maybe<Array<Maybe<ResolversTypes['Project']>>>, ParentType, ContextType>;
+  users?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType = ResolversParentTypes['User']> = {
@@ -206,17 +229,20 @@ export type UserResolvers<ContextType = any, ParentType = ResolversParentTypes['
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  role?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  projects?: Resolver<Maybe<Array<Maybe<ResolversTypes['Project']>>>, ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['UserRoles'], ParentType, ContextType>;
   team?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  verified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  Collection?: CollectionResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
+  Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Team?: TeamResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

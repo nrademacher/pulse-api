@@ -7,31 +7,37 @@ enum UserRoles {
 
 model User {
   id             String @id @default(cuid())
+  
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   
   email          String @unique
   passwordHash   String?
-  
   verified       Boolean?
   
   role           UserRoles @default(SOFTWARE_DEVELOPER)
-  team           String?
+  teams          Team[]
+  projects       Project[]
   
   name           String?
   displayName    String?
   bio            String?
   
-  projects       Project[]
-  
   @@map("users")
 }
 
-model Project {
-  id      String @id @default(cuid())
+model Team {
+  id     String @id @default(cuid())
   
-  user    User @relation(fields: [userId], references: [id])
-  userId  String
+  users  User[]
+
+  @@map("teams")
+}
+
+model Project {
+  id     String @id @default(cuid())
+  
+  users  User[]
   
   @@map("projects")
 }

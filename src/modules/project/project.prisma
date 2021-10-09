@@ -12,8 +12,6 @@ model Board {
   id            String @id @default(cuid())
   project      Project @relation(fields: [projectId], references: [id])
   projectId     String
-  
-  @@map("boards")
 }
 
 model User {
