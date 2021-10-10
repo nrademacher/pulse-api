@@ -4,6 +4,8 @@ ARG node_image=node:${node_version}-alpine
 # STAGE 1
 FROM $node_image as builder
 
+ENV DB_HOST=postgres
+
 WORKDIR /builder/
 
 COPY package.json yarn.lock ./
@@ -14,6 +16,7 @@ COPY . ./
 
 RUN yarn prisma
 RUN yarn codegen
+
 RUN yarn build
 
 # STAGE 2
@@ -29,6 +32,8 @@ RUN yarn install --frozen-lockfile --production=true --no-progress
 # STAGE 3
 FROM $node_image
 
+ENV DB_HOST=postgres
+
 WORKDIR /server/
 
 COPY --from=builder /builder/package.json /builder/.env ./
@@ -43,4 +48,4 @@ COPY --from=builder /builder/prisma/migrations ./prisma
 RUN yarn prisma:migrate:prod
 RUN yarn prisma:generate
 
-CMD yarn start
+CMD yarn start:prod

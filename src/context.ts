@@ -1,25 +1,34 @@
-import type { ContextRequest, ResolverContext } from './types/context';
-import * as jwt from 'jsonwebtoken';
-import { config } from './utils';
+import type { ServerResponse } from 'http'
+import * as jwt from 'jsonwebtoken'
+import { config } from './utils'
 
-export const context = async ({ req }: ContextRequest) => {
+export interface ResolverContext {
+  isAuthed: boolean
+  userId?: string
+}
+
+export const context = async ({ req }: ServerResponse) => {
   const ctx: ResolverContext = {
     isAuthed: false,
-  };
-  let token: string = req?.headers?.authorization || '';
+  }
+  let token: string = req?.headers?.authorization || ''
 
   if (token) {
-    if (token.startsWith('Bearer ')) token = token.split(' ')[1];
+    if (token.startsWith('Bearer ')) token = token.split(' ')[1]
 
-    const decoded = jwt.verify(token, config.TOKEN_SECRET);
+    try {
+      const decoded = jwt.verify(token, config.TOKEN_SECRET)
 
-    if (typeof decoded === 'string') return ctx;
+      if (typeof decoded === 'string') return ctx
 
-    if (decoded.userId) {
-      ctx.isAuthed = true;
-      ctx.userId = decoded.userId;
+      if (decoded.userId) {
+        ctx.isAuthed = true
+        ctx.userId = decoded.userId
+      }
+    } catch (e) {
+      //
     }
 
-    return ctx;
+    return ctx
   }
-};
+}

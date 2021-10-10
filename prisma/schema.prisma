@@ -17,8 +17,7 @@ model User {
   verified        Boolean?
   role            UserRoles @default(SOFTWARE_DEVELOPER)
   teams           Team[]    @relation(name: "TeamToUser")
-  projects        Project[] @relation(name: "ProjectToUser")
-  name            String?
+  projectsOwned   Project[] @relation(name: "ProjectToUser")
   displayName     String?
   bio             String?
   tasksAssignedBy Task[]    @relation(name: "AssignerToTask")
@@ -38,12 +37,12 @@ model Team {
 }
 
 model Project {
-  id     String  @id @default(cuid())
-  users  User[]  @relation(name: "ProjectToUser")
-  teams  Team[]  @relation(name: "ProjectToTeam")
-  boards Board[] @relation(name: "BoardToProject")
-
-  @@map("projects")
+  id      String  @id @default(cuid())
+  owner   User    @relation(name: "ProjectToUser", fields: [ownerId], references: [id])
+  ownerId String
+  team    Team    @relation(name: "ProjectToTeam", fields: [teamId], references: [id])
+  teamId  String
+  boards  Board[] @relation(name: "BoardToProject")
 }
 
 model Board {
@@ -99,4 +98,5 @@ enum TaskPriorities {
   LOW
   NORMAL
   HIGH
+  EMERGENCY
 }

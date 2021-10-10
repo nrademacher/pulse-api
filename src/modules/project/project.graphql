@@ -4,8 +4,10 @@ type Query {
 
 type Project {
   id: String!
+
   createdAt: DateTime!
   updatedAt: DateTime!
-  title: String!
-  users: [User]
+
+  name: String!
+  team: Team!
 }
