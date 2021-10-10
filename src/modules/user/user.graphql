@@ -26,6 +26,7 @@ type Query {
   findSelf: User!
   findUserById(id: String!): User!
   findUserByEmail(email: String!): User!
+  hello: String
 }
 
 type Mutation {
@@ -37,4 +38,8 @@ type Mutation {
     bio: String
     role: UserRoles
   ): User!
+}
+
+type Subscription {
+  greetings: String
 }

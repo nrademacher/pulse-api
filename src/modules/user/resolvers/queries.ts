@@ -1,7 +1,7 @@
 import type { Resolvers } from '@/types/graphql'
 import type { ResolverContext } from '@/context'
 
-import { AuthenticationError } from 'apollo-server'
+import { AuthenticationError } from 'apollo-server-express'
 import { db } from '@/database'
 import { config } from '@/utils'
 import * as bcrypt from 'bcrypt'

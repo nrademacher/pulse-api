@@ -1,9 +1,12 @@
 import type { Resolvers } from '@/types/graphql'
 import type { ResolverContext } from '@/context'
 
-import { AuthenticationError } from 'apollo-server'
+import { AuthenticationError } from 'apollo-server-express'
 import { db } from '@/database'
 import * as bcrypt from 'bcrypt'
+import { PubSub } from 'graphql-subscriptions'
+
+const pubsub = new PubSub()
 
 export const UserMutations: Resolvers<ResolverContext> = {
   Mutation: {
@@ -24,12 +27,20 @@ export const UserMutations: Resolvers<ResolverContext> = {
         data: {
           email,
           passwordHash: hash,
-          name,
           displayName,
           bio,
           role: role!,
         },
       })
+    },
+  },
+  Subscription: {
+    greetings: {
+      subscribe: async function* () {
+        for (const hi of ['Hi', 'Bonjour', 'Hola', 'Ciao', 'Zdravo']) {
+          yield { greetings: hi }
+        }
+      },
     },
   },
 }
