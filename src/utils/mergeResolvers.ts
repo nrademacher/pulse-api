@@ -1,12 +1,6 @@
-import { GraphQLError } from 'graphql';
-import type { Resolvers } from './types/graphql';
-import merge from 'lodash.merge';
+import type { Resolvers } from '@/types/graphql';
 
-export function formatError(err: GraphQLError): GraphQLError {
-  // @ts-expect-error
-  delete err.extension;
-  return err;
-}
+import merge from 'lodash.merge';
 
 export function mergeResolvers(...resolversArr: Resolvers[]): Resolvers {
   if (resolversArr.length === 1) {

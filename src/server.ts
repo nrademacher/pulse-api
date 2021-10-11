@@ -41,7 +41,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { schema } from './schema';
 import { context } from './context';
 import { formatError } from './utils';
-import { config } from './config';
+import { config } from './utils';
 
 export async function server() {
   const app = express();

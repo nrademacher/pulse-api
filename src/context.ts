@@ -1,6 +1,9 @@
 import type { ServerResponse } from 'http';
+
 import * as jwt from 'jsonwebtoken';
-import { config } from './config';
+import { config } from './utils';
+
+import { GraphQLError } from 'graphql';
 
 export interface ResolverContext {
   isAuthed: boolean;
@@ -12,6 +15,7 @@ export const context = async ({ req }: ServerResponse) => {
   const ctx: ResolverContext = {
     isAuthed: false,
   };
+
   let token: string = req?.headers?.authorization || '';
 
   if (token) {
@@ -27,8 +31,16 @@ export const context = async ({ req }: ServerResponse) => {
         ctx.userId = decoded.userId;
         ctx.userRole = decoded.userRole;
       }
-    } catch (e) {
-      //
+    } catch (error) {
+      let message;
+
+      if (error instanceof Error) {
+        message = error.message;
+      } else {
+        message = 'error_decoding_token';
+      }
+
+      throw new GraphQLError(message);
     }
 
     return ctx;

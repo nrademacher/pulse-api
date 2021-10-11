@@ -4,10 +4,11 @@ import type { ResolverContext } from '@/context';
 import { AuthenticationError } from 'apollo-server-express';
 
 import { db } from '@/services';
-import { config } from '@/config';
 
 import * as bcrypt from 'bcrypt';
+
 import * as jwt from 'jsonwebtoken';
+import { config } from '@/utils';
 
 export const LoginQuery: QueryResolvers<ResolverContext> = {
   login: async (_parent, args, _context) => {
