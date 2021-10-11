@@ -1,5 +1,5 @@
 import { loadSchemaSync } from '@graphql-tools/load';
-import { join } from 'path';
+import { join } from 'node:path';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { addResolversToSchema } from '@graphql-tools/schema';
 import { mergeResolvers } from './utils';

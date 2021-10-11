@@ -1,26 +1,26 @@
+import { AuthenticationError } from 'apollo-server-express';
+import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 import type { QueryResolvers } from '@/types/graphql';
 import type { ResolverContext } from '@/context';
 
-import { AuthenticationError } from 'apollo-server-express';
+import { database } from '@/services';
 
-import { db } from '@/services';
-
-import * as bcrypt from 'bcrypt';
-
-import * as jwt from 'jsonwebtoken';
 import { config } from '@/lib';
 
 export const LoginQuery: QueryResolvers<ResolverContext> = {
-  login: async (_parent, args, _context) => {
-    if (!args.email || !args.password) {
+  login: async (_parent, arguments_) => {
+    if (!arguments_.email || !arguments_.password) {
       throw new AuthenticationError('missing_credentials');
     }
 
-    const user = await db.user.findUnique({ where: { email: args.email } });
+    const user = await database.user.findUnique({
+      where: { email: arguments_.email },
+    });
 
     if (!user) throw new AuthenticationError('invalid_credentials');
 
-    const match = await bcrypt.compare(args.password, user.passwordHash!);
+    const match = await bcrypt.compare(arguments_.password, user.passwordHash);
 
     if (!match) throw new AuthenticationError('invalid_credentials');
 

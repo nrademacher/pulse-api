@@ -1,3 +1,2 @@
-export * from './config';
-export * from './formatError';
-export * from './mergeResolvers';
+export * from './format-error';
+export * from './merge-resolvers';

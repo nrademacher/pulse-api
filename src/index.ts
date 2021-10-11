@@ -1,4 +1,4 @@
-import './lib/moduleAlias'; // must be first import of entry point
+import './at-module-alias'; // must be first import of entry point
 
 import { servers } from './servers';
 

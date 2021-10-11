@@ -1,9 +1,8 @@
+import { AuthenticationError } from 'apollo-server-express';
 import type { MutationResolvers } from '@/types/graphql';
 import type { ResolverContext } from '@/context';
 
-import { AuthenticationError } from 'apollo-server-express';
-
-import { db, pubsub } from '@/services';
+import { database, pubsub } from '@/services';
 
 export const ChatMutations: MutationResolvers<ResolverContext> = {
   sendMessage: async (
@@ -16,7 +15,7 @@ export const ChatMutations: MutationResolvers<ResolverContext> = {
     let recipientId;
 
     if (channel === 'PRIVATE' && recipientEmail) {
-      const recipient = await db.user.findUnique({
+      const recipient = await database.user.findUnique({
         where: { email: recipientEmail },
       });
 
@@ -38,7 +37,7 @@ export const ChatMutations: MutationResolvers<ResolverContext> = {
 
     pubsub.publish(channel, data);
 
-    return await db.chat.create({
+    return database.chat.create({
       data,
     });
   },

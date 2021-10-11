@@ -1,14 +1,22 @@
 {
   "env": {
-    "browser": true,
+    "node": true,
     "es2021": true
   },
-  "extends": ["standard", "plugin:prettier/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 12,
-    "sourceType": "module"
+    "ecmaVersion": 13,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "prettier"],
-  "rules": {}
+  "plugins": ["@typescript-eslint", "unicorn", "prettier"],
+  "rules": {
+    "unicorn/prefer-module": "off"
+  }
 }

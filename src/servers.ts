@@ -1,5 +1,5 @@
 import express from 'express';
-import { createServer } from 'http';
+import { createServer } from 'node:http';
 
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';

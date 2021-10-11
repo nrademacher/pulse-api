@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
     "strict": true,
     "lib": ["esnext"],
-    "esModuleInterop": true,
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -1,17 +1,3 @@
-enum UserRoles {
-  ADMIN
-  PRODUCT_OWNER
-  PROJECT_MANAGER
-  TECHNICAL_LEAD
-  SOFTWARE_DEVELOPER
-}
-
-enum CC {
-  IOT
-  CES
-  ADV_ENG
-}
-
 model User {
   id String @id @default(cuid())
   
@@ -21,8 +7,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   email        String   @unique
-  passwordHash String?
-  verified     Boolean?
+  passwordHash String
+  verified     Boolean
 
   role UserRoles @default(SOFTWARE_DEVELOPER)
 
@@ -38,6 +24,26 @@ model User {
 
   @@map("users")
 }
+
+enum UserEvents {
+ SIGN_UP
+ LOG_IN
+}
+
+enum UserRoles {
+  ADMIN
+  PRODUCT_OWNER
+  PROJECT_MANAGER
+  TECHNICAL_LEAD
+  SOFTWARE_DEVELOPER
+}
+
+enum CC {
+  IOT
+  CES
+  ADV_ENG
+}
+
 
 model Team {
   id String @id @default(cuid())
