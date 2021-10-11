@@ -10,14 +10,18 @@ generator client {
 
 model User {
   id              String    @id @default(cuid())
+  name            String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   email           String    @unique
   passwordHash    String?
   verified        Boolean?
   role            UserRoles @default(SOFTWARE_DEVELOPER)
+  cc              CC
   teams           Team[]    @relation(name: "TeamToUser")
   projectsOwned   Project[] @relation(name: "ProjectToUser")
+  chatsSent       Chat[]    @relation(name: "ChatToSender")
+  chatsReceived   Chat[]    @relation(name: "ChatToRecipient")
   displayName     String?
   bio             String?
   tasksAssignedBy Task[]    @relation(name: "AssignerToTask")
@@ -43,6 +47,20 @@ model Project {
   team    Team    @relation(name: "ProjectToTeam", fields: [teamId], references: [id])
   teamId  String
   boards  Board[] @relation(name: "BoardToProject")
+
+  @@map("projects")
+}
+
+model Chat {
+  id      String       @id @default(cuid())
+  from    User         @relation(name: "ChatToSender", fields: [fromId], references: [id])
+  fromId  String
+  to      User?        @relation(name: "ChatToRecipient", fields: [toId], references: [id])
+  toId    String?
+  channel ChatChannels @default(ALL)
+  message String
+
+  @@map("chats")
 }
 
 model Board {
@@ -88,10 +106,17 @@ model Task {
 }
 
 enum UserRoles {
+  ADMIN
   PRODUCT_OWNER
   PROJECT_MANAGER
   TECHNICAL_LEAD
   SOFTWARE_DEVELOPER
+}
+
+enum CC {
+  IOT
+  CES
+  ADV_ENG
 }
 
 enum TaskPriorities {
@@ -99,4 +124,12 @@ enum TaskPriorities {
   NORMAL
   HIGH
   EMERGENCY
+}
+
+enum ChatChannels {
+  ALL
+  ADV_ENG
+  CES
+  IOT
+  PRIVATE
 }

@@ -1,0 +1,31 @@
+enum ChatChannels {
+  ALL
+  ADV_ENG
+  CES
+  IOT
+  PRIVATE
+}
+
+type Chat {
+  id: String!
+  from: String!
+  to: String
+  channel: ChatChannels!
+  message: String!
+}
+
+type Query {
+  getOwnChats: [Chat]
+}
+
+type Mutation {
+  sendMessage(
+    recipientEmail: String
+    message: String!
+    channel: ChatChannels
+  ): Chat
+}
+
+type Subscription {
+  subscribeToChannel(channel: ChatChannels): Chat
+}

@@ -1,4 +1,4 @@
-import { addAlias } from 'module-alias'
-import { join } from 'path'
+import { addAlias } from 'module-alias';
+import { join } from 'path';
 
-addAlias('@', join(__dirname, '/'))
+addAlias('@', join(__dirname, '/'));

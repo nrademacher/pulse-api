@@ -1,17 +1,57 @@
-import './alias';
-import express from 'express';
-import { createServer } from 'http';
-import { ApolloServer } from 'apollo-server-express';
-import { execute, subscribe } from 'graphql';
+/* import express from 'express';
+
 import { schema } from './schema';
 import { context } from './context';
 import { formatError } from './utils';
-import { SubscriptionServer } from 'subscriptions-transport-ws';
 
-(async function () {
+import ws from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+
+import { config } from './config'; */
+
+/* export async function server() {
+  const app = express();
+
+  const apolloServer = new ApolloServer({ schema, context, formatError });
+
+  await apolloServer.start();
+
+  apolloServer.applyMiddleware({ app });
+
+  const server = app.listen(config.PORT, () => {
+    const wsServer = new ws.Server({
+      server,
+      path: '/graphql',
+    });
+
+    useServer({ schema, context }, wsServer);
+
+    console.log(`Express running on port ${config.PORT}`);
+    console.log(
+      `GraphQl server at http://localhost:${config.PORT}${apolloServer.graphqlPath}`,
+    );
+  });
+} */
+
+import express from 'express';
+import { createServer } from 'http';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { execute, subscribe } from 'graphql';
+import { ApolloServer } from 'apollo-server-express';
+import { schema } from './schema';
+import { context } from './context';
+import { formatError } from './utils';
+import { config } from './config';
+
+export async function server() {
   const app = express();
 
   const httpServer = createServer(app);
+
+  const subscriptionServer = SubscriptionServer.create(
+    { schema, execute, subscribe },
+    { server: httpServer, path: '/graphql' },
+  );
 
   const apolloServer = new ApolloServer({
     schema,
@@ -34,24 +74,10 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 
   apolloServer.applyMiddleware({ app });
 
-  const subscriptionServer = SubscriptionServer.create(
-    {
-      schema,
-      execute,
-      subscribe,
-    },
-    {
-      server: httpServer,
-      path: apolloServer.graphqlPath,
-    },
-  );
-
-  const port = process.env.PORT || 4000;
-
-  httpServer.listen(port, function () {
-    console.log(`Express running on port ${port}`);
+  httpServer.listen(config.PORT, () => {
+    console.log(`Express running on port ${config.PORT}`);
     console.log(
-      `GraphQl server at http://localhost:${port}${apolloServer.graphqlPath}`,
+      `GraphQl server at http://localhost:${config.PORT}${apolloServer.graphqlPath}`,
     );
   });
-})();
+}

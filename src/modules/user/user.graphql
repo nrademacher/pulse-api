@@ -1,8 +1,15 @@
 enum UserRoles {
+  ADMIN
   PRODUCT_OWNER
   PROJECT_MANAGER
   TECHNICAL_LEAD
   SOFTWARE_DEVELOPER
+}
+
+enum CC {
+  IOT
+  CES
+  ADV_ENG
 }
 
 scalar DateTime
@@ -12,8 +19,9 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String!
-  verified: Boolean
+  cc: CC!
   name: String
+  verified: Boolean
   displayName: String
   bio: String
   role: UserRoles!
@@ -23,23 +31,20 @@ type User {
 
 type Query {
   login(email: String!, password: String!): String!
-  findSelf: User!
-  findUserById(id: String!): User!
-  findUserByEmail(email: String!): User!
-  hello: String
+  getSelf: User!
+  getUserById(id: String!): User!
+  getUserByEmail(email: String!): User!
 }
 
 type Mutation {
   createUser(
     email: String!
     password: String!
+    cc: CC!
     name: String
     displayName: String
     bio: String
     role: UserRoles
   ): User!
-}
-
-type Subscription {
-  greetings: String
+  verifyUser(userEmail: String!): User!
 }

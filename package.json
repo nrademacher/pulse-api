@@ -14,14 +14,14 @@
     "prisma:migrate:prod": "DB_ENV=prod primsa migrate dev && prisma migrate deploy",
     "prisma": "yarn prismix && yarn prisma:generate && yarn prisma:migrate",
     "prisma:studio": "prisma studio",
-    "dev": "concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/server\" \"yarn codegen --watch\"",
+    "dev": "concurrently \"ts-node-dev --no-notify --respawn --transpile-only src\" \"yarn codegen --watch\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|prisma|graphql)\" --write",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "test": "DB_ENV=test jest -i",
     "build": "tsc",
     "postbuild": "cpy '**/*.graphql' '../dist' --cwd=src --parents",
-    "start": "node dist/server",
-    "start:prod": "DB_ENV=prod node dist/server"
+    "start": "node dist",
+    "start:prod": "DB_ENV=prod node dist"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.2.0",
@@ -30,8 +30,10 @@
     "@nrademacher/prepend-cli": "^1.0.10",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.0.2",
+    "@types/lodash.merge": "^4.6.6",
     "@types/module-alias": "^2.0.1",
     "@types/node": "^16.9.4",
+    "@types/ws": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "concurrently": "^6.2.2",
@@ -65,6 +67,7 @@
     "graphql-subscriptions": "^1.2.1",
     "graphql-ws": "^5.5.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash.merge": "^4.6.2",
     "module-alias": "^2.2.2",
     "subscriptions-transport-ws": "^0.9.19",
     "ws": "^8.2.3"
