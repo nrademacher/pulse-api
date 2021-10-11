@@ -1,4 +1,5 @@
-import './alias'
+import './moduleAlias';
+
 import { server } from './server';
 
 server();

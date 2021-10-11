@@ -33,7 +33,6 @@
     "@types/lodash.merge": "^4.6.6",
     "@types/module-alias": "^2.0.1",
     "@types/node": "^16.9.4",
-    "@types/ws": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "concurrently": "^6.2.2",
@@ -65,11 +64,9 @@
     "express": "^4.17.1",
     "graphql": "^15.6.0",
     "graphql-subscriptions": "^1.2.1",
-    "graphql-ws": "^5.5.0",
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
     "module-alias": "^2.2.2",
-    "subscriptions-transport-ws": "^0.9.19",
-    "ws": "^8.2.3"
+    "subscriptions-transport-ws": "^0.9.19"
   }
 }
