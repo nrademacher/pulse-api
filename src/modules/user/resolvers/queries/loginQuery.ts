@@ -8,7 +8,7 @@ import { db } from '@/services';
 import * as bcrypt from 'bcrypt';
 
 import * as jwt from 'jsonwebtoken';
-import { config } from '@/utils';
+import { config } from '@/lib';
 
 export const LoginQuery: QueryResolvers<ResolverContext> = {
   login: async (_parent, args, _context) => {

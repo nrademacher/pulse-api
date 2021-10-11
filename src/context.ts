@@ -1,7 +1,7 @@
 import type { ServerResponse } from 'http';
 
 import * as jwt from 'jsonwebtoken';
-import { config } from './utils';
+import { config } from './lib';
 
 import { GraphQLError } from 'graphql';
 

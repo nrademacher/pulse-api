@@ -1,5 +1,5 @@
-import './moduleAlias';
+import './lib/moduleAlias'; // must be first import of entry point
 
-import { server } from './server';
+import { servers } from './servers';
 
-server();
+servers();
