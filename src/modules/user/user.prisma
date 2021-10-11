@@ -1,12 +1,21 @@
 enum UserRoles {
+  ADMIN
   PRODUCT_OWNER
   PROJECT_MANAGER
   TECHNICAL_LEAD
   SOFTWARE_DEVELOPER
 }
 
+enum CC {
+  IOT
+  CES
+  ADV_ENG
+}
+
 model User {
   id String @id @default(cuid())
+  
+  name String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -17,8 +26,12 @@ model User {
 
   role UserRoles @default(SOFTWARE_DEVELOPER)
 
+  cc            CC
   teams         Team[]
   projectsOwned Project[]
+  
+  chatsSent     Chat[] @relation(name: "ChatToSender")
+  chatsReceived Chat[] @relation(name: "ChatToRecipient")
 
   displayName String?
   bio         String?
@@ -39,4 +52,18 @@ model Project {
 
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String
+
+  @@map("projects")
+}
+
+model Chat {
+  id String @id @default(cuid())
+
+  from   User   @relation(name: "ChatToSender", fields: [fromId], references: [id])
+  fromId String
+  
+  to   User?   @relation(name: "ChatToRecipient", fields: [toId], references: [id])
+  toId String?
+  
+  @@map("chats")
 }

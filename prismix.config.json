@@ -8,7 +8,8 @@
         "./src/modules/projects/projects.prisma",
         "./src/modules/board/board.prisma",
         "./src/modules/list/list.prisma",
-        "./src/modules/task/task.prisma"
+        "./src/modules/task/task.prisma",
+        "./src/modules/chat/chat.prisma"
       ],
       "output": "prisma/schema.prisma"
     }

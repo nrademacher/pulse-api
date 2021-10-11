@@ -1,35 +1,54 @@
-import type { Resolvers } from '@/types/graphql'
-import type { ResolverContext } from '@/context'
+import type { MutationResolvers } from '@/types/graphql';
+import type { ResolverContext } from '@/context';
 
-import { AuthenticationError } from 'apollo-server'
-import { db } from '@/database'
-import * as bcrypt from 'bcrypt'
+import { AuthenticationError } from 'apollo-server-express';
+import * as bcrypt from 'bcrypt';
 
-export const UserMutations: Resolvers<ResolverContext> = {
-  Mutation: {
-    createUser: async (_parent, args, _context) => {
-      const { email, password, name, displayName, bio, role } = args
+import { db } from '@/services';
 
-      if (!email || !password) {
-        throw new AuthenticationError('missing_credentials')
-      }
+export const UserMutations: MutationResolvers<ResolverContext> = {
+  createUser: async (_parent, args, _context) => {
+    const { email, password, cc, name, displayName, bio, role } = args;
 
-      const exisitingUser = await db.user.findUnique({ where: { email } })
+    if (!email || !password) {
+      throw new AuthenticationError('missing_credentials');
+    }
 
-      if (exisitingUser) throw new AuthenticationError('failed_to_create_user')
+    const exisitingUser = await db.user.findUnique({ where: { email } });
 
-      const hash = bcrypt.hashSync(password || '', 10)
+    if (exisitingUser) throw new AuthenticationError('user_already_exists');
 
-      return await db.user.create({
-        data: {
-          email,
-          passwordHash: hash,
-          name,
-          displayName,
-          bio,
-          role: role!,
-        },
-      })
-    },
+    const hash = bcrypt.hashSync(password || '', 10);
+
+    return await db.user.create({
+      data: {
+        email,
+        cc,
+        name,
+        displayName,
+        bio,
+        role: role!,
+        verified: false,
+        passwordHash: hash,
+      },
+    });
   },
-}
+  verifyUser: async (_parent, args, context) => {
+    if (!context?.userId) throw new AuthenticationError('no_auth_token');
+
+    if (context?.userRole !== 'ADMIN') {
+      throw new AuthenticationError('no_permission');
+    }
+
+    const exisitingUser = await db.user.findUnique({
+      where: { email: args.userEmail },
+    });
+
+    if (!exisitingUser) throw new AuthenticationError('user_does_not_exist');
+
+    return await db.user.update({
+      where: { email: args.userEmail },
+      data: { verified: true },
+    });
+  },
+};

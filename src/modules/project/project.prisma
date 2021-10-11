@@ -13,6 +13,8 @@ model Project {
   ownerId String
 
   boards Board[]
+
+  @@map("projects")
 }
 
 model Board {
