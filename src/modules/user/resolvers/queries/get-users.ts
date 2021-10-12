@@ -1,8 +1,8 @@
 import { AuthenticationError } from 'apollo-server-express';
-import type { QueryResolvers } from '@/types/graphql';
-import type { ResolverContext } from '@/context';
+import type { QueryResolvers } from '#internal/types/graphql';
+import type { ResolverContext } from '#internal/lib';
 
-import { database } from '@/services';
+import { database } from '#internal/services';
 
 export const GetUsersQueries: QueryResolvers<ResolverContext> = {
   getSelf: async (_parent, _arguments, context) => {

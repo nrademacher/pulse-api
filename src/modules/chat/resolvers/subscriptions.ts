@@ -1,7 +1,7 @@
-import type { Chat, SubscriptionResolvers } from '@/types/graphql';
-import type { ResolverContext } from '@/context';
+import type { Chat, SubscriptionResolvers } from '#internal/types/graphql';
+import type { ResolverContext } from '#internal/lib';
 
-import { pubsub } from '@/services';
+import { pubsub } from '#internal/services';
 
 export const ChatSubscriptions: SubscriptionResolvers<ResolverContext> = {
   subscribeToChannel: {

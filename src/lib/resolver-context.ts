@@ -2,7 +2,7 @@ import type { ServerResponse } from 'node:http';
 
 import * as jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
-import { config } from './lib';
+import { config } from './config';
 
 export interface ResolverContext {
   isAuthed: boolean;
@@ -10,8 +10,8 @@ export interface ResolverContext {
   userRole?: string;
 }
 
-export const context = async ({ req }: ServerResponse) => {
-  const context_: ResolverContext = {
+export async function createResolverContext({ req }: ServerResponse) {
+  const resolverContext: ResolverContext = {
     isAuthed: false,
   };
 
@@ -23,12 +23,12 @@ export const context = async ({ req }: ServerResponse) => {
     try {
       const decoded = jwt.verify(token, config.TOKEN_SECRET);
 
-      if (typeof decoded === 'string') return context_;
+      if (typeof decoded === 'string') return resolverContext;
 
       if (decoded.userId) {
-        context_.isAuthed = true;
-        context_.userId = decoded.userId;
-        context_.userRole = decoded.userRole;
+        resolverContext.isAuthed = true;
+        resolverContext.userId = decoded.userId;
+        resolverContext.userRole = decoded.userRole;
       }
     } catch (error) {
       const message =
@@ -39,6 +39,6 @@ export const context = async ({ req }: ServerResponse) => {
       throw new GraphQLError(message);
     }
 
-    return context_;
+    return resolverContext;
   }
-};
+}

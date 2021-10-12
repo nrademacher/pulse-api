@@ -1,5 +1,5 @@
 import merge from 'lodash.merge';
-import type { Resolvers } from '@/types/graphql';
+import type { Resolvers } from '#internal/types/graphql';
 
 export function mergeResolvers(...resolversArray: Resolvers[]): Resolvers {
   if (resolversArray.length === 1) {

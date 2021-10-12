@@ -1,5 +1,5 @@
-import type { Resolvers } from '@/types/graphql';
-import type { ResolverContext } from '@/context';
+import type { Resolvers } from '#internal/types/graphql';
+import type { ResolverContext } from '#internal/lib';
 
 import { ChatQueries } from './queries';
 import { ChatMutations } from './mutations';

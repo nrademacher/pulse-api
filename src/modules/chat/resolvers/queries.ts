@@ -1,8 +1,8 @@
 import { AuthenticationError } from 'apollo-server-express';
-import type { Resolvers } from '@/types/graphql';
-import type { ResolverContext } from '@/context';
+import type { Resolvers } from '#internal/types/graphql';
+import type { ResolverContext } from '#internal/lib';
 
-import { database } from '@/services';
+import { database } from '#internal/services';
 
 export const ChatQueries: Resolvers<ResolverContext> = {
   Query: {

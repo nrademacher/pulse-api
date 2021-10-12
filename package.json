@@ -1,7 +1,7 @@
 {
-  "name": "spark-api",
+  "name": "synergy-api",
   "version": "1.0.0",
-  "description": "API for Spark",
+  "description": "API for Synergy",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -13,14 +13,21 @@
     "prisma:migrate:prod": "DB_ENV=prod primsa migrate dev && prisma migrate deploy",
     "prisma": "yarn prismix && yarn prisma:generate && yarn prisma:migrate",
     "prisma:studio": "prisma studio",
-    "dev": "concurrently \"ts-node-dev --no-notify --respawn --transpile-only src\" \"yarn codegen --watch\"",
+    "dev": "concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/servers\" \"yarn codegen --watch\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|prisma|graphql)\" --write",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "test": "DB_ENV=test jest -i",
     "build": "tsc",
     "postbuild": "cpy '**/*.graphql' '../dist' --cwd=src --parents",
-    "start": "node dist",
-    "start:prod": "DB_ENV=prod node dist"
+    "start": "node dist/servers",
+    "start:prod": "DB_ENV=prod node dist/servers"
+  },
+  "imports": {
+    "#internal/lib": "./src/lib/index.ts",
+    "#internal/modules": "./src/modules/index.ts",
+    "#internal/types": "./src/types/index.ts",
+    "#internal/utils": "./src/utils/index.ts",
+    "#internal/*": "./src/*.ts"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.2.0",
@@ -30,7 +37,6 @@
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.0.2",
     "@types/lodash.merge": "^4.6.6",
-    "@types/module-alias": "^2.0.1",
     "@types/node": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -62,7 +68,6 @@
     "graphql-subscriptions": "^1.2.1",
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
-    "module-alias": "^2.2.2",
     "subscriptions-transport-ws": "^0.9.19"
   }
 }
