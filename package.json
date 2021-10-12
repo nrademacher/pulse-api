@@ -22,18 +22,11 @@
     "start": "node dist/servers",
     "start:prod": "DB_ENV=prod node dist/servers"
   },
-  "imports": {
-    "#internal/lib": "./src/lib/index.ts",
-    "#internal/modules": "./src/modules/index.ts",
-    "#internal/types": "./src/types/index.ts",
-    "#internal/utils": "./src/utils/index.ts",
-    "#internal/*": "./src/*.ts"
-  },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/typescript": "^2.2.2",
     "@graphql-codegen/typescript-resolvers": "^2.2.1",
-    "@nrademacher/prepend-cli": "^1.0.10",
+    "@nrademacher/file-ops-cli": "^2.0.0",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.0.2",
     "@types/lodash.merge": "^4.6.6",
@@ -69,5 +62,17 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
     "subscriptions-transport-ws": "^0.9.19"
+  },
+  "imports": {
+    "#internal/lib": "./src/lib/index.ts",
+    "#internal/modules": "./src/modules/index.ts",
+    "#internal/types": "./src/types/index.ts",
+    "#internal/utils": "./src/utils/index.ts",
+    "#internal/*": "./src/*.ts",
+    "#internal_compiled/lib": "./dist/lib/index.js",
+    "#internal_compiled/modules": "./dist/modules/index.js",
+    "#internal_compiled/types": "./dist/types/index.js",
+    "#internal_compiled/utils": "./dist/utils/index.js",
+    "#internal_compiled/*": "./dist/*.js"
   }
 }

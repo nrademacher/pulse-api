@@ -1,49 +1,6 @@
-import express from 'express';
-import { createServer } from 'node:http';
+import { PrismaClient } from '@prisma/client';
+import { PubSub } from 'graphql-subscriptions';
 
-import { SubscriptionServer } from 'subscriptions-transport-ws';
-import { execute, subscribe } from 'graphql';
+export const database = new PrismaClient();
 
-import { ApolloServer } from 'apollo-server-express';
-import { schema } from './schema';
-import { createResolverContext, config } from './lib';
-import { formatError } from './utils';
-
-(async () => {
-  const app = express();
-
-  const httpServer = createServer(app);
-
-  const subscriptionServer = SubscriptionServer.create(
-    { schema, execute, subscribe },
-    { server: httpServer, path: '/graphql' },
-  );
-
-  const apolloServer = new ApolloServer({
-    schema,
-    context: createResolverContext,
-    formatError,
-    plugins: [
-      {
-        async serverWillStart() {
-          return {
-            async drainServer() {
-              subscriptionServer.close();
-            },
-          };
-        },
-      },
-    ],
-  });
-
-  await apolloServer.start();
-
-  apolloServer.applyMiddleware({ app });
-
-  httpServer.listen(config.PORT, () => {
-    console.log(`Express running on port ${config.PORT}`);
-    console.log(
-      `GraphQl server at http://localhost:${config.PORT}${apolloServer.graphqlPath}`,
-    );
-  });
-})();
+export const pubsub = new PubSub();
