@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "codegen": "graphql-codegen",
-    "postcodegen": "prepend '// @ts-nocheck\n' src/types/graphql.ts",
+    "postcodegen": "file-ops prepend '// @ts-nocheck\n' src/types/graphql.ts",
     "prismix": "prismix && prisma format",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
@@ -18,7 +18,9 @@
     "lint": "eslint \"src/**/*.ts\" --fix",
     "test": "DB_ENV=test jest -i",
     "build": "tsc",
-    "postbuild": "cpy '**/*.graphql' '../dist' --cwd=src --parents",
+    "copy-graphql-to-dist": "cpy '**/*.graphql' '../dist' --cwd=src --parents",
+    "replace-dist-import-aliases": "file-ops fnr '#internal' '#internal_compiled' 'dist/**/*.js'",
+    "postbuild": "yarn copy-graphql-to-dist && yarn replace-dist-import-aliases",
     "start": "node dist/servers",
     "start:prod": "DB_ENV=prod node dist/servers"
   },
@@ -26,7 +28,7 @@
     "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/typescript": "^2.2.2",
     "@graphql-codegen/typescript-resolvers": "^2.2.1",
-    "@nrademacher/file-ops-cli": "^2.0.0",
+    "@nrademacher/file-ops-cli": "^2.4.5",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.0.2",
     "@types/lodash.merge": "^4.6.6",

@@ -1225,19 +1225,15 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nrademacher/file-ops-cli@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@nrademacher/file-ops-cli/-/file-ops-cli-2.0.0.tgz#9d650dd53064d7b4d1e461f7234fd630acb90652"
-  integrity sha512-bclfVKxe1KeEMqExBMLihJUQ1DnQ9SmfkX6/hXyxGq001y0uU0FUSqUYpW3+Q3ufD3eBVjPRVeRQF003J/KuOg==
+"@nrademacher/file-ops-cli@^2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@nrademacher/file-ops-cli/-/file-ops-cli-2.4.5.tgz#da8ad2eec28edbd8a7b19d678afa59ad0942bf05"
+  integrity sha512-H0CQlVcxWG05B7qU3tVqJfYXXOYCUVgvETdonlx9quv+jaC09vT5db6DPR5tD19n9gsoTl53gOqHHIF6ub4baQ==
   dependencies:
     glob "^7.2.0"
+    picocolors "^0.2.1"
     replace "^1.2.1"
     semver "^7.3.5"
-
-"@nrademacher/prepend-cli@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@nrademacher/prepend-cli/-/prepend-cli-1.0.10.tgz"
-  integrity sha512-rSBjetjKjEcM/i3Va59n5GFtgkRSy75SWHT+T2lpAprKhYyu++yV0sgHtFZUIm2w3F7k1K1Jj7EIFQO/x5jfWQ==
 
 "@oclif/command@^1.5.20", "@oclif/command@^1.8.0":
   version "1.8.0"
