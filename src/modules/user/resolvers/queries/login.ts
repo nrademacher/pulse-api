@@ -1,12 +1,12 @@
 import { AuthenticationError } from 'apollo-server-express';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import type { QueryResolvers } from '@/types/graphql';
-import type { ResolverContext } from '@/context';
+import type { QueryResolvers } from '#internal/types';
+import type { ResolverContext } from '#internal/lib';
 
-import { database } from '@/services';
+import { database } from '#internal/services';
 
-import { config } from '@/lib';
+import { config } from '#internal/lib';
 
 export const LoginQuery: QueryResolvers<ResolverContext> = {
   login: async (_parent, arguments_) => {

@@ -1,9 +1,8 @@
 import { AuthenticationError } from 'apollo-server-express';
 import * as bcrypt from 'bcrypt';
-import type { MutationResolvers } from '@/types/graphql';
-import type { ResolverContext } from '@/context';
-
-import { database } from '@/services';
+import type { MutationResolvers } from '#internal/types/graphql';
+import type { ResolverContext } from '#internal/lib';
+import { database, pubsub } from '#internal/services';
 
 export const UserMutations: MutationResolvers<ResolverContext> = {
   createUser: async (_parent, arguments_) => {
@@ -22,18 +21,24 @@ export const UserMutations: MutationResolvers<ResolverContext> = {
     let { role } = arguments_;
     if (!role) role = 'SOFTWARE_DEVELOPER';
 
-    return database.user.create({
-      data: {
-        email,
-        cc,
-        name,
-        displayName,
-        bio,
-        role,
-        verified: false,
-        passwordHash: hash,
-      },
+    const data = {
+      email,
+      cc,
+      name,
+      displayName,
+      bio,
+      role,
+      verified: false,
+      passwordHash: hash,
+    };
+
+    const newUser = await database.user.create({
+      data,
     });
+
+    pubsub.publish('SIGN_UP', newUser);
+
+    return newUser;
   },
   verifyUser: async (_parent, arguments_, context) => {
     if (!context?.userId) throw new AuthenticationError('no_auth_token');

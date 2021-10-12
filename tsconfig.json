@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
     "outDir": "dist",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
     "lib": ["esnext"],
     "paths": {
-      "@/*": ["./src/*"]
+      "#internal/*": ["./src/*"]
     }
-  }
+  },
+  "exclude": ["./jest.config.ts"]
 }

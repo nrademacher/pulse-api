@@ -1,3 +1,11 @@
+scalar DateTime
+
+enum CC {
+  ADV_ENG
+  CES
+  IOT
+}
+
 enum UserRoles {
   ADMIN
   PRODUCT_OWNER
@@ -5,14 +13,6 @@ enum UserRoles {
   TECHNICAL_LEAD
   SOFTWARE_DEVELOPER
 }
-
-enum CC {
-  IOT
-  CES
-  ADV_ENG
-}
-
-scalar DateTime
 
 type User {
   id: String!
@@ -47,4 +47,13 @@ type Mutation {
     role: UserRoles
   ): User!
   verifyUser(userEmail: String!): User!
+}
+
+enum UserEvents {
+  SIGN_UP
+  LOG_IN
+}
+
+type Subscription {
+  subscribeToUserEvent(event: UserEvents!): User
 }

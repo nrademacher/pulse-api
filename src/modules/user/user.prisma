@@ -1,12 +1,12 @@
 model User {
   id String @id @default(cuid())
-  
+
   name String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email        String   @unique
+  email        String  @unique
   passwordHash String
   verified     Boolean
 
@@ -15,7 +15,7 @@ model User {
   cc            CC
   teams         Team[]
   projectsOwned Project[]
-  
+
   chatsSent     Chat[] @relation(name: "ChatToSender")
   chatsReceived Chat[] @relation(name: "ChatToRecipient")
 
@@ -26,8 +26,8 @@ model User {
 }
 
 enum UserEvents {
- SIGN_UP
- LOG_IN
+  SIGN_UP
+  LOG_IN
 }
 
 enum UserRoles {
@@ -43,7 +43,6 @@ enum CC {
   CES
   ADV_ENG
 }
-
 
 model Team {
   id String @id @default(cuid())
@@ -67,9 +66,9 @@ model Chat {
 
   from   User   @relation(name: "ChatToSender", fields: [fromId], references: [id])
   fromId String
-  
+
   to   User?   @relation(name: "ChatToRecipient", fields: [toId], references: [id])
   toId String?
-  
+
   @@map("chats")
 }
