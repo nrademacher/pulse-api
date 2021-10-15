@@ -2,7 +2,7 @@ import { AuthenticationError } from 'apollo-server-express';
 import type { QueryResolvers } from '#internal/types/graphql';
 import type { ResolverContext } from '#internal/lib';
 
-import { database } from '#internal/services';
+import { database, resolversStore } from '#internal/services';
 
 export const GetUsersQueries: QueryResolvers<ResolverContext> = {
   getSelf: async (_parent, _arguments, context) => {
@@ -21,3 +21,5 @@ export const GetUsersQueries: QueryResolvers<ResolverContext> = {
     return database.user.findUnique({ where: { email: arguments_.email } });
   },
 };
+
+resolversStore.add('queries', GetUsersQueries);

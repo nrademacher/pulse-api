@@ -4,11 +4,11 @@ import * as jwt from 'jsonwebtoken';
 import type { QueryResolvers } from '#internal/types';
 import type { ResolverContext } from '#internal/lib';
 
-import { database } from '#internal/services';
+import { database, resolversStore } from '#internal/services';
 
 import { config } from '#internal/lib';
 
-export const LoginQuery: QueryResolvers<ResolverContext> = {
+const LoginQuery: QueryResolvers<ResolverContext> = {
   login: async (_parent, arguments_) => {
     if (!arguments_.email || !arguments_.password) {
       throw new AuthenticationError('missing_credentials');
@@ -30,3 +30,5 @@ export const LoginQuery: QueryResolvers<ResolverContext> = {
     );
   },
 };
+
+resolversStore.add('queries', LoginQuery);
