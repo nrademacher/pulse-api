@@ -5,9 +5,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 
 import { ApolloServer } from 'apollo-server-express';
-import { schema } from './schema';
-import { createResolverContext, config } from './lib';
-import { formatError } from './utils';
+import { schema, context, config, formatError } from './lib';
 
 (async () => {
   const app = express();
@@ -21,7 +19,7 @@ import { formatError } from './utils';
 
   const apolloServer = new ApolloServer({
     schema,
-    context: createResolverContext,
+    context,
     formatError,
     plugins: [
       {
