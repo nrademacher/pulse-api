@@ -4,7 +4,7 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { addResolversToSchema } from '@graphql-tools/schema';
 import { resolversStore } from '#internal/services';
 
-const baseSchema = loadSchemaSync(join(__dirname, 'modules/**/*.graphql'), {
+const baseSchema = loadSchemaSync(join(__dirname, '../modules/**/*.graphql'), {
   loaders: [new GraphQLFileLoader()],
 });
 

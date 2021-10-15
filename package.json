@@ -20,7 +20,7 @@
     "build": "tsc",
     "copy-graphql-files-to-dist": "cpy '**/*.graphql' '../dist' --cwd=src --parents",
     "replace-dist-import-aliases": "file-ops fnr '#internal' '#internal_compiled' 'dist/**/*.js'",
-    "postbuild": "yarn copy-graphql-to-dist && yarn replace-dist-import-aliases",
+    "postbuild": "yarn copy-graphql-files-to-dist && yarn replace-dist-import-aliases",
     "start": "node dist/servers",
     "start:prod": "DB_ENV=prod node dist/servers"
   },

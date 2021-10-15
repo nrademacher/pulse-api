@@ -7,7 +7,7 @@ import type {
 
 import merge from 'lodash.merge';
 
-type ResolverTypeArgs = 'queries' | 'mutations' | 'subscriptions';
+type ResolverTypeArguments = 'queries' | 'mutations' | 'subscriptions';
 
 type ResolverTypes = QueryResolvers | MutationResolvers | SubscriptionResolvers;
 
@@ -18,14 +18,14 @@ export class ResolversStore {
     this.store = resolvers;
   }
 
-  add(resolversType: ResolverTypeArgs, newResolvers: ResolverTypes) {
+  add(resolversType: ResolverTypeArguments, newResolvers: ResolverTypes) {
     const typeStringSliceEndPos = resolversType === 'queries' ? -3 : -1;
 
-    const typePropString =
+    const typePropertyString =
       resolversType.charAt(0).toUpperCase() +
       resolversType.slice(1, typeStringSliceEndPos);
 
-    const resolvers = { [typePropString]: newResolvers };
+    const resolvers = { [typePropertyString]: newResolvers };
 
     const mergedResolvers = merge(this.store, resolvers);
 
