@@ -3,6 +3,9 @@ import type { ServerResponse } from 'node:http';
 import * as jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
 import { config } from './config';
+import { Resolvers } from '#internal/types';
+
+export const resolvers: Resolvers = {};
 
 export interface ResolverContext {
   isAuthed: boolean;

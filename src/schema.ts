@@ -1,19 +1,14 @@
 import { loadSchemaSync } from '@graphql-tools/load';
 import { join } from 'node:path';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
-import { mergeResolvers } from './utils';
-import { UserResolvers, ProjectResolvers, ChatResolvers } from './modules';
 import { addResolversToSchema } from '@graphql-tools/schema';
+import { resolversStore } from './services';
 
 const baseSchema = loadSchemaSync(join(__dirname, 'modules/**/*.graphql'), {
   loaders: [new GraphQLFileLoader()],
 });
 
-const resolvers = mergeResolvers(
-  UserResolvers,
-  ProjectResolvers,
-  ChatResolvers,
-);
+const { resolvers } = resolversStore;
 
 export const schema = addResolversToSchema({
   schema: baseSchema,

@@ -2,9 +2,9 @@ import { AuthenticationError } from 'apollo-server-express';
 import * as bcrypt from 'bcrypt';
 import type { MutationResolvers } from '#internal/types/graphql';
 import type { ResolverContext } from '#internal/lib';
-import { database, pubsub } from '#internal/services';
+import { database, pubsub, resolversStore } from '#internal/services';
 
-export const UserMutations: MutationResolvers<ResolverContext> = {
+const UserMutations: MutationResolvers<ResolverContext> = {
   createUser: async (_parent, arguments_) => {
     const { email, password, cc, name, displayName, bio } = arguments_;
 
@@ -59,3 +59,5 @@ export const UserMutations: MutationResolvers<ResolverContext> = {
     });
   },
 };
+
+resolversStore.add('subscriptions', UserMutations);

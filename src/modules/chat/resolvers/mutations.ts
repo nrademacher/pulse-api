@@ -2,9 +2,9 @@ import { AuthenticationError } from 'apollo-server-express';
 import type { MutationResolvers } from '#internal/types/graphql';
 import type { ResolverContext } from '#internal/lib';
 
-import { database, pubsub } from '#internal/services';
+import { database, pubsub, resolversStore } from '#internal/services';
 
-export const ChatMutations: MutationResolvers<ResolverContext> = {
+const ChatMutations: MutationResolvers<ResolverContext> = {
   sendMessage: async (
     _parent,
     { recipientEmail, message, channel },
@@ -42,3 +42,5 @@ export const ChatMutations: MutationResolvers<ResolverContext> = {
     });
   },
 };
+
+resolversStore.add('mutations', ChatMutations);
