@@ -1,13 +1,9 @@
-import type { SubscriptionResolvers, User } from '#internal/types/graphql';
-import type { ResolverContext } from '#internal/lib';
-
 import { pubsub, resolversStore } from '#internal/services';
+import type { User } from '#internal/types';
 
-const UserSubscriptions: SubscriptionResolvers<ResolverContext> = {
+resolversStore.add('subscriptions', {
   subscribeToUserEvent: {
     subscribe: (_parent, { event }) => pubsub.asyncIterator([event]),
     resolve: async (payload: User) => payload,
   },
-};
-
-resolversStore.add('subscriptions', UserSubscriptions);
+});

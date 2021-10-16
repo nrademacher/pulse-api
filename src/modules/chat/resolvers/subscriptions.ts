@@ -1,9 +1,7 @@
-import type { Chat, SubscriptionResolvers } from '#internal/types/graphql';
-import type { ResolverContext } from '#internal/lib';
-
 import { pubsub, resolversStore } from '#internal/services';
+import type { Chat } from '#internal/types';
 
-const ChatSubscriptions: SubscriptionResolvers<ResolverContext> = {
+resolversStore.add('subscriptions', {
   subscribeToChannel: {
     subscribe: (_parent, { channel }) => {
       if (!channel) channel = 'ALL';
@@ -14,6 +12,4 @@ const ChatSubscriptions: SubscriptionResolvers<ResolverContext> = {
       return payload;
     },
   },
-};
-
-resolversStore.add('subscriptions', ChatSubscriptions);
+});

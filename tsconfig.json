@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
     "outDir": "dist",
     "target": "es5",
     "moduleResolution": "node",
@@ -11,5 +10,6 @@
       "#internal/*": ["./src/*"]
     }
   },
+  "include": ["./src/**/*.ts", "./test/**/*.ts"],
   "exclude": ["./jest.config.ts"]
 }
