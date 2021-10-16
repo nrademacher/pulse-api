@@ -1,10 +1,7 @@
 import { AuthenticationError } from 'apollo-server-express';
-import type { QueryResolvers } from '#internal/types/graphql';
-import type { ResolverContext } from '#internal/lib';
-
 import { database, resolversStore } from '#internal/services';
 
-export const GetUsersQueries: QueryResolvers<ResolverContext> = {
+resolversStore.add('queries', {
   getSelf: async (_parent, _arguments, context) => {
     if (!context?.userId) throw new AuthenticationError('missing_token');
 
@@ -20,6 +17,4 @@ export const GetUsersQueries: QueryResolvers<ResolverContext> = {
 
     return database.user.findUnique({ where: { email: arguments_.email } });
   },
-};
-
-resolversStore.add('queries', GetUsersQueries);
+});

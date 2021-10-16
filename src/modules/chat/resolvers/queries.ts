@@ -1,10 +1,7 @@
 import { AuthenticationError } from 'apollo-server-express';
-import type { QueryResolvers } from '#internal/types/graphql';
-import type { ResolverContext } from '#internal/lib';
-
 import { database, resolversStore } from '#internal/services';
 
-const ChatQueries: QueryResolvers<ResolverContext> = {
+resolversStore.add('queries', {
   getOwnChats: async (_parent, _arguments, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
 
@@ -14,6 +11,4 @@ const ChatQueries: QueryResolvers<ResolverContext> = {
       },
     });
   },
-};
-
-resolversStore.add('queries', ChatQueries);
+});

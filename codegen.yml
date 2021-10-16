@@ -12,6 +12,7 @@ generates:
       allowParentTypeOverride: true
       operationResultSuffix: 'Result'
       maybeValue: 'T | undefined | null'
+      makeResolverTypeCallable: true
     plugins:
       - typescript
       - typescript-resolvers

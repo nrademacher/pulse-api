@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
     "outDir": "dist",
     "target": "es5",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
     "lib": ["esnext"],
-    "paths": {
-      "#internal/*": ["./src/*"]
-    }
-  },
-  "exclude": ["./jest.config.ts"]
+    "resolveJsonModule": true,
+    "paths": { "#internal/*": ["./src/*"] }
+  }
 }

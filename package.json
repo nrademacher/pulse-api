@@ -13,7 +13,7 @@
     "prisma:migrate:prod": "DB_ENV=prod primsa migrate dev && prisma migrate deploy",
     "prisma": "yarn prismix && yarn prisma:generate && yarn prisma:migrate",
     "prisma:studio": "prisma studio",
-    "dev": "concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/servers\" \"yarn codegen --watch\"",
+    "dev": "concurrently \"ts-node-dev --no-notify --respawn --transpile-only src\" \"yarn codegen --watch\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|prisma|graphql)\" --write",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "test": "DB_ENV=test jest -i",
@@ -22,7 +22,7 @@
     "replace-dist-import-aliases": "file-ops fnr '#internal' '#internal_compiled' 'dist/**/*.js'",
     "postbuild": "yarn copy-graphql-files-to-dist && yarn replace-dist-import-aliases",
     "start": "node dist/servers",
-    "start:prod": "DB_ENV=prod node dist/servers"
+    "start:prod": "DB_ENV=prod node dist"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.2.0",
@@ -46,9 +46,9 @@
     "prettier-plugin-prisma": "^3.1.1",
     "prisma": "^3.2.1",
     "prismix": "^1.0.19",
-    "ts-jest": "^27.0.5",
+    "ts-jest": "^27.0.6",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.1.0",

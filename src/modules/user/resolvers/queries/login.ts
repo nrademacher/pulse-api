@@ -1,14 +1,10 @@
 import { AuthenticationError } from 'apollo-server-express';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import type { QueryResolvers } from '#internal/types';
-import type { ResolverContext } from '#internal/lib';
-
 import { database, resolversStore } from '#internal/services';
-
 import { config } from '#internal/lib';
 
-const LoginQuery: QueryResolvers<ResolverContext> = {
+resolversStore.add('queries', {
   login: async (_parent, arguments_) => {
     if (!arguments_.email || !arguments_.password) {
       throw new AuthenticationError('missing_credentials');
@@ -29,6 +25,4 @@ const LoginQuery: QueryResolvers<ResolverContext> = {
       config.TOKEN_SECRET,
     );
   },
-};
-
-resolversStore.add('queries', LoginQuery);
+});

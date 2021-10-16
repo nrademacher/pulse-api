@@ -1,14 +1,12 @@
 import type {
-  MutationResolvers,
   QueryResolvers,
-  Resolvers,
+  MutationResolvers,
   SubscriptionResolvers,
+  Resolvers,
 } from '#internal/types';
-
 import merge from 'lodash.merge';
 
 type ResolverTypeArguments = 'queries' | 'mutations' | 'subscriptions';
-
 type ResolverTypes = QueryResolvers | MutationResolvers | SubscriptionResolvers;
 
 export class ResolversStore {
@@ -19,11 +17,13 @@ export class ResolversStore {
   }
 
   add(resolversType: ResolverTypeArguments, newResolvers: ResolverTypes) {
-    const typeStringSliceEndPos = resolversType === 'queries' ? -3 : -1;
+    const typeStringEndSlice =
+      resolversType === 'queries'
+        ? resolversType.slice(1, -3) + 'y'
+        : resolversType.slice(1, -1);
 
     const typePropertyString =
-      resolversType.charAt(0).toUpperCase() +
-      resolversType.slice(1, typeStringSliceEndPos);
+      resolversType.charAt(0).toUpperCase() + typeStringEndSlice;
 
     const resolvers = { [typePropertyString]: newResolvers };
 
