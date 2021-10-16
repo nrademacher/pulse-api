@@ -1,16 +1,16 @@
 import type { InitialOptionsTsJest } from 'ts-jest/dist/types';
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
-const { compilerOptions } = require('./tsconfig');
+import { pathsToModuleNameMapper } from 'ts-jest/utils';
 
 const config: InitialOptionsTsJest = {
   clearMocks: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>',
-  }),
-
-  // setupFilesAfterEnv: ['./test/singleton.ts'],
+  moduleNameMapper: pathsToModuleNameMapper(
+    { '#internal/*': ['./src/*'] },
+    {
+      prefix: '<rootDir>',
+    },
+  ),
 };
 
 export default config;

@@ -6,10 +6,10 @@
     "esModuleInterop": true,
     "strict": true,
     "lib": ["esnext"],
+    "resolveJsonModule": true,
     "paths": {
       "#internal/*": ["./src/*"]
     }
   },
-  "include": ["./src/**/*.ts", "./test/**/*.ts"],
-  "exclude": ["./jest.config.ts"]
+  "include": ["./src/**/*.ts", "./test/**/*.ts"]
 }
