@@ -7,9 +7,6 @@
     "strict": true,
     "lib": ["esnext"],
     "resolveJsonModule": true,
-    "paths": {
-      "#internal/*": ["./src/*"]
-    }
-  },
-  "include": ["./src/**/*.ts", "./test/**/*.ts"]
+    "paths": { "#internal/*": ["./src/*"] }
+  }
 }
