@@ -14,7 +14,7 @@ RUN yarn install --frozen-lockfile --no-progress
 
 COPY . ./
 
-RUN yarn prisma
+RUN yarn prisma:dev
 RUN yarn codegen
 
 RUN yarn build
