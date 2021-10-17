@@ -1,5 +1,5 @@
-import { prisma } from '../src/services';
-import { createUser } from '#internal/modules/user/resolvers/mutations/create-user';
+import { createUser } from '#internal/modules/user/prisma';
+import { prisma } from '#internal/services';
 
 beforeAll(async () => {
   await prisma.user.deleteMany();
@@ -10,7 +10,7 @@ afterAll(async () => {
 });
 
 describe('user creation', () => {
-  it('creates a new user in the prisma', async () => {
+  it('creates a new user in the database', async () => {
     await createUser({
       email: 'john@doe.com',
       role: 'ADMIN',

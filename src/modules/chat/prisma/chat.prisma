@@ -7,25 +7,25 @@ enum ChatChannels {
 }
 
 model Chat {
-  id     String @id @default(cuid())
+  id String @id @default(cuid())
 
   from   User   @relation(name: "ChatToSender", fields: [fromId], references: [id])
   fromId String
-  
+
   to   User?   @relation(name: "ChatToRecipient", fields: [toId], references: [id])
   toId String?
-  
+
   channel ChatChannels @default(ALL)
-  
+
   message String
 
   @@map("chats")
 }
 
 model User {
-  id   String @id @default(cuid())
-  
-  chatsSent Chat[] @relation(name: "ChatToSender")
+  id String @id @default(cuid())
+
+  chatsSent     Chat[] @relation(name: "ChatToSender")
   chatsReceived Chat[] @relation(name: "ChatToRecipient")
 
   @@map("users")
