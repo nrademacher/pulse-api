@@ -1,5 +1,5 @@
+import type { UserRoles } from '@prisma/client';
 import type { ServerResponse } from 'node:http';
-
 import * as jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
 import { config } from './config';
@@ -7,7 +7,7 @@ import { config } from './config';
 export interface ResolverContext {
   isAuthed: boolean;
   userId?: string;
-  userRole?: string;
+  userRole?: UserRoles;
 }
 
 export async function createResolverContext({ req }: ServerResponse) {

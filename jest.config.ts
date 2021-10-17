@@ -5,7 +5,6 @@ const config: InitialOptionsTsJest = {
   clearMocks: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
-  projects: ['./tsconfig.json'],
   moduleNameMapper: pathsToModuleNameMapper(
     { '#internal/*': ['./src/*'] },
     {

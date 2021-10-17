@@ -33,19 +33,16 @@ RUN yarn install --frozen-lockfile --production=true --no-progress
 FROM $node_image
 
 ENV DB_HOST=postgres
+ENV DB_ENV=prod
 
 WORKDIR /server/
 
 COPY --from=builder /builder/package.json /builder/.env ./
 COPY --from=production /production/node_modules ./node_modules
 COPY --from=builder /builder/dist ./dist
-
-RUN mkdir -p prisma/migrations
-
 COPY --from=builder /builder/prisma/schema.prisma ./prisma
-COPY --from=builder /builder/prisma/migrations ./prisma
 
 RUN yarn prisma:migrate:prod
 RUN yarn prisma:generate
 
-CMD yarn start:prod
+CMD yarn start

@@ -9,7 +9,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { context, config, formatError } from './lib';
 import { schema } from './schema';
 
-export async function startServers() {
+(async () => {
   const app = express();
 
   const httpServer = createServer(app);
@@ -46,4 +46,4 @@ export async function startServers() {
       `GraphQl server at http://localhost:${config.PORT}${apolloServer.graphqlPath}`,
     );
   });
-}
+})();
