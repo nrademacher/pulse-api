@@ -1,4 +1,4 @@
-ARG node_version=14.17.8
+ARG node_version=14.17.5
 ARG node_image=node:${node_version}-alpine
 
 # STAGE 1
@@ -14,7 +14,8 @@ RUN yarn install --frozen-lockfile --no-progress
 
 COPY . ./
 
-RUN yarn prisma:dev
+RUN yarn prismix
+RUN yarn prisma:generate
 RUN yarn codegen
 
 RUN yarn build
@@ -40,9 +41,8 @@ WORKDIR /server/
 COPY --from=builder /builder/package.json /builder/.env ./
 COPY --from=production /production/node_modules ./node_modules
 COPY --from=builder /builder/dist ./dist
-COPY --from=builder /builder/prisma/schema.prisma ./prisma
+COPY --from=builder /builder/prisma/ ./
 
-RUN yarn prisma:migrate:prod
 RUN yarn prisma:generate
 
-CMD yarn start
+CMD yarn deploy
