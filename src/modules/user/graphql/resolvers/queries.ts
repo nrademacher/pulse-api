@@ -1,6 +1,11 @@
 import type { QueryResolvers } from '#internal/types';
 import type { ResolverContext } from '#internal/lib';
-import { getUserByEmail, getUserById, loginUser } from '../../prisma';
+import {
+  getUserByEmail,
+  getUserById,
+  getUsersByRole,
+  loginUser,
+} from '../../prisma';
 import { catchAuthError } from '#internal/utils';
 import { AuthenticationError } from 'apollo-server-express';
 
@@ -14,19 +19,24 @@ export const UserQueries: QueryResolvers<ResolverContext> = {
       catchAuthError(error, 'error_logging_in_user');
     }
   },
-  getSelf: async (_parent, _arguments, context) => {
-    if (!context?.userId) throw new AuthenticationError('missing_token');
+  getSelf: async (_parent, _arguments, { userId }) => {
+    if (!userId) throw new AuthenticationError('missing_token');
 
-    return await getUserById(context.userId);
+    return await getUserById(userId);
   },
-  getUserById: async (_parent, arguments_, context) => {
-    if (!context?.userId) throw new AuthenticationError('missing_token');
+  getUserById: async (_parent, { id }, { userId }) => {
+    if (!userId) throw new AuthenticationError('missing_token');
 
-    return await getUserById(arguments_.id);
+    return await getUserById(id);
   },
-  getUserByEmail: async (_parent, arguments_, context) => {
-    if (!context?.userId) throw new AuthenticationError('missing_token');
+  getUserByEmail: async (_parent, { email }, { userId }) => {
+    if (!userId) throw new AuthenticationError('missing_token');
 
-    return await getUserByEmail(arguments_.email);
+    return await getUserByEmail(email);
+  },
+  getUsersByRole: async (_parent, { role }, { userId }) => {
+    if (!userId) throw new AuthenticationError('missing_token');
+
+    return await getUsersByRole(role);
   },
 };

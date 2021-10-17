@@ -9,8 +9,10 @@ model Project {
   team   Team   @relation(fields: [teamId], references: [id])
   teamId String
 
-  owner   User   @relation(fields: [userId], references: [id])
-  ownerId String
+  owner   User   @relation(name: "ProjectToOwner", fields: [userId], references: [id])
+  ownerId String @relation
+
+  participants User[] @relation(name: "ProjectToParticipants")
 
   boards Board[]
 
@@ -34,4 +36,5 @@ model User {
   id String @id @default(cuid())
 
   projectsOwned Project[]
+  projects      Project[] @relation(name: "ProjectToParticipants")
 }

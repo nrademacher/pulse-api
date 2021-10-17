@@ -12,9 +12,11 @@ model User {
 
   role UserRoles @default(SOFTWARE_DEVELOPER)
 
-  cc            CC
-  teams         Team[]
-  projectsOwned Project[]
+  cc    CC
+  teams Team[]
+
+  projects      Project[] @relation(name: "ProjectToParticipants")
+  projectsOwned Project[] @relation(name: "ProjectToOwner")
 
   chatsSent     Chat[] @relation(name: "ChatToSender")
   chatsReceived Chat[] @relation(name: "ChatToRecipient")
@@ -55,8 +57,10 @@ model Team {
 model Project {
   id String @id @default(cuid())
 
-  owner   User   @relation(fields: [ownerId], references: [id])
+  owner   User   @relation(name: "ProjectToOwner", fields: [ownerId], references: [id])
   ownerId String
+
+  participants User[] @relation(name: "ProjectToParticipants")
 
   @@map("projects")
 }
