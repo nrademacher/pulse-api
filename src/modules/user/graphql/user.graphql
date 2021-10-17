@@ -30,14 +30,14 @@ type User {
 }
 
 type Query {
-  login(email: String!, password: String!): String!
+  login(email: String!, password: String!): String
   getSelf: User!
   getUserById(id: String!): User!
   getUserByEmail(email: String!): User!
 }
 
 type Mutation {
-  createUser(
+  signUpUser(
     email: String!
     password: String!
     cc: CC!

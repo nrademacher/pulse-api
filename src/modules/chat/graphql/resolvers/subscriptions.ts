@@ -1,7 +1,7 @@
-import { pubsub, resolversStore } from '#internal/services';
-import type { Chat } from '#internal/types';
+import type { Chat, SubscriptionResolvers } from '#internal/types';
+import { pubsub } from '#internal/services';
 
-resolversStore.add('subscriptions', {
+export const ChatSubscriptions: SubscriptionResolvers = {
   subscribeToChannel: {
     subscribe: (_parent, { channel }) => {
       if (!channel) channel = 'ALL';
@@ -12,4 +12,4 @@ resolversStore.add('subscriptions', {
       return payload;
     },
   },
-});
+};

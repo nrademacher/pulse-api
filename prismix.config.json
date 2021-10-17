@@ -3,13 +3,13 @@
     {
       "input": [
         "./prisma/datasource.prisma",
-        "./src/modules/user/user.prisma",
+        "./src/modules/user/prisma/user.prisma",
         "./src/modules/team/team.prisma",
         "./src/modules/projects/projects.prisma",
         "./src/modules/board/board.prisma",
         "./src/modules/list/list.prisma",
         "./src/modules/task/task.prisma",
-        "./src/modules/chat/chat.prisma"
+        "./src/modules/chat/prisma/chat.prisma"
       ],
       "output": "prisma/schema.prisma"
     }

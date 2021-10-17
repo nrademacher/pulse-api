@@ -2,7 +2,7 @@ import { loadSchemaSync } from '@graphql-tools/load';
 import { join } from 'node:path';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { addResolversToSchema } from '@graphql-tools/schema';
-import { resolversStore } from './services';
+import { resolvers } from './modules';
 
 const baseSchema = loadSchemaSync(join(__dirname, 'modules/**/*.graphql'), {
   loaders: [new GraphQLFileLoader()],
@@ -10,5 +10,5 @@ const baseSchema = loadSchemaSync(join(__dirname, 'modules/**/*.graphql'), {
 
 export const schema = addResolversToSchema({
   schema: baseSchema,
-  resolvers: resolversStore.resolvers,
+  resolvers,
 });

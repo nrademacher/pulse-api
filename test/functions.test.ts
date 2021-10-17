@@ -1,40 +1,29 @@
-import '../src/modules/user';
-import { database, resolversStore } from '../src/services';
-import { GraphQLResolveInfo } from 'graphql';
+import { prisma } from '../src/services';
+import { createUser } from '#internal/modules/user/resolvers/mutations/create-user';
 
-const { resolvers } = resolversStore;
-const { Mutation } = resolvers;
-const mutationResolvers = { ...Mutation };
-
-beforeAll(async () => await database.user.deleteMany());
+beforeAll(async () => {
+  await prisma.user.deleteMany();
+});
 
 afterAll(async () => {
-  await database.user.deleteMany();
-
-  database.$disconnect;
+  await prisma.user.deleteMany();
 });
 
 describe('user creation', () => {
-  const { createUser } = mutationResolvers;
-
-  it('should create new user ', async () => {
-    let result;
-
-    if (createUser) {
-      result = await createUser(
-        {},
-        { email: 'john@doe', role: 'ADMIN', password: '123313', cc: 'ADV_ENG' },
-        { isAuthed: false },
-        {} as GraphQLResolveInfo,
-      );
-    } else {
-      console.log('FAIL');
-    }
-
-    expect(result).toEqual({
-      id: 1,
-      name: 'Rich',
-      email: 'hello@prisma.io',
+  it('creates a new user in the prisma', async () => {
+    await createUser({
+      email: 'john@doe.com',
+      role: 'ADMIN',
+      password: '123313',
+      cc: 'ADV_ENG',
     });
+
+    const result = await prisma.user.findUnique({
+      where: { email: 'john@doe.com' },
+    });
+
+    expect(result).toHaveProperty('email', 'john@doe.com');
+    expect(result).toHaveProperty('role', 'ADMIN');
+    expect(result).toHaveProperty('cc', 'ADV_ENG');
   });
 });
