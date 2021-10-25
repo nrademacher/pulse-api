@@ -45,4 +45,6 @@ COPY --from=builder /builder/prisma/ ./
 
 RUN yarn prisma:generate
 
+EXPOSE 4000
+
 CMD yarn deploy

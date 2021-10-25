@@ -1,11 +1,33 @@
 import { prisma } from '#internal/services';
 
-export function getOwnChats(userId: string) {
-  if (!userId) throw new Error('missing_token');
-
-  return prisma.chat.findMany({
+export async function getMessage(messageId: string) {
+  return await prisma.chat.findUnique({
     where: {
-      fromId: userId,
+      id: messageId,
+    },
+    include: {
+      from: true,
+    },
+  });
+}
+
+export async function getAllChats() {
+  return await prisma.chat.findMany({
+    include: {
+      from: true,
+    },
+  });
+}
+
+export async function getUserChats(userId: string) {
+  return await prisma.chat.findMany({
+    where: {
+      from: {
+        id: userId,
+      },
+    },
+    include: {
+      from: true,
     },
   });
 }

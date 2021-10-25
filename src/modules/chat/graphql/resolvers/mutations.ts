@@ -17,9 +17,9 @@ export const ChatMutations: MutationResolvers = {
         message,
       });
 
-      const { fromId, toId, channel: pubChannel } = newMessage;
+      const { id, from, to, channel: pubChannel } = newMessage;
 
-      pubsub.publish(pubChannel, { message, fromId, toId, channel });
+      pubsub.publish(pubChannel, { message, id, from, to, channel });
 
       return newMessage;
     } catch (error) {

@@ -14,6 +14,11 @@ enum UserRoles {
   SOFTWARE_DEVELOPER
 }
 
+enum UserEvents {
+  SIGN_UP
+  LOG_IN
+}
+
 type User {
   id: String!
   createdAt: DateTime!
@@ -34,11 +39,11 @@ type User {
 
 type Query {
   login(email: String!, password: String!): String
-  getSelf: User!
-  getUserById(id: String!): User!
-  getUserByEmail(email: String!): User!
-  getUsersByRole(role: UserRoles!): [User!]!
-  getUsersByCC(role: CC!): [User!]!
+  self: User!
+  userById(id: String!): User!
+  userByEmail(email: String!): User!
+  usersByRole(role: UserRoles!): [User!]!
+  usersByCC(cc: CC!): [User!]!
 }
 
 type Mutation {
@@ -52,11 +57,6 @@ type Mutation {
     role: UserRoles
   ): User!
   verifyUser(userEmail: String!): User!
-}
-
-enum UserEvents {
-  SIGN_UP
-  LOG_IN
 }
 
 type Subscription {

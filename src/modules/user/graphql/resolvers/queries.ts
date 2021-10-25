@@ -1,10 +1,11 @@
-import type { QueryResolvers } from '#internal/types';
+import type { QueryResolvers, User } from '#internal/types';
 import type { ResolverContext } from '#internal/lib';
 import {
   getUserByEmail,
   getUserById,
   getUsersByRole,
   loginUser,
+  getUsersByCC,
 } from '../../prisma';
 import { catchAuthError } from '#internal/utils';
 import { AuthenticationError } from 'apollo-server-express';
@@ -19,24 +20,57 @@ export const UserQueries: QueryResolvers<ResolverContext> = {
       catchAuthError(error, 'error_logging_in_user');
     }
   },
-  getSelf: async (_parent, _arguments, { userId }) => {
+  self: async (_parent, _arguments, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
 
-    return await getUserById(userId);
+    try {
+      return await getUserById(userId);
+    } catch (error) {
+      catchAuthError(error, 'error_getting_user');
+    }
   },
-  getUserById: async (_parent, { id }, { userId }) => {
+  userById: async (_parent, { id }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
 
-    return await getUserById(id);
+    try {
+      return await getUserById(id);
+    } catch (error) {
+      catchAuthError(error, 'error_getting_user');
+    }
   },
-  getUserByEmail: async (_parent, { email }, { userId }) => {
+  userByEmail: async (_parent, { email }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
 
-    return await getUserByEmail(email);
+    try {
+      return await getUserByEmail(email);
+    } catch (error) {
+      catchAuthError(error, 'error_getting_user');
+    }
   },
-  getUsersByRole: async (_parent, { role }, { userId }) => {
+  usersByRole: async (_parent, { role }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
 
-    return await getUsersByRole(role);
+    let users: User[] = [];
+
+    try {
+      users = await getUsersByRole(role);
+    } catch (error) {
+      catchAuthError(error, 'error_getting_user');
+    }
+
+    return users;
+  },
+  usersByCC: async (_parent, { cc }, { userId }) => {
+    if (!userId) throw new AuthenticationError('missing_token');
+
+    let users: User[] = [];
+
+    try {
+      users = await getUsersByCC(cc);
+    } catch (error) {
+      catchAuthError(error, 'error_getting_user');
+    }
+
+    return users;
   },
 };

@@ -8,14 +8,19 @@ enum ChatChannels {
 
 type Chat {
   id: String!
-  from: String!
-  to: String
   channel: ChatChannels!
   message: String!
+  from: User!
+  fromId: String!
+  to: User
+  toId: String
 }
 
 type Query {
-  getOwnChats: [Chat]
+  message(id: String!): Chat
+  allChats: [Chat]!
+  ownChats: [Chat]!
+  chatsFromUser(id: String!): [Chat]!
 }
 
 type Mutation {

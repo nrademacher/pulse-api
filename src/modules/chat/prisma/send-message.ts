@@ -39,7 +39,13 @@ export async function sendMessage({
     channel,
   };
 
-  return await prisma.chat.create({
+  const msg = await prisma.chat.create({
     data,
+    include: {
+      from: true,
+      to: true,
+    },
   });
+
+  return msg;
 }
