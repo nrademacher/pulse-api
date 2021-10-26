@@ -21,6 +21,12 @@ export async function createUser({
   role,
   bio,
 }: SignUp) {
+  const [, emailHost] = email.split('@');
+
+  if (!emailHost.includes('itemis.')) {
+    throw new Error('signup_requires_itemis_email_address');
+  }
+
   const exisitingUser = await prisma.user.findUnique({ where: { email } });
 
   if (exisitingUser) throw new Error('user_already_exists');
