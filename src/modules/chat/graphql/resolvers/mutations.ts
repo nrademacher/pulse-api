@@ -1,7 +1,7 @@
 import type { MutationResolvers } from '#internal/types';
 import { sendMessage } from '../../prisma';
 import { pubsub } from '#internal/services';
-import { catchAuthError } from '#internal/utils';
+import { coerceToAuthError } from '#internal/utils';
 import { AuthenticationError } from 'apollo-server-express';
 
 export const ChatMutations: MutationResolvers = {
@@ -26,7 +26,7 @@ export const ChatMutations: MutationResolvers = {
 
       return newMessage;
     } catch (error) {
-      catchAuthError(error, 'error_sending_message');
+      coerceToAuthError(error, 'error_sending_message');
     }
   },
 };

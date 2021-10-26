@@ -3,7 +3,7 @@ import type { ResolverContext } from '#internal/lib';
 import { createUser, verifyUser } from '../../prisma';
 import { AuthenticationError } from 'apollo-server-express';
 import { pubsub } from '#internal/services';
-import { catchAuthError } from '#internal/utils';
+import { coerceToAuthError } from '#internal/utils';
 
 export const UserMutations: MutationResolvers<ResolverContext> = {
   signUpUser: async (_parent, arguments_) => {
@@ -28,7 +28,7 @@ export const UserMutations: MutationResolvers<ResolverContext> = {
 
       return newUser;
     } catch (error) {
-      catchAuthError(error, 'error_creating_user_in_db');
+      coerceToAuthError(error, 'error_creating_user_in_db');
     }
   },
   verifyUser: async (_parent, { userEmail }, { userId, userRole }) => {
@@ -39,7 +39,7 @@ export const UserMutations: MutationResolvers<ResolverContext> = {
     try {
       return await verifyUser(userEmail);
     } catch (error) {
-      catchAuthError(error, 'error_verifying_user');
+      coerceToAuthError(error, 'error_verifying_user');
     }
   },
 };

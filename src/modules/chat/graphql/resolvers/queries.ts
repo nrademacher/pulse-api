@@ -1,7 +1,7 @@
 import type { Chat, QueryResolvers } from '#internal/types';
 import { getMessage, getAllChats, getUserChats } from '../../prisma';
 import { AuthenticationError } from 'apollo-server-express';
-import { catchAuthError } from '#internal/utils';
+import { coerceToAuthError } from '#internal/utils';
 
 export const ChatQueries: QueryResolvers = {
   message: async (_parent, { id }, { userId }) => {
@@ -10,7 +10,7 @@ export const ChatQueries: QueryResolvers = {
     try {
       return await getMessage(id);
     } catch (error) {
-      catchAuthError(error, 'error_retrieving_user_chats_from_db');
+      coerceToAuthError(error, 'error_retrieving_user_chats_from_db');
     }
   },
   allChats: async (_parent, _arguments, { userId }) => {
@@ -21,7 +21,7 @@ export const ChatQueries: QueryResolvers = {
     try {
       chats = await getAllChats();
     } catch (error) {
-      catchAuthError(error, 'error_retrieving_user_chats_from_db');
+      coerceToAuthError(error, 'error_retrieving_user_chats_from_db');
     }
 
     return chats;
@@ -34,7 +34,7 @@ export const ChatQueries: QueryResolvers = {
     try {
       chats = await getUserChats(userId);
     } catch (error) {
-      catchAuthError(error, 'error_retrieving_user_chats_from_db');
+      coerceToAuthError(error, 'error_retrieving_user_chats_from_db');
     }
 
     return chats;
@@ -47,7 +47,7 @@ export const ChatQueries: QueryResolvers = {
     try {
       chats = await getUserChats(id);
     } catch (error) {
-      catchAuthError(error, 'error_retrieving_user_chats_from_db');
+      coerceToAuthError(error, 'error_retrieving_user_chats_from_db');
     }
 
     return chats;
