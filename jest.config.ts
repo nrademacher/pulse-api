@@ -11,7 +11,6 @@ const config: InitialOptionsTsJest = {
       prefix: '<rootDir>',
     },
   ),
-  // setupFilesAfterEnv: ['./test/singleton.ts'],
 };
 
 export default config;

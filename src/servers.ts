@@ -9,12 +9,8 @@ import { ApolloServer } from 'apollo-server-express';
 import { context, config, formatError } from './lib';
 import { schema } from './schema';
 
-import cors from 'cors';
-
 (async () => {
   const app = express();
-
-  app.use(cors());
 
   const httpServer = createServer(app);
 
