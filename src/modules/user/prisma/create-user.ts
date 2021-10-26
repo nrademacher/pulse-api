@@ -1,8 +1,7 @@
 import { prisma } from '#internal/services';
+import { validateUserSignup } from '#internal/utils';
 import type { CC, UserRoles } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import isEmail from 'validator/lib/isEmail';
-import isStrongPassword from 'validator/lib/isStrongPassword';
 
 interface SignUp {
   email: string;
@@ -23,18 +22,7 @@ export async function createUser({
   role,
   bio,
 }: SignUp) {
-  if (!isEmail(email)) {
-    throw new Error('invalid_email_address');
-  }
-
-  if (!isStrongPassword(password)) {
-    throw new Error('insufficient_password_strength');
-  }
-
-  const [, emailHost] = email.split('@');
-  if (!emailHost.includes('itemis.')) {
-    throw new Error('signup_requires_itemis_email_address');
-  }
+  validateUserSignup({ email, password, name });
 
   const exisitingUser = await prisma.user.findUnique({ where: { email } });
   if (exisitingUser) throw new Error('user_already_exists');
