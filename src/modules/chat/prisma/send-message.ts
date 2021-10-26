@@ -14,8 +14,6 @@ export async function sendMessage({
   recipientEmail,
   message,
 }: SendMessage) {
-  if (!userId) throw new Error('missing_token');
-
   let recipientId;
 
   if (channel === 'PRIVATE' && recipientEmail) {
@@ -39,13 +37,11 @@ export async function sendMessage({
     channel,
   };
 
-  const msg = await prisma.chat.create({
+  return await prisma.chat.create({
     data,
     include: {
       from: true,
       to: true,
     },
   });
-
-  return msg;
 }

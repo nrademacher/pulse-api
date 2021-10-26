@@ -1810,6 +1810,11 @@
   resolved "https://registry.npmjs.org/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz"
   integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
 
+"@types/validator@^13.6.5":
+  version "13.6.5"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.6.5.tgz#e9f5b23ebc51100db7ac38f7e950746f8f580c8b"
+  integrity sha512-ilpDKpjjq/w/IyyTuQ38mABdaEzTzTugPyU7DlMCMKd8MMYngnPKhA2TgdO1MfEDED9KVV7uSOL1fDkgwJp/wg==
+
 "@types/websocket@1.0.4":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@types/websocket/-/websocket-1.0.4.tgz"
@@ -8106,6 +8111,11 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+validator@^13.6.0:
+  version "13.6.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.6.0.tgz#1e71899c14cdc7b2068463cb24c1cc16f6ec7059"
+  integrity sha512-gVgKbdbHgtxpRyR8K0O6oFZPhhB5tT1jeEHZR0Znr9Svg03U0+r9DXWMrnRAB+HtCStDQKlaIZm42tVsVjqtjg==
 
 value-or-promise@1.0.10:
   version "1.0.10"

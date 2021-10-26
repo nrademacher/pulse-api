@@ -4,10 +4,6 @@ import { prisma } from '#internal/services';
 import { config } from '#internal/lib';
 
 export async function loginUser(email: string, password: string) {
-  if (!email || !password) {
-    throw new Error('missing_credentials');
-  }
-
   const user = await prisma.user.findUnique({
     where: { email },
   });

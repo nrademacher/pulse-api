@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server-express';
 
-export function catchAuthError(
+export function coerceToAuthError(
   errorCandidate: unknown,
   fallbackErrorMessage: string,
 ) {
