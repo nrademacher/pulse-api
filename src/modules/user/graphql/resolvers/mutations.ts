@@ -31,14 +31,13 @@ export const UserMutations: MutationResolvers<ResolverContext> = {
       catchAuthError(error, 'error_creating_user_in_db');
     }
   },
-  verifyUser: async (_parent, arguments_, context) => {
-    if (!context?.userId) throw new AuthenticationError('no_auth_token');
+  verifyUser: async (_parent, { userEmail }, { userId, userRole }) => {
+    if (!userId) throw new AuthenticationError('no_auth_token');
 
-    const { userEmail } = arguments_;
-    const { userRole } = context;
+    if (userRole !== 'ADMIN') throw new AuthenticationError('no_permission');
 
     try {
-      return await verifyUser({ userEmail, userRole });
+      return await verifyUser(userEmail);
     } catch (error) {
       catchAuthError(error, 'error_verifying_user');
     }

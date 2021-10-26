@@ -11,8 +11,10 @@ import { catchAuthError } from '#internal/utils';
 import { AuthenticationError } from 'apollo-server-express';
 
 export const UserQueries: QueryResolvers<ResolverContext> = {
-  login: async (_parent, arguments_) => {
-    const { email, password } = arguments_;
+  login: async (_parent, { email, password }) => {
+    if (!email || !password) {
+      throw new AuthenticationError('missing_credentials');
+    }
 
     try {
       return await loginUser(email, password);

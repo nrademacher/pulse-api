@@ -2,6 +2,7 @@ import type { MutationResolvers } from '#internal/types';
 import { sendMessage } from '../../prisma';
 import { pubsub } from '#internal/services';
 import { catchAuthError } from '#internal/utils';
+import { AuthenticationError } from 'apollo-server-express';
 
 export const ChatMutations: MutationResolvers = {
   sendMessage: async (
@@ -9,6 +10,8 @@ export const ChatMutations: MutationResolvers = {
     { recipientEmail, message, channel },
     { userId },
   ) => {
+    if (!userId) throw new AuthenticationError('missing_token');
+
     try {
       const newMessage = await sendMessage({
         userId,
