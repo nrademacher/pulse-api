@@ -1,7 +1,7 @@
 {
-  "name": "synergy-api",
+  "name": "pulse-api",
   "version": "1.0.0",
-  "description": "API for Synergy",
+  "description": "API for Pulse",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -20,8 +20,8 @@
     "build": "tsc",
     "copy-graphql-files-to-dist": "cpy '**/*.graphql' '../dist' --cwd=src --parents",
     "replace-dist-import-aliases": "file-ops fnr '#internal' '#internal_compiled' 'dist/**/*.js'",
-    "replace-dist-node-prefix": "file-ops fnr 'node:' '' 'dist/**/*.js'",
-    "postbuild": "yarn copy-graphql-files-to-dist && yarn replace-dist-import-aliases && yarn replace-dist-node-prefix",
+    "strip-dist-node-prefixes": "file-ops fnr 'node:' '' 'dist/**/*.js'",
+    "postbuild": "yarn copy-graphql-files-to-dist && yarn replace-dist-import-aliases && yarn strip-dist-node-prefixes",
     "start": "node dist/servers",
     "deploy": "prisma migrate deploy && yarn start"
   },
