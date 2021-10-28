@@ -11,12 +11,12 @@ export interface UserResolverContext {
   userRole?: UserRoles;
 }
 
-export async function createUserContext(req: Request) {
+export async function createUserContext(request: Request) {
   const userResolverContext: UserResolverContext = {
     isAuthed: false,
   };
 
-  let authHeader: string = req?.headers?.authorization || '';
+  const authHeader: string = request?.headers?.authorization || '';
 
   if (authHeader) {
     try {

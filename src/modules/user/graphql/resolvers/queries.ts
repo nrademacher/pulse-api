@@ -21,10 +21,8 @@ export const UserQueries: QueryResolvers<ResolverContext> = {
       coerceToAuthError(error, 'error_logging_in_user');
     }
   },
-  self: async (_parent, _arguments, { userId, hello }) => {
+  self: async (_parent, _arguments, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
-
-    console.log(hello);
 
     try {
       return await getUserById(userId);
