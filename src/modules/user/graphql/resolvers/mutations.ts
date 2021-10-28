@@ -1,5 +1,4 @@
-import type { MutationResolvers } from '#internal/types';
-import type { ResolverContext } from '#internal/lib';
+import type { MutationResolvers, ResolverContext } from '#internal/types';
 import { createUser, verifyUser } from '../../prisma';
 import { AuthenticationError } from 'apollo-server-express';
 import { pubsub } from '#internal/services';

@@ -1,5 +1,4 @@
-import type { QueryResolvers, User } from '#internal/types';
-import type { ResolverContext } from '#internal/lib';
+import type { QueryResolvers, ResolverContext, User } from '#internal/types';
 import {
   getUserByEmail,
   getUserById,
@@ -22,8 +21,10 @@ export const UserQueries: QueryResolvers<ResolverContext> = {
       coerceToAuthError(error, 'error_logging_in_user');
     }
   },
-  self: async (_parent, _arguments, { userId }) => {
+  self: async (_parent, _arguments, { userId, hello }) => {
     if (!userId) throw new AuthenticationError('missing_token');
+
+    console.log(hello);
 
     try {
       return await getUserById(userId);

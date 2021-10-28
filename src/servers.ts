@@ -6,8 +6,9 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 
 import { ApolloServer } from 'apollo-server-express';
-import { context, config, formatError } from './lib';
+import { config, formatError } from './lib';
 import { schema } from './schema';
+import { moduleContexts as context } from './modules';
 
 (async () => {
   const app = express();
