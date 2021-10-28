@@ -1,7 +1,7 @@
-import { prisma } from '#internal/services';
-import { validateUserSignup } from '#internal/utils';
 import type { CC, UserRoles } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
+import { validateUserSignup } from '../utils';
+import { prisma } from '#internal/services';
+import { hashSync } from 'bcrypt';
 
 interface SignUp {
   email: string;
@@ -27,7 +27,7 @@ export async function createUser({
   const exisitingUser = await prisma.user.findUnique({ where: { email } });
   if (exisitingUser) throw new Error('user_already_exists');
 
-  const hash = bcrypt.hashSync(password || '', 10);
+  const hash = hashSync(password || '', 10);
 
   if (!role) role = 'SOFTWARE_DEVELOPER';
 
