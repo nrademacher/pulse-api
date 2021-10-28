@@ -6,7 +6,13 @@ const config: InitialOptionsTsJest = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: pathsToModuleNameMapper(
-    { '#internal/*': ['./src/*'] },
+    {
+      '#internal/lib': ['./src/lib/index.ts'],
+      '#internal/modules': ['./src/modules/index.ts'],
+      '#internal/types': ['./src/types/index.ts'],
+      '#internal/utils': ['./src/utils/index.ts'],
+      '#internal/*': ['./src/*.ts'],
+    },
     {
       prefix: '<rootDir>',
     },

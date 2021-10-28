@@ -1,5 +1,4 @@
-import type { QueryResolvers, User } from '#internal/types';
-import type { ResolverContext } from '#internal/lib';
+import type { QueryResolvers, ResolverContext, User } from '#internal/types';
 import {
   getUserByEmail,
   getUserById,

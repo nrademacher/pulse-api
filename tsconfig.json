@@ -10,5 +10,5 @@
     "resolveJsonModule": true,
     "paths": { "#internal/*": ["./src/*"] }
   },
-  "exclude": ["test", "jest.config.ts"]
+  "exclude": ["*.test.ts", "jest.config.ts"]
 }

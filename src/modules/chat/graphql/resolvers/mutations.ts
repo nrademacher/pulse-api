@@ -1,10 +1,10 @@
-import type { MutationResolvers } from '#internal/types';
+import type { MutationResolvers, ResolverContext } from '#internal/types';
 import { AuthenticationError } from 'apollo-server-express';
 import { sendMessage } from '../../prisma';
 import { pubsub } from '#internal/services';
 import { coerceToAuthError } from '#internal/utils';
 
-export const ChatMutations: MutationResolvers = {
+export const ChatMutations: MutationResolvers<ResolverContext> = {
   sendMessage: async (
     _parent,
     { recipientEmail, message, channel },

@@ -1,5 +1,5 @@
-import { createUser } from '../src/modules/user/prisma';
-import { prisma } from '../src/services';
+import { prismaTestClient as prisma } from '#internal/services';
+import { createUser } from '../lib';
 
 afterAll(async () => {
   await prisma.user.deleteMany();
