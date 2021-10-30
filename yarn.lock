@@ -1225,15 +1225,14 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nrademacher/file-ops-cli@^2.5.5":
-  version "2.5.5"
-  resolved "https://registry.yarnpkg.com/@nrademacher/file-ops-cli/-/file-ops-cli-2.5.5.tgz#80692c9a140190b525cee76964e453639f477290"
-  integrity sha512-btwcY6/NltyApg6qwwDBOvc2p8W4oGqJ3KeHau9eGQC010gt0yacXYgZ/3jV39+r4u39QYrMX++TX+Tf/0uB9g==
+"@nrademacher/file-ops-cli@^0.6.8":
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/@nrademacher/file-ops-cli/-/file-ops-cli-0.6.8.tgz#e48c0044952d92f76d165f9c470a6c9308b6094b"
+  integrity sha512-mfclSLWSShFh94D9NDLDcz+ehP/AJkEP51a6xIG7VHzEQaSP4FPN54bKmm66nkFt5sY0ut757QyECFyZZM4EgQ==
   dependencies:
     glob "^7.2.0"
     picocolors "^0.2.1"
     replace "^1.2.1"
-    semver "^7.3.5"
 
 "@oclif/command@^1.5.20", "@oclif/command@^1.8.0":
   version "1.8.0"
