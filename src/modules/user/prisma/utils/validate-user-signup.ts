@@ -32,7 +32,7 @@ export function validateUserSignup({
       throw new Error('username_too_short');
     }
 
-    if (!isLength(name, { max: 256 })) {
+    if (!isLength(name, { max: 64 })) {
       throw new Error('username_too_long');
     }
   }
