@@ -7,6 +7,7 @@ export async function getMessage(messageId: string) {
     },
     include: {
       from: true,
+      to: true,
     },
   });
 }
@@ -15,6 +16,7 @@ export async function getAllChats() {
   return await prisma.chat.findMany({
     include: {
       from: true,
+      to: true,
     },
   });
 }
@@ -28,6 +30,7 @@ export async function getUserChats(userId: string) {
     },
     include: {
       from: true,
+      to: true,
     },
   });
 }
