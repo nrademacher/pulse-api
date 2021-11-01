@@ -1,8 +1,8 @@
 import type { Request } from 'express';
-import type { SingleModuleContext as Context } from '#internal/modules';
+import type { ModuleContext } from '#internal/modules';
 import merge from 'lodash.merge';
 
-type ContextCreationFunction = (request: Request) => Promise<Context>;
+type ContextCreationFunction = (request: Request) => Promise<ModuleContext>;
 
 export function mergeContexts(
   ...contextCreationFunctions: ContextCreationFunction[]

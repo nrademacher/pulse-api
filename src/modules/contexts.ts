@@ -1,11 +1,11 @@
 import type { UserResolverContext } from './user';
-import { mergeContexts } from '#internal/utils';
 import { userContext } from './user';
+import { mergeContexts } from '#internal/utils';
 
 // extend with type unions
-export type SingleModuleContext = UserResolverContext;
+export type ModuleContext = UserResolverContext;
 
 // extend with type intersections
-export type AllModulesContext = UserResolverContext;
+export type ModuleContexts = UserResolverContext;
 
 export const moduleContexts = mergeContexts(userContext);
