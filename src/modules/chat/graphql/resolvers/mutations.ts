@@ -4,7 +4,7 @@ import { sendMessage } from '../../prisma';
 import { pubsub } from '#internal/services';
 import { coerceToAuthError } from '#internal/utils';
 
-export const ChatMutations: MutationResolvers<ResolverContext> = {
+export const chatMutations: MutationResolvers<ResolverContext> = {
   sendMessage: async (
     _parent,
     { recipientEmail, message, channel },

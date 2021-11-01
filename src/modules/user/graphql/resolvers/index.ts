@@ -1,9 +1,9 @@
-import { UserQueries } from './queries';
-import { UserMutations } from './mutations';
-import { UserSubscriptions } from './subscriptions';
+import { userQueries } from './queries';
+import { userMutations } from './mutations';
+import { userSubscriptions } from './subscriptions';
 
 export {
-  UserQueries as Query,
-  UserMutations as Mutation,
-  UserSubscriptions as Subscription,
+  userQueries as Query,
+  userMutations as Mutation,
+  userSubscriptions as Subscription,
 };

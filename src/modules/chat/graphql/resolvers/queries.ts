@@ -3,7 +3,7 @@ import { getMessage, getAllChats, getUserChats } from '../../prisma';
 import { AuthenticationError } from 'apollo-server-express';
 import { coerceToAuthError } from '#internal/utils';
 
-export const ChatQueries: QueryResolvers<ResolverContext> = {
+export const chatQueries: QueryResolvers<ResolverContext> = {
   message: async (_parent, { id }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
 
