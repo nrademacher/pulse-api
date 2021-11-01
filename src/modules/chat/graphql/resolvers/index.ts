@@ -1,9 +1,9 @@
-import { ChatQueries } from './queries';
-import { ChatMutations } from './mutations';
-import { ChatSubscriptions } from './subscriptions';
+import { chatQueries } from './queries';
+import { chatMutations } from './mutations';
+import { chatSubscriptions } from './subscriptions';
 
 export {
-  ChatQueries as Query,
-  ChatMutations as Mutation,
-  ChatSubscriptions as Subscription,
+  chatQueries as Query,
+  chatMutations as Mutation,
+  chatSubscriptions as Subscription,
 };

@@ -4,7 +4,7 @@ import { AuthenticationError } from 'apollo-server-express';
 import { pubsub } from '#internal/services';
 import { coerceToAuthError } from '#internal/utils';
 
-export const UserMutations: MutationResolvers<ResolverContext> = {
+export const userMutations: MutationResolvers<ResolverContext> = {
   signUpUser: async (_parent, arguments_) => {
     const { email, password, cc, name, displayName, bio, role } = arguments_;
 

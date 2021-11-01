@@ -1,2 +1,2 @@
-export { UserResolvers, userContext } from './graphql';
+export { userResolvers, userContext } from './graphql';
 export type { UserResolverContext } from './graphql';
