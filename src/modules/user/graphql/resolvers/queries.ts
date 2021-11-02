@@ -6,7 +6,7 @@ import {
   loginUser,
   getUsersByCC,
 } from '../../prisma';
-import { coerceToAuthError } from '#internal/utils';
+import { coerceToAuthError, tryFromCache } from '#internal/utils';
 import { AuthenticationError } from 'apollo-server-express';
 
 export const userQueries: QueryResolvers<ResolverContext> = {
@@ -16,7 +16,7 @@ export const userQueries: QueryResolvers<ResolverContext> = {
     }
 
     try {
-      return await loginUser(email, password);
+      return await tryFromCache(loginUser, email, password);
     } catch (error) {
       coerceToAuthError(error, 'error_logging_in_user');
     }
@@ -25,7 +25,7 @@ export const userQueries: QueryResolvers<ResolverContext> = {
     if (!userId) throw new AuthenticationError('missing_token');
 
     try {
-      return await getUserById(userId);
+      return await tryFromCache(getUserById, userId);
     } catch (error) {
       coerceToAuthError(error, 'error_getting_user');
     }
@@ -34,7 +34,7 @@ export const userQueries: QueryResolvers<ResolverContext> = {
     if (!userId) throw new AuthenticationError('missing_token');
 
     try {
-      return await getUserById(id);
+      return await tryFromCache(getUserById, id);
     } catch (error) {
       coerceToAuthError(error, 'error_getting_user');
     }
@@ -43,7 +43,7 @@ export const userQueries: QueryResolvers<ResolverContext> = {
     if (!userId) throw new AuthenticationError('missing_token');
 
     try {
-      return await getUserByEmail(email);
+      return await tryFromCache(getUserByEmail, email);
     } catch (error) {
       coerceToAuthError(error, 'error_getting_user');
     }
@@ -54,7 +54,7 @@ export const userQueries: QueryResolvers<ResolverContext> = {
     let users: User[] = [];
 
     try {
-      users = await getUsersByRole(role);
+      users = await tryFromCache(getUsersByRole, role);
     } catch (error) {
       coerceToAuthError(error, 'error_getting_user');
     }
@@ -67,7 +67,7 @@ export const userQueries: QueryResolvers<ResolverContext> = {
     let users: User[] = [];
 
     try {
-      users = await getUsersByCC(cc);
+      users = await tryFromCache(getUsersByCC, cc);
     } catch (error) {
       coerceToAuthError(error, 'error_getting_user');
     }
