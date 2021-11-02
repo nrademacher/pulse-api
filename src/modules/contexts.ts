@@ -1,6 +1,6 @@
 import type { UserResolverContext } from './user';
-import { userContext } from './user';
 import { mergeContexts } from '#internal/utils';
+import { userContext } from './user';
 
 // extend with type unions
 export type ModuleContext = UserResolverContext;

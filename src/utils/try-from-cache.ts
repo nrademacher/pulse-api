@@ -1,9 +1,9 @@
 import { redis } from '#internal/services';
 
-export async function tryFromCache<T>(
-  function_: (...arguments_: T[]) => Promise<T>,
+export async function tryFromCache<T, U>(
+  function_: (...arguments_: T[]) => Promise<U>,
   ...arguments_: T[]
-): Promise<T> {
+): Promise<U> {
   const key = function_.name + JSON.stringify(arguments_);
 
   const cached = await redis.get(key);
