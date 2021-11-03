@@ -58,6 +58,8 @@ type Mutation {
   ): User!
   verifyUser(userEmail: String!): User!
   changeUserRole(userEmail: String!, newRole: UserRoles!): User!
+  changeUserDisplayName(userEmail: String!, newDisplayName: String!): User!
+  changeUserBio(userEmail: String!, newBio: String!): User!
 }
 
 type Subscription {

@@ -1,14 +1,14 @@
 import type { Chat, QueryResolvers, ResolverContext } from '#internal/types';
 import { getMessage, getAllChats, getUserChats } from '../../prisma';
 import { AuthenticationError } from 'apollo-server-express';
-import { coerceToAuthError, tryFromCache } from '#internal/utils';
+import { coerceToAuthError } from '#internal/utils';
 
 export const chatQueries: QueryResolvers<ResolverContext> = {
   message: async (_parent, { id }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token');
 
     try {
-      return await tryFromCache(getMessage, id);
+      return await getMessage(id);
     } catch (error) {
       coerceToAuthError(error, 'error_retrieving_user_chats_from_db');
     }
