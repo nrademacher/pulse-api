@@ -57,6 +57,7 @@ type Mutation {
     role: UserRoles
   ): User!
   verifyUser(userEmail: String!): User!
+  changeUserRole(userEmail: String!, newRole: UserRoles!): User!
 }
 
 type Subscription {
