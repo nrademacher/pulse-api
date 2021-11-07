@@ -1,4 +1,4 @@
-import type { ChatChannels } from '@prisma/client';
+import type { Chat, ChatChannels } from '@prisma/client';
 import { prisma } from '#internal/services';
 
 interface SendMessage {

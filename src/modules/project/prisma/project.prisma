@@ -1,16 +1,26 @@
+enum ProjectStage {
+  PLANNING
+  PREPARATION
+  IN_PROGRESS
+  DONE
+}
+
 model Project {
   id String @id @default(cuid())
 
-  name String
+  name        String  @unique
+  description String?
+
+  stage ProjectStage
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  team   Team   @relation(fields: [teamId], references: [id])
-  teamId String
+  team   Team?   @relation(fields: [teamId], references: [id])
+  teamId String?
 
-  owner   User   @relation(name: "ProjectToOwner", fields: [userId], references: [id])
-  ownerId String @relation
+  owner   User   @relation(name: "ProjectToOwner", fields: [ownerId], references: [id])
+  ownerId String
 
   participants User[] @relation(name: "ProjectToParticipants")
 
@@ -35,6 +45,6 @@ model Team {
 model User {
   id String @id @default(cuid())
 
-  projectsOwned Project[]
+  projectsOwned Project[] @relation(name: "ProjectToOwner")
   projects      Project[] @relation(name: "ProjectToParticipants")
 }
