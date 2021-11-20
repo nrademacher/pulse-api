@@ -4,12 +4,12 @@
       "input": [
         "./prisma/datasource.prisma",
         "./src/modules/user/prisma/user.prisma",
+        "./src/modules/chat/prisma/chat.prisma",
+        "./src/modules/project/prisma/project.prisma",
         "./src/modules/team/team.prisma",
-        "./src/modules/projects/projects.prisma",
         "./src/modules/board/board.prisma",
         "./src/modules/list/list.prisma",
-        "./src/modules/task/task.prisma",
-        "./src/modules/chat/prisma/chat.prisma"
+        "./src/modules/task/task.prisma"
       ],
       "output": "prisma/schema.prisma"
     }

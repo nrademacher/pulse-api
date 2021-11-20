@@ -1,77 +1,71 @@
-import type { QueryResolvers, ResolverContext, User } from '#internal/types';
-import {
-  getUserByEmail,
-  getUserById,
-  getUsersByRole,
-  loginUser,
-  getUsersByCC,
-} from '../../prisma';
-import { coerceToAuthError } from '#internal/utils';
-import { AuthenticationError } from 'apollo-server-express';
+import type { QueryResolvers, ResolverContext, User } from '#internal/types'
+import { getUserByEmail, getUserById, getUsersByRole, loginUser, getUsersByCC } from '../../prisma'
+import { coerceToAuthError } from '#internal/utils'
+import { AuthenticationError } from 'apollo-server-express'
 
 export const userQueries: QueryResolvers<ResolverContext> = {
   login: async (_parent, { email, password }) => {
     if (!email || !password) {
-      throw new AuthenticationError('missing_credentials');
+      throw new AuthenticationError('missing_credentials')
     }
 
     try {
-      return await loginUser(email, password);
+      return await loginUser(email, password)
     } catch (error) {
-      coerceToAuthError(error, 'error_logging_in_user');
+      coerceToAuthError(error, 'error_logging_in_user')
     }
   },
   self: async (_parent, _arguments, { userId }) => {
-    if (!userId) throw new AuthenticationError('missing_token');
+    if (!userId) throw new AuthenticationError('missing_token')
 
     try {
-      return await getUserById(userId);
+      return await getUserById(userId)
     } catch (error) {
-      coerceToAuthError(error, 'error_getting_user');
+      coerceToAuthError(error, 'error_getting_user')
     }
   },
   userById: async (_parent, { id }, { userId }) => {
-    if (!userId) throw new AuthenticationError('missing_token');
+    if (!userId) throw new AuthenticationError('missing_token')
 
     try {
-      return await getUserById(id);
+      return await getUserById(id)
     } catch (error) {
-      coerceToAuthError(error, 'error_getting_user');
+      coerceToAuthError(error, 'error_getting_user')
     }
   },
   userByEmail: async (_parent, { email }, { userId }) => {
-    if (!userId) throw new AuthenticationError('missing_token');
+    if (!userId) throw new AuthenticationError('missing_token')
 
     try {
-      return await getUserByEmail(email);
+      return await getUserByEmail(email)
     } catch (error) {
-      coerceToAuthError(error, 'error_getting_user');
+      coerceToAuthError(error, 'error_getting_user')
     }
   },
   usersByRole: async (_parent, { role }, { userId }) => {
-    if (!userId) throw new AuthenticationError('missing_token');
+    if (!userId) throw new AuthenticationError('missing_token')
 
-    let users: User[] = [];
+    let users: User[] = []
 
     try {
-      users = await getUsersByRole(role);
+      users = await getUsersByRole(role)
     } catch (error) {
-      coerceToAuthError(error, 'error_getting_user');
+      coerceToAuthError(error, 'error_getting_user')
     }
 
-    return users;
+    return users
   },
   usersByCC: async (_parent, { cc }, { userId }) => {
-    if (!userId) throw new AuthenticationError('missing_token');
+    if (!userId) throw new AuthenticationError('missing_token')
 
-    let users: User[] = [];
+    let users: User[] = []
 
     try {
-      users = await getUsersByCC(cc);
+      users = await getUsersByCC(cc)
     } catch (error) {
-      coerceToAuthError(error, 'error_getting_user');
+      coerceToAuthError(error, 'error_getting_user')
     }
 
-    return users;
+    return users
   },
-};
+}

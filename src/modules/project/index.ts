@@ -1,0 +1,1 @@
+export { projectResolvers } from './graphql'

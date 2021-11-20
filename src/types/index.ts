@@ -1,2 +1,2 @@
-export * from './graphql';
-export { ResolverContext } from './context';
+export * from './graphql'
+export { ResolverContext } from './context'

@@ -17,6 +17,7 @@ const config: InitialOptionsTsJest = {
       prefix: '<rootDir>',
     },
   ),
+  // globalSetup: './test/globalSetup.ts',
 };
 
 export default config;

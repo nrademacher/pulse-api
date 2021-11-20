@@ -1,0 +1,54 @@
+enum ProjectStage {
+  PLANNING
+  PREPARATION
+  IN_PROGRESS
+  DONE
+}
+
+enum ProjectEvent {
+  PROJECT_CREATED
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  name        String  @unique
+  description String?
+
+  stage ProjectStage
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // team   Team?   @relation(fields: [teamId], references: [id])
+  // teamId String?
+
+  owner   User   @relation(name: "ProjectToOwner", fields: [ownerId], references: [id])
+  ownerId String
+
+  participants User[] @relation(name: "ProjectToParticipants")
+
+  boards Board[]
+
+  @@map("projects")
+}
+
+model Board {
+  id String @id @default(cuid())
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+}
+
+// model Team {
+//   id String @id @default(cuid())
+
+//   projects Project[]
+// }
+
+model User {
+  id String @id @default(cuid())
+
+  projectsOwned Project[] @relation(name: "ProjectToOwner")
+  projects      Project[] @relation(name: "ProjectToParticipants")
+}

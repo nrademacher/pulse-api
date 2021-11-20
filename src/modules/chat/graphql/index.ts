@@ -1,1 +1,1 @@
-export * as chatResolvers from './resolvers';
+export * as chatResolvers from './resolvers'

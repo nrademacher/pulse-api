@@ -47,15 +47,7 @@ type Query {
 }
 
 type Mutation {
-  signUpUser(
-    email: String!
-    password: String!
-    cc: CC!
-    name: String
-    displayName: String
-    bio: String
-    role: UserRoles
-  ): User!
+  signUpUser(email: String!, password: String!, cc: CC!, name: String, displayName: String, bio: String, role: UserRoles): User!
   verifyUser(userEmail: String!): User!
   changeUserRole(userEmail: String!, newRole: UserRoles!): User!
   changeUserDisplayName(userEmail: String!, newDisplayName: String!): User!
