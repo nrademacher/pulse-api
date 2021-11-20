@@ -5,6 +5,10 @@ enum ProjectStage {
   DONE
 }
 
+enum ProjectEvent {
+  PROJECT_CREATED
+}
+
 model Project {
   id String @id @default(cuid())
 
@@ -16,8 +20,8 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  team   Team?   @relation(fields: [teamId], references: [id])
-  teamId String?
+  // team   Team?   @relation(fields: [teamId], references: [id])
+  // teamId String?
 
   owner   User   @relation(name: "ProjectToOwner", fields: [ownerId], references: [id])
   ownerId String
@@ -36,11 +40,11 @@ model Board {
   projectId String
 }
 
-model Team {
-  id String @id @default(cuid())
+// model Team {
+//   id String @id @default(cuid())
 
-  projects Project[]
-}
+//   projects Project[]
+// }
 
 model User {
   id String @id @default(cuid())

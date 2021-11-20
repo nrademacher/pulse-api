@@ -1,4 +1,4 @@
-import { prisma } from '#internal/services';
+import { prisma } from '#internal/services'
 
 export async function getMessage(messageId: string) {
   return await prisma.chat.findUnique({
@@ -9,7 +9,7 @@ export async function getMessage(messageId: string) {
       from: true,
       to: true,
     },
-  });
+  })
 }
 
 export async function getAllChats() {
@@ -18,7 +18,7 @@ export async function getAllChats() {
       from: true,
       to: true,
     },
-  });
+  })
 }
 
 export async function getUserChats(userId: string) {
@@ -32,5 +32,5 @@ export async function getUserChats(userId: string) {
       from: true,
       to: true,
     },
-  });
+  })
 }

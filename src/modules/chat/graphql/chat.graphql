@@ -24,11 +24,7 @@ type Query {
 }
 
 type Mutation {
-  sendMessage(
-    recipientEmail: String
-    message: String!
-    channel: ChatChannels
-  ): Chat
+  sendMessage(recipientEmail: String, message: String!, channel: ChatChannels): Chat
 }
 
 type Subscription {
