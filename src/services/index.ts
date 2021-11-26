@@ -1,2 +1,2 @@
-export {prisma, prismaTestClient} from './prisma'
-export {pubsub} from './pubsub'
+export { prisma, prismaTestClient } from './prisma'
+export { pubsub } from './pubsub'
