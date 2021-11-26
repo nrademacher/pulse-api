@@ -9,5 +9,5 @@ type Config = {
 
 export const config: Config = {
   PORT: Number(process.env.PORT) || 4000,
-  TOKEN_SECRET: process.env.JWT_SECRET || 'itemize-jwt-dev-secret',
+  TOKEN_SECRET: process.env.JWT_SECRET || 'jwt-dev-secret',
 }
