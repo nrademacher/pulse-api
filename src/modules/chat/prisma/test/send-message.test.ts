@@ -12,7 +12,6 @@ describe('messaging', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const message = await sendMessage({ userId: id, message: 'Hello, world!' })
@@ -25,7 +24,6 @@ describe('messaging', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const message = await sendMessage({
@@ -42,13 +40,11 @@ describe('messaging', () => {
     const userOne = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const userTwo = await createUser({
       email: 'jane@itemis.com',
       password: '123313Al;YYY',
-      cc: 'ADV_ENG',
     })
 
     const { message, channel, to, from } = await sendMessage({
@@ -68,7 +64,6 @@ describe('messaging', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     await expect(

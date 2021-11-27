@@ -10,7 +10,6 @@ describe('user creation', () => {
     await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const result = await prisma.user.findUnique({
@@ -19,14 +18,12 @@ describe('user creation', () => {
 
     expect(result).toHaveProperty('email', 'john@itemis.com')
     expect(result).toHaveProperty('role', 'SOFTWARE_DEVELOPER')
-    expect(result).toHaveProperty('cc', 'ADV_ENG')
   })
 
   it('rejects creating the user if user with same email exists', async () => {
     await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     await expect(
@@ -35,7 +32,6 @@ describe('user creation', () => {
           email: 'john@itemis.com',
           name: 'John',
           password: '123313Al;XXX',
-          cc: 'CES',
         })
     ).rejects.toThrowError('user_already_exists')
   })
@@ -47,7 +43,6 @@ describe('user creation', () => {
           email: 'john@itemis.com',
           name: 'J',
           password: '123313Al;XXX',
-          cc: 'ADV_ENG',
         })
     ).rejects.toThrowError('username_too_short')
   })
@@ -59,7 +54,6 @@ describe('user creation', () => {
           email: 'john@itemis.com',
           name: 'J'.repeat(65),
           password: '123313Al;XXX',
-          cc: 'ADV_ENG',
         })
     ).rejects.toThrowError('username_too_long')
   })
@@ -70,7 +64,6 @@ describe('user creation', () => {
         await createUser({
           email: '@itemis.com',
           password: '123313Al;XXX',
-          cc: 'ADV_ENG',
         })
     ).rejects.toThrowError('invalid_email_address')
 
@@ -79,7 +72,6 @@ describe('user creation', () => {
         await createUser({
           email: 'john@itemis',
           password: '123313Al;XXX',
-          cc: 'ADV_ENG',
         })
     ).rejects.toThrowError('invalid_email_address')
   })
@@ -91,7 +83,6 @@ describe('user creation', () => {
           email: 'john@test.com',
           role: 'ADMIN',
           password: '123313Al;XXX',
-          cc: 'ADV_ENG',
         })
     ).rejects.toThrowError('signup_requires_itemis_email_address')
   })
@@ -102,7 +93,6 @@ describe('user creation', () => {
         await createUser({
           email: 'john@itemis.com',
           password: 'password',
-          cc: 'ADV_ENG',
         })
     ).rejects.toThrowError('insufficient_password_strength')
 
@@ -111,7 +101,6 @@ describe('user creation', () => {
         await createUser({
           email: 'john@itemis.com',
           password: '12345678',
-          cc: 'ADV_ENG',
         })
     ).rejects.toThrowError('insufficient_password_strength')
   })

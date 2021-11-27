@@ -5,7 +5,7 @@ import { pubsub } from '#internal/services'
 
 export const userMutations: MutationResolvers<ResolverContext> = {
   signUpUser: async (_parent, arguments_) => {
-    const { email, password, cc, name, displayName, bio, role } = arguments_
+    const { email, password, name, displayName, bio, role } = arguments_
 
     if (!email || !password) {
       throw new AuthenticationError('missing_credentials')
@@ -14,7 +14,6 @@ export const userMutations: MutationResolvers<ResolverContext> = {
     const newUser = await createUser({
       email,
       password,
-      cc,
       role,
       name,
       displayName,

@@ -12,7 +12,6 @@ describe('message retrieval', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const message = await sendMessage({ userId: id, message: 'Hello, world!' })
@@ -26,7 +25,6 @@ describe('message retrieval', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const messageOne = await sendMessage({
@@ -48,14 +46,12 @@ describe('message retrieval', () => {
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       role: 'TECHNICAL_LEAD',
-      cc: 'ADV_ENG',
     })
 
     const { id: userTwoId } = await createUser({
       email: 'jane@itemis.com',
       password: 'dhadu9.!@!@FFF',
       role: 'TECHNICAL_LEAD',
-      cc: 'ADV_ENG',
     })
 
     const messageOne = await sendMessage({

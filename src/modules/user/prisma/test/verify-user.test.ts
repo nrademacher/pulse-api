@@ -10,7 +10,6 @@ describe('user verification', () => {
     const unverifiedUser = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     expect(unverifiedUser).toHaveProperty('verified', false)

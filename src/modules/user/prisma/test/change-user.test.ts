@@ -10,7 +10,6 @@ describe('changing mutable user properties', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
       bio: '...',
     })
 
@@ -32,7 +31,6 @@ describe('changing mutable user properties', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
       bio: '...',
     })
 
@@ -45,7 +43,6 @@ describe('changing mutable user properties', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
       displayName: 'Johnny',
     })
 
@@ -67,7 +64,6 @@ describe('changing mutable user properties', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
       displayName: 'Johnny',
     })
 
@@ -80,7 +76,6 @@ describe('changing mutable user properties', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
       displayName: 'Johnny',
     })
 
@@ -93,7 +88,6 @@ describe('changing mutable user properties', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
       role: 'SOFTWARE_DEVELOPER',
     })
 

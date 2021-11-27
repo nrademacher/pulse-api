@@ -9,6 +9,7 @@ const config: InitialOptionsTsJest = {
     {
       '#internal/lib': ['./src/lib/index.ts'],
       '#internal/modules': ['./src/modules/index.ts'],
+      '#internal/services': ['./src/services/index.ts'],
       '#internal/types': ['./src/types/index.ts'],
       '#internal/utils': ['./src/utils/index.ts'],
       '#internal/*': ['./src/*.ts'],
