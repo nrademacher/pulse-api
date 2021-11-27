@@ -12,7 +12,6 @@ model User {
 
   role UserRoles @default(SOFTWARE_DEVELOPER)
 
-  cc    CC
   teams Team[]
 
   projects      Project[] @relation(name: "ProjectToParticipants")
@@ -38,12 +37,6 @@ enum UserRoles {
   PROJECT_MANAGER
   TECHNICAL_LEAD
   SOFTWARE_DEVELOPER
-}
-
-enum CC {
-  IOT
-  CES
-  ADV_ENG
 }
 
 model Team {

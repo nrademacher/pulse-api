@@ -12,7 +12,6 @@ describe('project retrieval', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const project = await createProject({ ownerId: id, name: 'Hello World Project', description: 'A project to say hello to the world' })
@@ -26,7 +25,6 @@ describe('project retrieval', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const projectOne = await createProject({ ownerId: id, name: 'Hello World Project', description: 'A project to say hello to the world' })

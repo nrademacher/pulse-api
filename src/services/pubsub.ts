@@ -4,10 +4,9 @@ import Redis from 'ioredis'
 const options = {
   host: process.env.DB_HOST || 'localhost',
   port: 6379,
-  retryStrategy: (times: number) => {
-    // reconnect after
+  /* retryStrategy: (times: number) => {
     return Math.min(times * 50, 2000)
-  },
+  }, */
 }
 
 export const pubsub = new RedisPubSub({

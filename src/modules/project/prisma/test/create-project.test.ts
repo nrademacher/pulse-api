@@ -14,7 +14,6 @@ describe('project creation', () => {
     const { id } = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     await createProject({
@@ -38,7 +37,6 @@ describe('project creation', () => {
           email: 'john@itemis.com',
           name: 'J',
           password: '123313Al;XXX',
-          cc: 'ADV_ENG',
         }),
     ).rejects.toThrowError('projectname_too_short');
   }); */

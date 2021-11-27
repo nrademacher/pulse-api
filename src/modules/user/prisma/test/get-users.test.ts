@@ -1,5 +1,5 @@
 import { prismaTestClient as prisma } from '#internal/services'
-import { createUser, getUserByEmail, getUserById, getUsersByCC, getUsersByRole } from '../lib'
+import { createUser, getUserByEmail, getUserById, getUsersByRole } from '../lib'
 
 describe('user retrieval', () => {
   afterEach(async () => {
@@ -10,7 +10,6 @@ describe('user retrieval', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const retrievedUser = await getUserById(user.id)
@@ -22,7 +21,6 @@ describe('user retrieval', () => {
     const user = await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const retrievedUser = await getUserByEmail(user.email)
@@ -35,35 +33,15 @@ describe('user retrieval', () => {
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       role: 'TECHNICAL_LEAD',
-      cc: 'ADV_ENG',
     })
 
     const userTwo = await createUser({
       email: 'jane@itemis.com',
       password: 'dhadu9.!@!@FFF',
       role: 'TECHNICAL_LEAD',
-      cc: 'ADV_ENG',
     })
 
     const retrievedUsers = await getUsersByRole('TECHNICAL_LEAD')
-
-    expect(retrievedUsers).toStrictEqual([userOne, userTwo])
-  })
-
-  it('gets multiple users by CC', async () => {
-    const userOne = await createUser({
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
-      cc: 'CES',
-    })
-
-    const userTwo = await createUser({
-      email: 'jane@itemis.com',
-      password: 'dhadu9.!@!@FFF',
-      cc: 'CES',
-    })
-
-    const retrievedUsers = await getUsersByCC('CES')
 
     expect(retrievedUsers).toStrictEqual([userOne, userTwo])
   })

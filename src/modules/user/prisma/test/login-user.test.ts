@@ -11,7 +11,6 @@ describe('user login', () => {
     await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     const loginToken = await loginUser('john@itemis.com', '123313Al;XXX')
@@ -27,7 +26,6 @@ describe('user login', () => {
     await createUser({
       email: 'john@itemis.com',
       password: '123313Al;XXX',
-      cc: 'ADV_ENG',
     })
 
     await expect(async () => await loginUser('john@itemis.com', '383d18e')).rejects.toThrowError('invalid_credentials')
