@@ -1,55 +1,26 @@
-import type { Chat, QueryResolvers, ResolverContext } from '#internal/types'
+import type { QueryResolvers, ResolverContext } from '#internal/types'
 import { getMessage, getAllChats, getUserChats } from '../../prisma'
 import { AuthenticationError } from 'apollo-server-express'
-import { coerceToAuthError } from '#internal/utils'
 
 export const chatQueries: QueryResolvers<ResolverContext> = {
   message: async (_parent, { id }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    try {
-      return await getMessage(id)
-    } catch (error) {
-      coerceToAuthError(error, 'error_retrieving_user_chats_from_db')
-    }
+    return await getMessage(id)
   },
   allChats: async (_parent, _arguments, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    let chats: Chat[] = []
-
-    try {
-      chats = await getAllChats()
-    } catch (error) {
-      coerceToAuthError(error, 'error_retrieving_user_chats_from_db')
-    }
-
-    return chats
+    return await getAllChats()
   },
   ownChats: async (_parent, _arguments, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    let chats: Chat[] = []
-
-    try {
-      chats = await getUserChats(userId)
-    } catch (error) {
-      coerceToAuthError(error, 'error_retrieving_user_chats_from_db')
-    }
-
-    return chats
+    return await getUserChats(userId)
   },
   chatsFromUser: async (_parent, { id }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    let chats: Chat[] = []
-
-    try {
-      chats = await getUserChats(id)
-    } catch (error) {
-      coerceToAuthError(error, 'error_retrieving_user_chats_from_db')
-    }
-
-    return chats
+    return await getUserChats(id)
   },
 }
