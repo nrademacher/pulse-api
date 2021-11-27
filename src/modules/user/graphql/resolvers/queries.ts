@@ -1,4 +1,4 @@
-import type { QueryResolvers, ResolverContext, User } from '#internal/types'
+import type { QueryResolvers, ResolverContext } from '#internal/types'
 import { getUserByEmail, getUserById, getUsersByRole, loginUser, getUsersByCC } from '../../prisma'
 import { coerceToAuthError } from '#internal/utils'
 import { AuthenticationError } from 'apollo-server-express'
@@ -18,54 +18,26 @@ export const userQueries: QueryResolvers<ResolverContext> = {
   self: async (_parent, _arguments, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    try {
-      return await getUserById(userId)
-    } catch (error) {
-      coerceToAuthError(error, 'error_getting_user')
-    }
+    return await getUserById(userId)
   },
   userById: async (_parent, { id }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    try {
-      return await getUserById(id)
-    } catch (error) {
-      coerceToAuthError(error, 'error_getting_user')
-    }
+    return await getUserById(id)
   },
   userByEmail: async (_parent, { email }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    try {
-      return await getUserByEmail(email)
-    } catch (error) {
-      coerceToAuthError(error, 'error_getting_user')
-    }
+    return await getUserByEmail(email)
   },
   usersByRole: async (_parent, { role }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    let users: User[] = []
-
-    try {
-      users = await getUsersByRole(role)
-    } catch (error) {
-      coerceToAuthError(error, 'error_getting_user')
-    }
-
-    return users
+    return await getUsersByRole(role)
   },
   usersByCC: async (_parent, { cc }, { userId }) => {
     if (!userId) throw new AuthenticationError('missing_token')
 
-    let users: User[] = []
-
-    try {
-      users = await getUsersByCC(cc)
-    } catch (error) {
-      coerceToAuthError(error, 'error_getting_user')
-    }
-
-    return users
+    return await getUsersByCC(cc)
   },
 }
