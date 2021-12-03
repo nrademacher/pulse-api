@@ -6,10 +6,10 @@
         "./src/modules/user/prisma/user.prisma",
         "./src/modules/chat/prisma/chat.prisma",
         "./src/modules/project/prisma/project.prisma",
-        "./src/modules/team/team.prisma",
-        "./src/modules/board/board.prisma",
-        "./src/modules/list/list.prisma",
-        "./src/modules/task/task.prisma"
+        "./src/modules/project/board/board.prisma",
+        "./src/modules/project/board/list/list.prisma",
+        "./src/modules/project/board/task/task.prisma",
+        "./src/modules/team/team.prisma"
       ],
       "output": "prisma/schema.prisma"
     }
