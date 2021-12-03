@@ -10,6 +10,7 @@ describe('project retrieval', () => {
 
   it('gets a project by id', async () => {
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -23,6 +24,7 @@ describe('project retrieval', () => {
 
   it('gets projects by owner id', async () => {
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })

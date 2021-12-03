@@ -10,6 +10,7 @@ describe('messaging', () => {
 
   it('sends a message to the ALL channel by default', async () => {
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -22,6 +23,7 @@ describe('messaging', () => {
 
   it('sends a message to a specified channel', async () => {
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -38,11 +40,13 @@ describe('messaging', () => {
 
   it('sends a message to a specified recipient if channel is PRIVATE', async () => {
     const userOne = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
 
     const userTwo = await createUser({
+      name: 'jane doe',
       email: 'jane@itemis.com',
       password: '123313Al;YYY',
     })
@@ -62,6 +66,7 @@ describe('messaging', () => {
 
   it('throws an error if recipient is not found', async () => {
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })

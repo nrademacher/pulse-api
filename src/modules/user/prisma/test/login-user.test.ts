@@ -7,13 +7,26 @@ describe('user login', () => {
     await prisma.user.deleteMany()
   })
 
-  it('logs in a user providing valid credentials', async () => {
+  it('logs in a user providing valid email and password', async () => {
     await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
 
     const loginToken = await loginUser('john@itemis.com', '123313Al;XXX')
+
+    expect(isJWT(loginToken)).toBe(true)
+  })
+
+  it('logs in a user providing valid email and user name', async () => {
+    await createUser({
+      name: 'john doe',
+      email: 'john@itemis.com',
+      password: '123313Al;XXX',
+    })
+
+    const loginToken = await loginUser('john doe', '123313Al;XXX')
 
     expect(isJWT(loginToken)).toBe(true)
   })
@@ -24,6 +37,7 @@ describe('user login', () => {
 
   it('rejects logging in a user providing an existing email with a wrong password', async () => {
     await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })

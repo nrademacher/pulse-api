@@ -8,6 +8,7 @@ describe('user verification', () => {
 
   it('verifies a previously unverified user', async () => {
     const unverifiedUser = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })

@@ -2,11 +2,19 @@ import { prisma } from '#internal/services'
 import { compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { config } from '#internal/lib'
+import isEmail from 'validator/lib/isEmail'
 
-export async function loginUser(email: string, password: string) {
-  const user = await prisma.user.findUnique({
-    where: { email },
-  })
+export async function loginUser(userNameOrEmail: string, password: string) {
+  let user
+  if (isEmail(userNameOrEmail)) {
+    user = await prisma.user.findUnique({
+      where: { email: userNameOrEmail },
+    })
+  } else {
+    user = await prisma.user.findUnique({
+      where: { name: userNameOrEmail },
+    })
+  }
 
   if (!user) throw new Error('invalid_credentials')
 

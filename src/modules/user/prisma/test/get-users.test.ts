@@ -8,6 +8,7 @@ describe('user retrieval', () => {
 
   it('gets a user by id', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -19,6 +20,7 @@ describe('user retrieval', () => {
 
   it('gets a user by email', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -30,12 +32,14 @@ describe('user retrieval', () => {
 
   it('gets multiple users by role', async () => {
     const userOne = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       role: 'TECHNICAL_LEAD',
     })
 
     const userTwo = await createUser({
+      name: 'jane doe',
       email: 'jane@itemis.com',
       password: 'dhadu9.!@!@FFF',
       role: 'TECHNICAL_LEAD',

@@ -10,6 +10,7 @@ describe('message retrieval', () => {
 
   it('gets a message by id', async () => {
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -23,6 +24,7 @@ describe('message retrieval', () => {
 
   it('gets all messages', async () => {
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -43,12 +45,14 @@ describe('message retrieval', () => {
 
   it('gets messages from a specific user', async () => {
     const { id: userOneId } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       role: 'TECHNICAL_LEAD',
     })
 
     const { id: userTwoId } = await createUser({
+      name: 'jane doe',
       email: 'jane@itemis.com',
       password: 'dhadu9.!@!@FFF',
       role: 'TECHNICAL_LEAD',
