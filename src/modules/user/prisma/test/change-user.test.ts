@@ -8,6 +8,7 @@ describe('changing mutable user properties', () => {
 
   it('changes a user bio', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       bio: '...',
@@ -29,6 +30,7 @@ describe('changing mutable user properties', () => {
 
   it('rejects if new bio exceeds maximum length', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       bio: '...',
@@ -41,6 +43,7 @@ describe('changing mutable user properties', () => {
 
   it('changes a user display name', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       displayName: 'Johnny',
@@ -62,6 +65,7 @@ describe('changing mutable user properties', () => {
 
   it('rejects if new display name is too long', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       displayName: 'Johnny',
@@ -74,6 +78,7 @@ describe('changing mutable user properties', () => {
 
   it('rejects if new display name is too short', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       displayName: 'Johnny',
@@ -86,6 +91,7 @@ describe('changing mutable user properties', () => {
 
   it('changes a user role', async () => {
     const user = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
       role: 'SOFTWARE_DEVELOPER',

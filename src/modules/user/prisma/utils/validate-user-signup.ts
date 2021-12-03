@@ -5,7 +5,7 @@ import isLength from 'validator/lib/isLength'
 interface ValidateUserSignup {
   email: string
   password: string
-  name?: string | null
+  name: string
 }
 
 export function validateUserSignup({ email, password, name }: ValidateUserSignup) {

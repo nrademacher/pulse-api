@@ -12,6 +12,7 @@ describe('project creation', () => {
     const newProjectName = 'Test Project'
 
     const { id } = await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })

@@ -8,6 +8,7 @@ describe('user creation', () => {
 
   it('creates a new valid user in the database', async () => {
     await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -22,6 +23,7 @@ describe('user creation', () => {
 
   it('rejects creating the user if user with same email exists', async () => {
     await createUser({
+      name: 'john doe',
       email: 'john@itemis.com',
       password: '123313Al;XXX',
     })
@@ -40,8 +42,8 @@ describe('user creation', () => {
     await expect(
       async () =>
         await createUser({
-          email: 'john@itemis.com',
           name: 'J',
+          email: 'john@itemis.com',
           password: '123313Al;XXX',
         })
     ).rejects.toThrowError('username_too_short')
@@ -51,8 +53,8 @@ describe('user creation', () => {
     await expect(
       async () =>
         await createUser({
-          email: 'john@itemis.com',
           name: 'J'.repeat(65),
+          email: 'john@itemis.com',
           password: '123313Al;XXX',
         })
     ).rejects.toThrowError('username_too_long')
@@ -62,6 +64,7 @@ describe('user creation', () => {
     await expect(
       async () =>
         await createUser({
+          name: 'john doe',
           email: '@itemis.com',
           password: '123313Al;XXX',
         })
@@ -70,6 +73,7 @@ describe('user creation', () => {
     await expect(
       async () =>
         await createUser({
+          name: 'john doe',
           email: 'john@itemis',
           password: '123313Al;XXX',
         })
@@ -80,6 +84,7 @@ describe('user creation', () => {
     await expect(
       async () =>
         await createUser({
+          name: 'john doe',
           email: 'john@test.com',
           role: 'ADMIN',
           password: '123313Al;XXX',
@@ -91,6 +96,7 @@ describe('user creation', () => {
     await expect(
       async () =>
         await createUser({
+          name: 'john doe',
           email: 'john@itemis.com',
           password: 'password',
         })
@@ -99,6 +105,7 @@ describe('user creation', () => {
     await expect(
       async () =>
         await createUser({
+          name: 'john doe',
           email: 'john@itemis.com',
           password: '12345678',
         })

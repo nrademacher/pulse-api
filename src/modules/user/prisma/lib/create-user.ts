@@ -4,10 +4,10 @@ import { prisma } from '#internal/services'
 import { hashSync } from 'bcrypt'
 
 interface SignUp {
+  name: string
   email: string
   password: string
   role?: UserRoles | null
-  name?: string | null
   displayName?: string | null
   bio?: string | null
 }
@@ -20,19 +20,18 @@ export async function createUser({ email, password, name, displayName, role, bio
 
   const passwordHash = hashSync(password || '', 10)
 
+  if (!displayName) displayName = name
   if (!role) role = 'SOFTWARE_DEVELOPER'
 
-  const data = {
-    email,
-    name,
-    displayName,
-    bio,
-    role,
-    passwordHash,
-    verified: false,
-  }
-
   return await prisma.user.create({
-    data,
+    data: {
+      email,
+      name,
+      displayName,
+      bio,
+      role,
+      passwordHash,
+      verified: false,
+    },
   })
 }
