@@ -4,6 +4,7 @@ import { coerceToAuthError } from '#internal/utils'
 import { AuthenticationError } from 'apollo-server-express'
 
 export const userQueries: QueryResolvers<ResolverContext> = {
+  hello: async (_parent, _arguments, _context) => "Hello!",
   login: async (_parent, { email, password }) => {
     if (!email || !password) {
       throw new AuthenticationError('missing_credentials')
