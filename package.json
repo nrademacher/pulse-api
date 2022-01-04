@@ -81,6 +81,7 @@
     "#internal/*": "./src/*.ts",
     "#internal_compiled/lib": "./dist/lib/index.js",
     "#internal_compiled/modules": "./dist/modules/index.js",
+    "#internal_compiled/services": "./dist/services/index.js",
     "#internal_compiled/types": "./dist/types/index.js",
     "#internal_compiled/utils": "./dist/utils/index.js",
     "#internal_compiled/*": "./dist/*.js"
