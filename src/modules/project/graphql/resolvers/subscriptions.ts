@@ -6,7 +6,12 @@ export const projectSubscriptions: SubscriptionResolvers = {
     subscribe: (_parent, { channel }) => {
       if (!channel) channel = 'PROJECT_CREATED'
 
-      return pubsub.asyncIterator([channel])
+      const projectEventIterator = pubsub.asyncIterator([channel])
+      return {
+        [Symbol.asyncIterator]() {
+          return projectEventIterator
+        },
+      }
     },
     resolve: (payload: Project) => {
       return payload

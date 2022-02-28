@@ -6,10 +6,14 @@ export const chatSubscriptions: SubscriptionResolvers = {
     subscribe: (_parent, { channel }) => {
       if (!channel) channel = 'ALL'
 
-      return pubsub.asyncIterator([channel])
+      const channelIterator = pubsub.asyncIterator([channel])
+
+      return {
+        [Symbol.asyncIterator]() {
+          return channelIterator
+        },
+      }
     },
-    resolve: (payload: Chat) => {
-      return payload
-    },
+    resolve: (payload: Chat) => payload,
   },
 }

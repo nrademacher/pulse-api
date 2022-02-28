@@ -1,13 +1,11 @@
 import express from 'express'
-
 import { createServer } from 'node:http'
-
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { execute, subscribe } from 'graphql'
-
 import { ApolloServer } from 'apollo-server-express'
 import { schema, config, formatError } from './lib'
 import { moduleContexts } from './modules'
+
 ;(async () => {
   const app = express()
 

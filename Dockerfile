@@ -1,4 +1,4 @@
-ARG node_version=14.17.5
+ARG node_version=lts
 ARG node_image=node:${node_version}-alpine
 
 # STAGE 1
@@ -14,9 +14,8 @@ RUN yarn install --frozen-lockfile --no-progress
 
 COPY . ./
 
-RUN yarn prismix
+RUN yarn prisma:merge
 RUN yarn prisma:generate
-RUN yarn codegen
 
 RUN yarn build
 
