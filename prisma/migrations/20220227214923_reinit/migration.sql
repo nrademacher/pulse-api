@@ -5,25 +5,27 @@ CREATE TYPE "UserEvents" AS ENUM ('SIGN_UP', 'LOG_IN');
 CREATE TYPE "UserRoles" AS ENUM ('ADMIN', 'PRODUCT_OWNER', 'PROJECT_MANAGER', 'TECHNICAL_LEAD', 'SOFTWARE_DEVELOPER');
 
 -- CreateEnum
-CREATE TYPE "CC" AS ENUM ('IOT', 'CES', 'ADV_ENG');
+CREATE TYPE "ChatChannels" AS ENUM ('ALL', 'ADV_ENG', 'CES', 'IOT', 'PRIVATE');
+
+-- CreateEnum
+CREATE TYPE "ProjectStage" AS ENUM ('PLANNING', 'PREPARATION', 'IN_PROGRESS', 'DONE');
+
+-- CreateEnum
+CREATE TYPE "ProjectEvent" AS ENUM ('PROJECT_CREATED');
 
 -- CreateEnum
 CREATE TYPE "TaskPriorities" AS ENUM ('LOW', 'NORMAL', 'HIGH', 'EMERGENCY');
 
--- CreateEnum
-CREATE TYPE "ChatChannels" AS ENUM ('ALL', 'ADV_ENG', 'CES', 'IOT', 'PRIVATE');
-
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "name" TEXT,
+    "name" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "email" TEXT NOT NULL,
     "passwordHash" TEXT NOT NULL,
     "verified" BOOLEAN NOT NULL,
     "role" "UserRoles" NOT NULL DEFAULT E'SOFTWARE_DEVELOPER',
-    "cc" "CC" NOT NULL,
     "displayName" TEXT,
     "bio" TEXT,
 
@@ -43,7 +45,11 @@ CREATE TABLE "teams" (
 CREATE TABLE "projects" (
     "id" TEXT NOT NULL,
     "ownerId" TEXT NOT NULL,
-    "teamId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "stage" "ProjectStage" NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "projects_pkey" PRIMARY KEY ("id")
 );
@@ -62,10 +68,10 @@ CREATE TABLE "chats" (
 -- CreateTable
 CREATE TABLE "boards" (
     "id" TEXT NOT NULL,
+    "projectId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "title" TEXT NOT NULL,
-    "projectId" TEXT NOT NULL,
 
     CONSTRAINT "boards_pkey" PRIMARY KEY ("id")
 );
@@ -103,8 +109,20 @@ CREATE TABLE "_TeamToUser" (
     "B" TEXT NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "_ProjectToParticipants" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_name_key" ON "users"("name");
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "projects_name_key" ON "projects"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_TeamToUser_AB_unique" ON "_TeamToUser"("A", "B");
@@ -112,11 +130,14 @@ CREATE UNIQUE INDEX "_TeamToUser_AB_unique" ON "_TeamToUser"("A", "B");
 -- CreateIndex
 CREATE INDEX "_TeamToUser_B_index" ON "_TeamToUser"("B");
 
--- AddForeignKey
-ALTER TABLE "projects" ADD CONSTRAINT "projects_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+-- CreateIndex
+CREATE UNIQUE INDEX "_ProjectToParticipants_AB_unique" ON "_ProjectToParticipants"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_ProjectToParticipants_B_index" ON "_ProjectToParticipants"("B");
 
 -- AddForeignKey
-ALTER TABLE "projects" ADD CONSTRAINT "projects_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "teams"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "projects" ADD CONSTRAINT "projects_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "chats" ADD CONSTRAINT "chats_fromId_fkey" FOREIGN KEY ("fromId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -131,16 +152,22 @@ ALTER TABLE "boards" ADD CONSTRAINT "boards_projectId_fkey" FOREIGN KEY ("projec
 ALTER TABLE "lists" ADD CONSTRAINT "lists_boardId_fkey" FOREIGN KEY ("boardId") REFERENCES "boards"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "tasks" ADD CONSTRAINT "tasks_listId_fkey" FOREIGN KEY ("listId") REFERENCES "lists"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "tasks" ADD CONSTRAINT "tasks_assignerId_fkey" FOREIGN KEY ("assignerId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "tasks" ADD CONSTRAINT "tasks_assigneeId_fkey" FOREIGN KEY ("assigneeId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "tasks" ADD CONSTRAINT "tasks_listId_fkey" FOREIGN KEY ("listId") REFERENCES "lists"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "_TeamToUser" ADD FOREIGN KEY ("A") REFERENCES "teams"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_TeamToUser" ADD FOREIGN KEY ("B") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ProjectToParticipants" ADD FOREIGN KEY ("A") REFERENCES "projects"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_ProjectToParticipants" ADD FOREIGN KEY ("B") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
