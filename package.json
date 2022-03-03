@@ -17,15 +17,24 @@
     "dev": "concurrently \"ts-node-dev --no-notify --respawn --transpile-only src/servers\" \"yarn codegen --watch\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|prisma|graphql)\" --write",
     "lint": "eslint \"src/**/*.ts\" --fix",
-    "test:prisma:migrate": "DB_ENV=test prisma migrate reset -f",
-    "test": "yarn test:prisma:migrate && DB_ENV=test jest -i --detectOpenHandles --coverage",
+    "test": "DB_ENV=test jest -i --detectOpenHandles --coverage",
+    "pretest": "DB_ENV=test prisma migrate reset -f",
     "util:copy-graphql-files-to-dist": "cpy '**/*.graphql' '../dist' --cwd=src --parents",
     "util:replace-dist-import-aliases": "file-ops fnr '#internal' '#internal_compiled' --silent 'dist/**/*.js'",
     "util:strip-dist-node-prefixes": "file-ops fnr 'node:' '' --silent 'dist/**/*.js'",
     "build": "yarn codegen && tsc",
     "postbuild": "run-s util:*",
     "start": "node dist/servers",
-    "deploy": "prisma migrate deploy && yarn start"
+    "deploy": "prisma migrate deploy && yarn start",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "./{*,src/**/*}.{ts,prisma,graphql}": [
+      "yarn format"
+    ],
+    "./{*,src/**/*}.ts": [
+      "yarn lint"
+    ]
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
@@ -45,7 +54,9 @@
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unicorn": "^41.0.0",
+    "husky": ">=6",
     "jest": "^27.5.1",
+    "lint-staged": ">=10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
     "prettier-plugin-prisma": "^3.10.0",
