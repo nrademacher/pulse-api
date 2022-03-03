@@ -1,71 +1,71 @@
 model User {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  name String @unique
+    name String @unique
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
-  email        String  @unique
-  passwordHash String
-  verified     Boolean
+    email        String  @unique
+    passwordHash String
+    verified     Boolean
 
-  role UserRoles @default(SOFTWARE_DEVELOPER)
+    role UserRoles @default(SOFTWARE_DEVELOPER)
 
-  teams Team[]
+    teams Team[]
 
-  projects      Project[] @relation(name: "ProjectToParticipants")
-  projectsOwned Project[] @relation(name: "ProjectToOwner")
+    projects      Project[] @relation(name: "ProjectToParticipants")
+    projectsOwned Project[] @relation(name: "ProjectToOwner")
 
-  chatsSent     Chat[] @relation(name: "ChatToSender")
-  chatsReceived Chat[] @relation(name: "ChatToRecipient")
+    chatsSent     Chat[] @relation(name: "ChatToSender")
+    chatsReceived Chat[] @relation(name: "ChatToRecipient")
 
-  displayName String?
-  bio         String?
+    displayName String?
+    bio         String?
 
-  @@map("users")
+    @@map("users")
 }
 
 enum UserEvents {
-  SIGN_UP
-  LOG_IN
+    SIGN_UP
+    LOG_IN
 }
 
 enum UserRoles {
-  ADMIN
-  PRODUCT_OWNER
-  PROJECT_MANAGER
-  TECHNICAL_LEAD
-  SOFTWARE_DEVELOPER
+    ADMIN
+    PRODUCT_OWNER
+    PROJECT_MANAGER
+    TECHNICAL_LEAD
+    SOFTWARE_DEVELOPER
 }
 
 model Team {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  users User[]
+    users User[]
 
-  @@map("teams")
+    @@map("teams")
 }
 
 model Project {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  owner   User   @relation(name: "ProjectToOwner", fields: [ownerId], references: [id])
-  ownerId String
+    owner   User   @relation(name: "ProjectToOwner", fields: [ownerId], references: [id])
+    ownerId String
 
-  participants User[] @relation(name: "ProjectToParticipants")
+    participants User[] @relation(name: "ProjectToParticipants")
 
-  @@map("projects")
+    @@map("projects")
 }
 
 model Chat {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  from   User   @relation(name: "ChatToSender", fields: [fromId], references: [id])
-  fromId String
+    from   User   @relation(name: "ChatToSender", fields: [fromId], references: [id])
+    fromId String
 
-  to   User?   @relation(name: "ChatToRecipient", fields: [toId], references: [id])
-  toId String?
+    to   User?   @relation(name: "ChatToRecipient", fields: [toId], references: [id])
+    toId String?
 
-  @@map("chats")
+    @@map("chats")
 }

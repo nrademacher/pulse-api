@@ -3,35 +3,35 @@ import { createUser } from '../../../user/prisma'
 import { createProject } from '../lib'
 
 describe('project creation', () => {
-  afterEach(async () => {
-    await prisma.project.deleteMany()
-    await prisma.user.deleteMany()
-  })
-
-  it('creates a new valid project in the database', async () => {
-    const newProjectName = 'Test Project'
-
-    const { id } = await createUser({
-      name: 'john doe',
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
+    afterEach(async () => {
+        await prisma.project.deleteMany()
+        await prisma.user.deleteMany()
     })
 
-    await createProject({
-      name: newProjectName,
-      ownerId: id,
+    it('creates a new valid project in the database', async () => {
+        const newProjectName = 'Test Project'
+
+        const { id } = await createUser({
+            name: 'john doe',
+            email: 'john@itemis.com',
+            password: '123313Al;XXX',
+        })
+
+        await createProject({
+            name: newProjectName,
+            ownerId: id,
+        })
+
+        const result = await prisma.project.findUnique({
+            where: { name: newProjectName },
+        })
+
+        expect(result).toHaveProperty('name', newProjectName)
+        expect(result).toHaveProperty('stage', 'PLANNING')
+        expect(result).toHaveProperty('ownerId', id)
     })
 
-    const result = await prisma.project.findUnique({
-      where: { name: newProjectName },
-    })
-
-    expect(result).toHaveProperty('name', newProjectName)
-    expect(result).toHaveProperty('stage', 'PLANNING')
-    expect(result).toHaveProperty('ownerId', id)
-  })
-
-  /* it('rejects a project providing a name that is too short', async () => {
+    /* it('rejects a project providing a name that is too short', async () => {
     await expect(
       async () =>
         await createProject({

@@ -5,22 +5,17 @@ import { config } from '#internal/lib'
 import isEmail from 'validator/lib/isEmail'
 
 export async function loginUser(userNameOrEmail: string, password: string) {
-  let user
-  if (isEmail(userNameOrEmail)) {
-    user = await prisma.user.findUnique({
-      where: { email: userNameOrEmail },
-    })
-  } else {
-    user = await prisma.user.findUnique({
-      where: { name: userNameOrEmail },
-    })
-  }
+    const user = isEmail(userNameOrEmail)
+        ? await prisma.user.findUnique({
+              where: { email: userNameOrEmail },
+          })
+        : await prisma.user.findUnique({
+              where: { name: userNameOrEmail },
+          })
+    if (!user) throw new Error('invalid_credentials')
 
-  if (!user) throw new Error('invalid_credentials')
+    const match = await compare(password, user.passwordHash)
+    if (!match) throw new Error('invalid_credentials')
 
-  const match = await compare(password, user.passwordHash)
-
-  if (!match) throw new Error('invalid_credentials')
-
-  return sign({ userId: user.id, userRole: user.role }, config.TOKEN_SECRET)
+    return sign({ userId: user.id, userRole: user.role }, config.TOKEN_SECRET)
 }

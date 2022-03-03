@@ -5,10 +5,10 @@ import { addResolversToSchema } from '@graphql-tools/schema'
 import { resolvers } from '#internal/modules'
 
 const baseSchema = loadSchemaSync(join(__dirname, '../modules/**/*.graphql'), {
-  loaders: [new GraphQLFileLoader()],
+    loaders: [new GraphQLFileLoader()],
 })
 
 export const schema = addResolversToSchema({
-  schema: baseSchema,
-  resolvers,
+    schema: baseSchema,
+    resolvers,
 })

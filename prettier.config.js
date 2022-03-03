@@ -6,7 +6,6 @@ module.exports = {
   trailingComma: 'es5',
   singleQuote: true,
   arrowParens: 'avoid',
-  tailwindConfig: './tailwind.config.js',
   overrides: [
     {
       files: '{*.js?(on),*.js,*.y?(a)ml,.*.js?(on),.*.y?(a)ml,*.md,.prettierrc,.stylelintrc,.babelrc}',

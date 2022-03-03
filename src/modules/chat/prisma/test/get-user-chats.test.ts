@@ -3,76 +3,76 @@ import { createUser } from '../../../user/prisma/lib/create-user'
 import { sendMessage, getMessage, getAllChats, getUserChats } from '../lib'
 
 describe('message retrieval', () => {
-  afterEach(async () => {
-    await prisma.chat.deleteMany()
-    await prisma.user.deleteMany()
-  })
-
-  it('gets a message by id', async () => {
-    const { id } = await createUser({
-      name: 'john doe',
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
+    afterEach(async () => {
+        await prisma.chat.deleteMany()
+        await prisma.user.deleteMany()
     })
 
-    const message = await sendMessage({ userId: id, message: 'Hello, world!' })
+    it('gets a message by id', async () => {
+        const { id } = await createUser({
+            name: 'john doe',
+            email: 'john@itemis.com',
+            password: '123313Al;XXX',
+        })
 
-    const retrievedMessage = await getMessage(message.id)
+        const message = await sendMessage({ userId: id, message: 'Hello, world!' })
 
-    expect(retrievedMessage).toStrictEqual(message)
-  })
+        const retrievedMessage = await getMessage(message.id)
 
-  it('gets all messages', async () => {
-    const { id } = await createUser({
-      name: 'john doe',
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
+        expect(retrievedMessage).toStrictEqual(message)
     })
 
-    const messageOne = await sendMessage({
-      userId: id,
-      message: 'Hello, world!',
-    })
-    const messageTwo = await sendMessage({
-      userId: id,
-      message: 'Hello again!',
-    })
+    it('gets all messages', async () => {
+        const { id } = await createUser({
+            name: 'john doe',
+            email: 'john@itemis.com',
+            password: '123313Al;XXX',
+        })
 
-    const retrievedMessages = await getAllChats()
+        const messageOne = await sendMessage({
+            userId: id,
+            message: 'Hello, world!',
+        })
+        const messageTwo = await sendMessage({
+            userId: id,
+            message: 'Hello again!',
+        })
 
-    expect(retrievedMessages).toStrictEqual([messageOne, messageTwo])
-  })
+        const retrievedMessages = await getAllChats()
 
-  it('gets messages from a specific user', async () => {
-    const { id: userOneId } = await createUser({
-      name: 'john doe',
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
-      role: 'TECHNICAL_LEAD',
-    })
-
-    const { id: userTwoId } = await createUser({
-      name: 'jane doe',
-      email: 'jane@itemis.com',
-      password: 'dhadu9.!@!@FFF',
-      role: 'TECHNICAL_LEAD',
+        expect(retrievedMessages).toStrictEqual([messageOne, messageTwo])
     })
 
-    const messageOne = await sendMessage({
-      userId: userOneId,
-      message: 'Hello from John!',
-    })
-    await sendMessage({
-      userId: userTwoId,
-      message: 'Hello from Jane!',
-    })
-    const messageThree = await sendMessage({
-      userId: userOneId,
-      message: 'Hello again from John!',
-    })
+    it('gets messages from a specific user', async () => {
+        const { id: userOneId } = await createUser({
+            name: 'john doe',
+            email: 'john@itemis.com',
+            password: '123313Al;XXX',
+            role: 'TECHNICAL_LEAD',
+        })
 
-    const retrievedMessages = await getUserChats(userOneId)
+        const { id: userTwoId } = await createUser({
+            name: 'jane doe',
+            email: 'jane@itemis.com',
+            password: 'dhadu9.!@!@FFF',
+            role: 'TECHNICAL_LEAD',
+        })
 
-    expect(retrievedMessages).toStrictEqual([messageOne, messageThree])
-  })
+        const messageOne = await sendMessage({
+            userId: userOneId,
+            message: 'Hello from John!',
+        })
+        await sendMessage({
+            userId: userTwoId,
+            message: 'Hello from Jane!',
+        })
+        const messageThree = await sendMessage({
+            userId: userOneId,
+            message: 'Hello again from John!',
+        })
+
+        const retrievedMessages = await getUserChats(userOneId)
+
+        expect(retrievedMessages).toStrictEqual([messageOne, messageThree])
+    })
 })

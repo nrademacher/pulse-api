@@ -1,36 +1,36 @@
 enum ProjectStage {
-  PLANNING
-  PREPARATION
-  IN_PROGRESS
-  DONE
+    PLANNING
+    PREPARATION
+    IN_PROGRESS
+    DONE
 }
 
 enum ProjectEvent {
-  PROJECT_CREATED
+    PROJECT_CREATED
 }
 
 type Project {
-  id: String!
+    id: String!
 
-  createdAt: DateTime!
-  updatedAt: DateTime!
+    createdAt: DateTime!
+    updatedAt: DateTime!
 
-  stage: ProjectStage!
+    stage: ProjectStage!
 
-  name: String!
-  owner: User!
-  # team: Team!
+    name: String!
+    owner: User!
+    # team: Team!
 }
 
 type Query {
-  projectById(id: String!): Project
-  myProjects: [Project]!
+    projectById(id: String!): Project
+    myProjects: [Project]!
 }
 
 type Mutation {
-  createProject(name: String!, description: String, stage: ProjectStage, ownerId: String!): Project!
+    createProject(name: String!, description: String, stage: ProjectStage, ownerId: String!): Project!
 }
 
 type Subscription {
-  subscribeToProjectEvent(channel: ProjectEvent): Project
+    subscribeToProjectEvent(channel: ProjectEvent): Project
 }

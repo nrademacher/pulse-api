@@ -1,19 +1,19 @@
 model Team {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  name        String
-  description String?
+    name        String
+    description String?
 
-  users User[]
-  // projects Project[]
+    users User[]
+    // projects Project[]
 
-  @@map("teams")
+    @@map("teams")
 }
 
 model User {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  teams Team[]
+    teams Team[]
 }
 
 // model Project {

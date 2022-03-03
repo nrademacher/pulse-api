@@ -1,22 +1,22 @@
 model List {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  tasks     Task[]
-  board     Board    @relation(fields: [boardId], references: [id])
-  boardId   String
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     String
+    tasks     Task[]
+    board     Board    @relation(fields: [boardId], references: [id])
+    boardId   String
 }
 
 model Task {
-  id     String @id @default(cuid())
-  list   List   @relation(fields: [listId], references: [id])
-  listId String
+    id     String @id @default(cuid())
+    list   List   @relation(fields: [listId], references: [id])
+    listId String
 
-  @@map("tasks")
+    @@map("tasks")
 }
 
 model Board {
-  id    String @id @default(cuid())
-  lists List[]
+    id    String @id @default(cuid())
+    lists List[]
 }

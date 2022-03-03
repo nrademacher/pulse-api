@@ -2,51 +2,51 @@ import { prismaTestClient as prisma } from '#internal/services'
 import { createUser, getUserByEmail, getUserById, getUsersByRole } from '../lib'
 
 describe('user retrieval', () => {
-  afterEach(async () => {
-    await prisma.user.deleteMany()
-  })
-
-  it('gets a user by id', async () => {
-    const user = await createUser({
-      name: 'john doe',
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
+    afterEach(async () => {
+        await prisma.user.deleteMany()
     })
 
-    const retrievedUser = await getUserById(user.id)
+    it('gets a user by id', async () => {
+        const user = await createUser({
+            name: 'john doe',
+            email: 'john@itemis.com',
+            password: '123313Al;XXX',
+        })
 
-    expect(retrievedUser).toStrictEqual(user)
-  })
+        const retrievedUser = await getUserById(user.id)
 
-  it('gets a user by email', async () => {
-    const user = await createUser({
-      name: 'john doe',
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
+        expect(retrievedUser).toStrictEqual(user)
     })
 
-    const retrievedUser = await getUserByEmail(user.email)
+    it('gets a user by email', async () => {
+        const user = await createUser({
+            name: 'john doe',
+            email: 'john@itemis.com',
+            password: '123313Al;XXX',
+        })
 
-    expect(retrievedUser).toStrictEqual(user)
-  })
+        const retrievedUser = await getUserByEmail(user.email)
 
-  it('gets multiple users by role', async () => {
-    const userOne = await createUser({
-      name: 'john doe',
-      email: 'john@itemis.com',
-      password: '123313Al;XXX',
-      role: 'TECHNICAL_LEAD',
+        expect(retrievedUser).toStrictEqual(user)
     })
 
-    const userTwo = await createUser({
-      name: 'jane doe',
-      email: 'jane@itemis.com',
-      password: 'dhadu9.!@!@FFF',
-      role: 'TECHNICAL_LEAD',
+    it('gets multiple users by role', async () => {
+        const userOne = await createUser({
+            name: 'john doe',
+            email: 'john@itemis.com',
+            password: '123313Al;XXX',
+            role: 'TECHNICAL_LEAD',
+        })
+
+        const userTwo = await createUser({
+            name: 'jane doe',
+            email: 'jane@itemis.com',
+            password: 'dhadu9.!@!@FFF',
+            role: 'TECHNICAL_LEAD',
+        })
+
+        const retrievedUsers = await getUsersByRole('TECHNICAL_LEAD')
+
+        expect(retrievedUsers).toStrictEqual([userOne, userTwo])
     })
-
-    const retrievedUsers = await getUsersByRole('TECHNICAL_LEAD')
-
-    expect(retrievedUsers).toStrictEqual([userOne, userTwo])
-  })
 })
