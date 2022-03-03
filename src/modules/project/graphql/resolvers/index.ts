@@ -1,5 +1,3 @@
-import { projectQueries } from './queries'
-import { projectMutations } from './mutations'
-import { projectSubscriptions } from './subscriptions'
-
-export { projectQueries as Query, projectMutations as Mutation, projectSubscriptions as Subscription }
+export { projectQueries as Query } from './queries'
+export { projectSubscriptions as Subscription } from './subscriptions'
+export { projectMutations as Mutation } from './mutations'

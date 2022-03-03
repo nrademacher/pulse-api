@@ -1,5 +1,3 @@
-import { chatQueries } from './queries'
-import { chatMutations } from './mutations'
-import { chatSubscriptions } from './subscriptions'
-
-export { chatQueries as Query, chatMutations as Mutation, chatSubscriptions as Subscription }
+export { chatQueries as Query } from './queries'
+export { chatSubscriptions as Subscription } from './subscriptions'
+export { chatMutations as Mutation } from './mutations'
